@@ -3,25 +3,20 @@ import { Button, Modal } from "antd"
 import React, { useState } from "react"
 import { BlogForm } from "./BlogForm"
 
-export const CreatePost = () => {
+export const EditPost = () => {
   const [open, setOpen] = useState(false)
   return (
     <>
-      <Button
-        className="bg-secondary hover:bg-secondary"
-        size="large"
-        type="primary"
-        onClick={() => setOpen(true)}
-      >
-        + Create New Post
-      </Button>
+      <p className="text-primary cursor-pointer" onClick={() => setOpen(true)}>
+        Edit
+      </p>
       <Modal
         width={"700px"}
         title={
           <div>
-            <h2 className="text-2xl font-normal">Create Blog Post</h2>
+            <h2 className="text-2xl font-normal">Edit Blog Post</h2>
             <p className="font-normal text-[#ACACAC] mt-1">
-              Fill the details below to create a new blog post
+              Fields must be filled and cannot be empty
             </p>
           </div>
         }

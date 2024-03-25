@@ -5,6 +5,7 @@ import type { TableColumnsType, TableProps } from "antd"
 import { BlogI } from "@/types/blog"
 import { HiOutlineDotsVertical } from "react-icons/hi"
 import { BiSearch } from "react-icons/bi"
+import { EditPost } from "./EditPost"
 
 const columns: TableColumnsType<BlogI> = [
   {
@@ -59,7 +60,7 @@ const columns: TableColumnsType<BlogI> = [
           <Popover
             content={
               <div className="flex flex-col gap-3 w-[100px]">
-                <p className="text-primary cursor-pointer">Edit</p>
+                <EditPost />
                 <p className="cursor-pointer">View</p>
                 <p className="text-error-500 cursor-pointer">Delete</p>
               </div>

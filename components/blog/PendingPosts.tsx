@@ -4,6 +4,7 @@ import React from "react"
 import { IoFilter } from "react-icons/io5"
 import { HiOutlineDotsVertical } from "react-icons/hi"
 import { BlogI } from "@/types/blog"
+import { EditPost } from "./EditPost"
 
 export const PendingPosts = () => {
   const data: BlogI[] = [
@@ -110,7 +111,7 @@ export const PendingPosts = () => {
             <Popover
               content={
                 <div className="flex flex-col gap-3 w-[100px]">
-                  <p className="text-primary cursor-pointer">Edit</p>
+                  <EditPost />
                   <p className="cursor-pointer">Publish</p>
                   <p className="text-error-500 cursor-pointer">Delete</p>
                 </div>
