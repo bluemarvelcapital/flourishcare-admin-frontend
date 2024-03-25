@@ -29,6 +29,7 @@ const columns: TableColumnsType<BlogI> = [
   {
     title: "Author",
     dataIndex: "author",
+    responsive: ["lg"],
   },
   {
     title: "Category",

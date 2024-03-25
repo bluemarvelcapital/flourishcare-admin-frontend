@@ -14,11 +14,11 @@ const AdminBlog = () => {
         <CreatePost />
       </div>
       <MetaData />
-      <div className="mt-[3rem] flex justify-between">
-        <div className="w-[70%]">
+      <div className="mt-[3rem] flex justify-between lg:flex-row flex-col gap-3">
+        <div className="lg:w-[70%]">
           <AllPosts />
         </div>
-        <div className="w-[27%]">
+        <div className="lg:w-[27%]">
           <PendingPosts />
         </div>
       </div>
