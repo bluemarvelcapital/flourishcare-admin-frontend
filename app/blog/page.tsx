@@ -1,5 +1,6 @@
 "use client"
 import { AllPosts, CreatePost, MetaData } from "@/components/blog"
+import { PendingPosts } from "@/components/blog/PendingPosts"
 import React from "react"
 
 const AdminBlog = () => {
@@ -14,10 +15,12 @@ const AdminBlog = () => {
       </div>
       <MetaData />
       <div className="mt-[3rem] flex justify-between">
-        <div className="w-[73%]">
+        <div className="w-[70%]">
           <AllPosts />
         </div>
-        <div className="w-[23%]"></div>
+        <div className="w-[27%]">
+          <PendingPosts />
+        </div>
       </div>
     </div>
   )

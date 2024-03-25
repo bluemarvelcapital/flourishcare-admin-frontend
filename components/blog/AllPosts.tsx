@@ -3,7 +3,7 @@ import React from "react"
 import { Avatar, Image, Popover, Table } from "antd"
 import type { TableColumnsType, TableProps } from "antd"
 import { BlogI } from "@/types/blog"
-import { BsThreeDots } from "react-icons/bs"
+import { HiOutlineDotsVertical } from "react-icons/hi"
 
 const columns: TableColumnsType<BlogI> = [
   {
@@ -54,8 +54,18 @@ const columns: TableColumnsType<BlogI> = [
     render(value, record) {
       return (
         <div className="">
-          <Popover content={<p>Hey</p>} arrow={false} trigger={"click"}>
-            <BsThreeDots className="text-lg cursor-pointer" />
+          <Popover
+            content={
+              <div className="flex flex-col gap-3 w-[100px]">
+                <p className="text-primary cursor-pointer">Edit</p>
+                <p className="cursor-pointer">View</p>
+                <p className="text-error-500 cursor-pointer">Delete</p>
+              </div>
+            }
+            arrow={false}
+            trigger={"hover"}
+          >
+            <HiOutlineDotsVertical className="text-lg cursor-pointer" />
           </Popover>
         </div>
       )
