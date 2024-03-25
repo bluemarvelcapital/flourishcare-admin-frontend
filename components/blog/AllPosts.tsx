@@ -1,9 +1,10 @@
 "use client"
 import React from "react"
-import { Avatar, Image, Popover, Table } from "antd"
+import { Avatar, Image, Input, Popover, Table } from "antd"
 import type { TableColumnsType, TableProps } from "antd"
 import { BlogI } from "@/types/blog"
 import { HiOutlineDotsVertical } from "react-icons/hi"
+import { BiSearch } from "react-icons/bi"
 
 const columns: TableColumnsType<BlogI> = [
   {
@@ -145,11 +146,17 @@ const onChange: TableProps<BlogI>["onChange"] = (
 export const AllPosts: React.FC = () => {
   return (
     <div>
-      <div className="mb-4">
+      <div className="mb-4 flex md:flex-row flex-col gap-3 md:items-center justify-between">
         <div className="flex items-center gap-2">
           <h2 className="text-xl">All Posts</h2>
           <Avatar className="bg-primary">16</Avatar>
         </div>
+        <Input
+          placeholder="Search Posts"
+          size="large"
+          prefix={<BiSearch />}
+          className="md:w-[350px]"
+        />
       </div>
       <Table columns={columns} dataSource={data} onChange={onChange} />
     </div>
