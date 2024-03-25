@@ -65,14 +65,14 @@ export const Menu = () => {
       <ul className="flex flex-col gap-4 mt-10 ml-4">
         {navItems.map((item, index) => {
           const active = pathName === item.href
-          const activeClass = "bg-secondary text-[white] rounded-md px-4"
+          const activeClass = "bg-secondary text-[white] rounded-md "
           return (
             <Link
               href={item.href}
               key={index}
               className={active ? activeClass : ""}
             >
-              <li key={index} className="flex items-center space-x-4 py-3">
+              <li key={index} className="flex items-center px-4 gap-3 py-3">
                 <div className="text-[1.8rem]">{item.icon}</div>
                 <span>{item.name}</span>
               </li>

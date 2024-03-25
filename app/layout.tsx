@@ -23,7 +23,9 @@ export default function RootLayout({
         <NavBar />
         <Content>
           <Header />
-          <div className="p-[1.5rem]">{children}</div>
+          <div className="md:px-[2.8rem] md:py-[3rem] px-[1rem] py-[2rem] mx-auto container">
+            {children}
+          </div>
         </Content>
       </body>
     </html>
