@@ -1,101 +1,128 @@
+"use client"
 import React from "react"
-import { Table } from "antd"
+import { Avatar, Image, Popover, Table } from "antd"
 import type { TableColumnsType, TableProps } from "antd"
+import { BlogI } from "@/types/blog"
+import { BsThreeDots } from "react-icons/bs"
 
-interface DataType {
-  key: React.Key
-  name: string
-  age: number
-  address: string
-}
-
-const columns: TableColumnsType<DataType> = [
+const columns: TableColumnsType<BlogI> = [
   {
     title: "Name",
-    dataIndex: "name",
-    filters: [
-      {
-        text: "Joe",
-        value: "Joe",
-      },
-      {
-        text: "Jim",
-        value: "Jim",
-      },
-      {
-        text: "Submenu",
-        value: "Submenu",
-        children: [
-          {
-            text: "Green",
-            value: "Green",
-          },
-          {
-            text: "Black",
-            value: "Black",
-          },
-        ],
-      },
-    ],
-    // specify the condition of filtering result
-    // here is that finding the name started with `value`
-    // @ts-ignore
-    onFilter: (value: string, record) => record.name.indexOf(value) === 0,
-    sorter: (a, b) => a.name.length - b.name.length,
-    sortDirections: ["descend"],
+    dataIndex: "title",
+    render(value, record) {
+      return (
+        <div className="flex items-center gap-3">
+          <Image
+            alt={value}
+            src={record.preview_img}
+            width={100}
+            height={55}
+            style={{ objectFit: "cover", borderRadius: "8px" }}
+          />
+          <div>
+            <p>{record.title}</p>
+          </div>
+        </div>
+      )
+    },
   },
   {
-    title: "Age",
-    dataIndex: "age",
+    title: "Author",
+    dataIndex: "author",
+  },
+  {
+    title: "Category",
+    dataIndex: "category",
+    filters: [
+      {
+        text: "Health Care",
+        value: "healthcare",
+      },
+    ],
+    // @ts-ignore
+    onFilter: (value: string, record) => record.category.indexOf(value) === 0,
+  },
+  {
+    title: "Date",
+    dataIndex: "createdAt",
     defaultSortOrder: "descend",
-    sorter: (a, b) => a.age - b.age,
+    sorter: (a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt),
   },
   {
-    title: "Address",
-    dataIndex: "address",
-    filters: [
-      {
-        text: "London",
-        value: "London",
-      },
-      {
-        text: "New York",
-        value: "New York",
-      },
-    ],
-    // @ts-ignore
-    onFilter: (value: string, record) => record.address.indexOf(value) === 0,
+    title: "",
+    dataIndex: "id",
+    render(value, record) {
+      return (
+        <div className="">
+          <Popover content={<p>Hey</p>} arrow={false} trigger={"click"}>
+            <BsThreeDots className="text-lg cursor-pointer" />
+          </Popover>
+        </div>
+      )
+    },
   },
 ]
 
-const data = [
+const data: BlogI[] = [
   {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
+    title: "Nutrition Tips for Healthy Aging",
+    category: "healthcare",
+    createdAt: "2021-09-01",
+    updatedAt: "2021-09-01",
+    tags: ["nice", "developer"],
+    author: "John Smith",
+    description: "",
+    content: "",
+    preview_img:
+      "https://www.figma.com/file/b3EMEjIO5usiDthl0I4Yxz/image/d6cc761a47a4339500c9fd46030863e87528e8da",
+    cover_img:
+      "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
   },
   {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
+    title: "Nutrition Tips for Healthy Aging",
+    category: "healthcare",
+    createdAt: "2021-09-01",
+    updatedAt: "2021-09-01",
+    tags: ["nice", "developer"],
+    author: "John Smith",
+    description: "",
+    content: "",
+    preview_img:
+      "https://www.figma.com/file/b3EMEjIO5usiDthl0I4Yxz/image/d6cc761a47a4339500c9fd46030863e87528e8da",
+    cover_img:
+      "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
   },
   {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sydney No. 1 Lake Park",
+    title: "Nutrition Tips for Healthy Aging",
+    category: "healthcare",
+    createdAt: "2021-09-01",
+    updatedAt: "2021-09-01",
+    tags: ["nice", "developer"],
+    author: "John Smith",
+    description: "",
+    content: "",
+    preview_img:
+      "https://www.figma.com/file/b3EMEjIO5usiDthl0I4Yxz/image/d6cc761a47a4339500c9fd46030863e87528e8da",
+    cover_img:
+      "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
   },
   {
-    key: "4",
-    name: "Jim Red",
-    age: 32,
-    address: "London No. 2 Lake Park",
+    title: "Nutrition Tips for Healthy Aging",
+    category: "healthcare",
+    createdAt: "2021-09-01",
+    updatedAt: "2021-09-01",
+    tags: ["nice", "developer"],
+    author: "John Smith",
+    description: "",
+    content: "",
+    preview_img:
+      "https://www.figma.com/file/b3EMEjIO5usiDthl0I4Yxz/image/d6cc761a47a4339500c9fd46030863e87528e8da",
+    cover_img:
+      "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
   },
 ]
 
-const onChange: TableProps<DataType>["onChange"] = (
+const onChange: TableProps<BlogI>["onChange"] = (
   pagination,
   filters,
   sorter,
@@ -104,8 +131,16 @@ const onChange: TableProps<DataType>["onChange"] = (
   console.log("params", pagination, filters, sorter, extra)
 }
 
-const App: React.FC = () => (
-  <Table columns={columns} dataSource={data} onChange={onChange} />
-)
-
-export default App
+export const AllPosts: React.FC = () => {
+  return (
+    <div>
+      <div className="mb-4">
+        <div className="flex items-center gap-2">
+          <h2 className="text-xl">All Posts</h2>
+          <Avatar className="bg-primary">16</Avatar>
+        </div>
+      </div>
+      <Table columns={columns} dataSource={data} onChange={onChange} />
+    </div>
+  )
+}
