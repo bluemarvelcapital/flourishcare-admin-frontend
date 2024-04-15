@@ -6,6 +6,7 @@ import { BlogI } from "@/types/blog"
 import { HiOutlineDotsVertical } from "react-icons/hi"
 import { BiSearch } from "react-icons/bi"
 import { EditPost } from "./EditPost"
+import { useGetBlogPostsQuery } from "@/services/blog.service"
 
 const columns: TableColumnsType<BlogI> = [
   {
@@ -145,6 +146,8 @@ const onChange: TableProps<BlogI>["onChange"] = (
 }
 
 export const AllPosts: React.FC = () => {
+  const { data } = useGetBlogPostsQuery(null)
+  console.log(data)
   return (
     <div>
       <div className="mb-4 flex md:flex-row flex-col gap-3 md:items-center justify-between">
