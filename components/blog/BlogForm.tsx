@@ -1,29 +1,84 @@
 "use client"
-import { Button, Form, Input } from "antd"
-import React from "react"
+import { Button, Form, Input, Select } from "antd"
+import React, { useEffect, useState } from "react"
 import { BlogEditor } from "./BlogEditor"
 import { UploadMedia } from "./UploadMedia"
 import { BlogI } from "@/types/blog"
 import { useCreateBlogPostMutation, useUpdateBlogPostMutation } from "@/services/blog.service"
 import { useDispatch } from "react-redux"
+import { updateBlogPostData } from "@/context/blog.slice"
+import { toast } from "react-hot-toast"
 
+async function convertImageToBase64(file: File) {
+    return new Promise<string>((resolve, reject) => {
+        const reader = new FileReader()
+        reader.onload = () => {
+            resolve(reader.result as string)
+        }
+        reader.onerror = reject
+        reader.readAsDataURL(file)
+    })
+
+}
 export const BlogForm = ({ post }: { post?: BlogI }) => {
     const [createBlogPost, { isLoading: createIsLoading }] = useCreateBlogPostMutation()
     const [updateBlogPost, { isLoading: updateIsLoading }] = useUpdateBlogPostMutation()
+    const [previewImage, setPreviewImage] = useState<string | File>(post?.preview_image ?? '')
+    const [coverImage, setCoverImage] = useState<string | File>(post?.cover_image ?? '')
     const dispatch = useDispatch()
+    const [form] = Form.useForm()
+
+    useEffect(() => {
+        console.log({ coverImage, previewImage })
+    }, [coverImage, previewImage])
 
     const submitForm = async (values: BlogI) => {
-        console.log({ formValues: values })
+        let updatedPost: BlogI | undefined
         if (post?.id) {
-            await updateBlogPost({ ...values, blogPostId: post.id })
+            await updateBlogPost({
+                ...values, blogPostId: post.id,
+                preview_image: previewImage && typeof previewImage != 'string' ? await convertImageToBase64(previewImage) : undefined,
+                cover_image: coverImage && typeof coverImage != 'string' ? await convertImageToBase64(coverImage) : undefined
+            }).unwrap().then(res => {
+                updatedPost = {
+                    ...res.data.blogPost,
+                    id: res.data.blogPost.id,
+                    preview_image: res.data.blogPost.preview_image,
+                    cover_image: res.data.blogPost.cover_image
+                }
+                toast.success('Post updated successfully')
+            })
+
         } else {
-            await createBlogPost(values)
+            if (!previewImage || !coverImage) {
+                await createBlogPost({
+                    ...values,
+                    preview_image: await convertImageToBase64(previewImage as File),
+                    cover_image: await convertImageToBase64(coverImage as File)
+                }).unwrap().then(res => {
+                    updatedPost = {
+                        ...res,
+                        id: res.id,
+                        preview_image: res.preview_image,
+                        cover_image: res.cover_image
+                    }
+                    toast.success('Post created successfully')
+                })
+            }
+        }
+
+        if (updatedPost) {
+            dispatch(updateBlogPostData(updatedPost))
         }
     }
 
+    const handleStatusChange = (value) => {
+        form.setFieldsValue({ status: value });
+    };
+
     return (
         <div className="mt-5">
-            <Form layout="vertical" onFinish={submitForm}>
+            <Form layout="vertical" onFinish={submitForm} form={form}>
                 <Form.Item
                     label="Title"
                     name="title"
@@ -84,6 +139,11 @@ export const BlogForm = ({ post }: { post?: BlogI }) => {
                     label="Status"
                     name='status'
                     initialValue={post?.status}>
+                    <Select style={({ width: '100%' })}>
+                        <Select.Option value="draft" onClick={() => handleStatusChange('draft')}>Draft</Select.Option>
+                        <Select.Option value="published" onClick={() => handleStatusChange('published')}>Published</Select.Option>
+                        <Select.Option value="hidden" onClick={() => handleStatusChange('hidden')}>Hidden</Select.Option>
+                    </Select>
                 </Form.Item>
                 <Form.Item
                     label="Preview Image"
@@ -95,9 +155,9 @@ export const BlogForm = ({ post }: { post?: BlogI }) => {
                             message: "Please enter the preview image",
                         },
                     ]}
-                    initialValue={post?.preview_image}
+                    initialValue={previewImage}
                 >
-                    <UploadMedia id={"preview_image"} />
+                    <UploadMedia id={"preview_image"} setImage={(image: File) => setPreviewImage(image)} />
                 </Form.Item>
                 <Form.Item
                     label="Cover Image"
@@ -109,11 +169,11 @@ export const BlogForm = ({ post }: { post?: BlogI }) => {
                             message: "Please enter the cover image",
                         },
                     ]}
-                    initialValue={post?.cover_image}
+                    initialValue={coverImage}
                 >
-                    <UploadMedia id={"cover_image"} />
+                    <UploadMedia id={"cover_image"} setImage={(image: File) => setCoverImage(image)} />
                 </Form.Item>
-                <Button type="primary" htmlType="submit" className="bg-secondary w-full" size="large">
+                <Button loading={createIsLoading || updateIsLoading} type="primary" htmlType="submit" className="bg-secondary w-full" size="large">
                     {
                         post?.id ? 'Update Post' : 'Create Post'
                     }

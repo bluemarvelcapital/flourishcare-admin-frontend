@@ -7,9 +7,10 @@ import { HiOutlineDotsVertical } from "react-icons/hi"
 import { BiSearch } from "react-icons/bi"
 import { EditPost } from "./EditPost"
 import { useGetBlogPostsQuery } from "@/services/blog.service"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { addDraftBlogPosts, addPublisedBlogPosts, setDraftBlogPosts, setPublishedBlogPosts } from "@/context/blog.slice"
 import DateUtil from "@/utils/date"
+import { RootState } from "@/context/store"
 
 const columns: TableColumnsType<BlogI> = [
     {
@@ -178,6 +179,7 @@ const onChange: TableProps<BlogI>["onChange"] = (
 export const AllPosts: React.FC = () => {
     const { data: apiData } = useGetBlogPostsQuery(null)
     const dispatch = useDispatch()
+    const { draftBlogPosts, publishedBlogPosts } = useSelector((state: RootState) => state.blog)
 
     console.log({ apiData })
     useEffect(() => {
@@ -195,6 +197,8 @@ export const AllPosts: React.FC = () => {
         }
 
     }, [apiData?.data, dispatch])
+
+
     return (
         <div>
             <div className="mb-4 flex md:flex-row flex-col gap-3 md:items-center justify-between">
@@ -211,7 +215,7 @@ export const AllPosts: React.FC = () => {
             </div>
             <Table
                 columns={columns}
-                dataSource={apiData?.data.blogPosts.map(post => ({
+                dataSource={[...draftBlogPosts, ...publishedBlogPosts].map(post => ({
                     title: post.title,
                     category: 'healthcare',
                     createdAt: DateUtil.convertDateStringToLocaleToYMDD(post.createdAt),

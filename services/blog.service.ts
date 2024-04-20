@@ -9,6 +9,13 @@ interface GetBlogPostsResponse {
     }
 }
 
+interface UpdateBlogPostResponse {
+    status: 'success',
+    data: {
+        blogPost: BlogI & { status: 'draft' | 'published' | 'hidden' }
+    }
+}
+
 const mappedKeys = {
     preview_image: 'previewImage',
     cover_image: 'coverImage',
@@ -26,37 +33,26 @@ export const blogApi = createApi({
                     }
                 },
             }),
-            updateBlogPost: builder.mutation<BlogI, Partial<BlogI> & { blogPostId: string }>({
+            updateBlogPost: builder.mutation<UpdateBlogPostResponse, Partial<BlogI> & { blogPostId: string }>({
                 query: (body) => {
-                    // Use formdata if image is added
-                    let formData: FormData | undefined
-                    if (body.cover_image || body.preview_image) {
-                        formData = new FormData()
-                        for (const key in body) {
-                            const _key = mappedKeys[key as keyof typeof mappedKeys] ?? key
-                            formData.append(_key, body[key as keyof typeof body] as string)
-                        }
-                    }
-
+                    console.log({ body });
+                    (body as unknown as Record<string, string>)['preview_image'] = body.preview_image as string;
+                    (body as unknown as Record<string, string>)['cover_image'] = body.cover_image as string;
                     return {
                         url: "/",
                         method: "PATCH",
-                        body: formData ?? body,
+                        body: body,
                     }
                 },
             }),
             createBlogPost: builder.mutation<BlogI, Omit<BlogI, 'id'>>({
                 query: (body) => {
-                    let formData = new FormData()
-                    for (const key in body) {
-                        const _key = mappedKeys[key as keyof typeof mappedKeys] ?? key
-                        formData.append(_key, body[key as keyof typeof body] as string)
-                    }
-
+                    (body as unknown as Record<string, string>)['preview_img'] = body.preview_image as string;
+                    (body as unknown as Record<string, string>)['cover_img'] = body.cover_image as string;
                     return {
                         url: "/",
                         method: "POST",
-                        body: formData ?? body,
+                        body: body,
                     }
                 },
             }),

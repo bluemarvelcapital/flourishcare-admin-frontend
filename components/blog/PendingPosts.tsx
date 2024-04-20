@@ -86,8 +86,8 @@ export const PendingPosts = () => {
         <div className="border-[1px] border-[#E4E7EC] px-7 py-7 rounded-xl">
             <div className="mb-4 flex justify-between items-center">
                 <div className="flex items-center gap-2">
-                    <h2 className="text-xl">Pending Posts</h2>
-                    <Avatar className="bg-primary">8</Avatar>
+                    <h2 className="text-xl">Daft Posts</h2>
+                    <Avatar className="bg-primary">{data.length ?? 0}</Avatar>
                 </div>
                 <Popover trigger={"click"} arrow={false}>
                     <div className="flex items-center gap-2 cursor-pointer">
