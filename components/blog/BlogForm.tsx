@@ -6,8 +6,8 @@ import { UploadMedia } from "./UploadMedia"
 import { BlogI } from "@/types/blog"
 import { useCreateBlogPostMutation, useUpdateBlogPostMutation } from "@/services/blog.service"
 import { useDispatch } from "react-redux"
-import { updateBlogPostData } from "@/context/blog.slice"
 import { toast } from "react-toastify"
+import { addPosts, updatePost } from "@/context/blog.slice"
 
 async function convertImageToBase64(file: File) {
     return new Promise<string>((resolve, reject) => {
@@ -34,6 +34,7 @@ export const BlogForm = ({ post }: { post?: BlogI }) => {
 
     const submitForm = async (values: BlogI) => {
         let updatedPost: BlogI | undefined
+        let action: 'create' | 'update' = 'create'
         if (post?.id) {
             await updateBlogPost({
                 ...values, blogPostId: post.id,
@@ -46,10 +47,10 @@ export const BlogForm = ({ post }: { post?: BlogI }) => {
                     preview_image: res.data.blogPost.preview_image,
                     cover_image: res.data.blogPost.cover_image
                 }
-                toast.success('Post updated successfully')
             })
-
+            action = 'update'
         } else {
+            action = 'create'
             if (!previewImage || !coverImage) {
                 await createBlogPost({
                     ...values,
@@ -62,18 +63,17 @@ export const BlogForm = ({ post }: { post?: BlogI }) => {
                         preview_image: res.preview_image,
                         cover_image: res.cover_image
                     }
-                    toast.success('Post created successfully')
                 })
             }
         }
 
+        console.log({ updatedPost })
+
         if (updatedPost) {
-            dispatch(updateBlogPostData(updatedPost))
-            await updateBlogPost({ ...values, blogPostId: post.id })
-            toast.success("Post updated successfully")
+            dispatch({ create: addPosts([updatedPost]), update: updatePost(updatedPost) }[action])
+            toast.success(`Post ${action}d  successfully`)
         } else {
             await createBlogPost(values)
-            toast.success("Post created successfully")
         }
     }
 

@@ -8,7 +8,7 @@ import { BiSearch } from "react-icons/bi"
 import { EditPost } from "./EditPost"
 import { useGetBlogPostsQuery } from "@/services/blog.service"
 import { useDispatch, useSelector } from "react-redux"
-import { addDraftBlogPosts, addPublisedBlogPosts, setDraftBlogPosts, setPublishedBlogPosts } from "@/context/blog.slice"
+import { addDraftBlogPosts, addPublisedBlogPosts, setDraftBlogPosts, setPosts, setPublishedBlogPosts } from "@/context/blog.slice"
 import DateUtil from "@/utils/date"
 import { RootState } from "@/context/store"
 import { randomUUID } from "crypto"
@@ -123,24 +123,16 @@ const onChange: TableProps<BlogI>["onChange"] = (
 export const AllPosts: React.FC = () => {
     const { data: apiData } = useGetBlogPostsQuery(null)
     const dispatch = useDispatch()
-    const { draftBlogPosts, publishedBlogPosts } = useSelector((state: RootState) => state.blog)
+    const { posts } = useSelector((state: RootState) => state.blog)
 
     // console.log({ apiData })
+    console.log({ posts })
     useEffect(() => {
         if (apiData?.data.blogPosts) {
-            const publishedBlogPosts = apiData.data.blogPosts.filter(post => post.status === 'published')
-            const draftBlogPosts = apiData.data.blogPosts.filter(post => post.status === 'draft')
-
-            console.log({
-                publishedBlogPosts,
-                draftBlogPosts
-            })
-
-            dispatch(setPublishedBlogPosts(publishedBlogPosts))
-            dispatch(setDraftBlogPosts(draftBlogPosts))
+            dispatch(setPosts(apiData.data.blogPosts)
+            )
         }
-
-    }, [dispatch])
+    }, [apiData?.data.blogPosts, dispatch])
 
 
     return (
@@ -159,7 +151,7 @@ export const AllPosts: React.FC = () => {
             </div>
             <Table
                 columns={columns}
-                dataSource={[...draftBlogPosts, ...publishedBlogPosts].map(post => ({
+                dataSource={posts.map(post => ({
                     title: post.title,
                     category: 'healthcare',
                     createdAt: DateUtil.convertDateStringToLocaleToYMDD(post.createdAt),

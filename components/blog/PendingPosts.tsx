@@ -6,10 +6,9 @@ import { HiOutlineDotsVertical } from "react-icons/hi"
 import { EditPost } from "./EditPost"
 import { useSelector } from "react-redux"
 import { RootState } from "@/context/store"
-import { BlogI } from "@/types/blog"
 
 export const PendingPosts = () => {
-    const { draftBlogPosts: data } = useSelector((state: RootState) => state.blog)
+    const { posts: data } = useSelector((state: RootState) => state.blog)
 
     return (
         <div className="border-[1px] border-[#E4E7EC] px-7 py-7 rounded-xl">
@@ -26,7 +25,7 @@ export const PendingPosts = () => {
                 </Popover>
             </div>
             <div className="flex flex-col gap-[1rem] mt-7">
-                {data.map((post, index) => (
+                {data.filter(post => ['draft', 'hidden'].includes(post.status)).map((post, index) => (
                     <div key={index} className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-3">
                             <Image

@@ -2,50 +2,28 @@ import { BlogI } from "@/types/blog"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 interface BlogState {
-    draftBlogPosts: BlogI[],
-    publishedBlogPosts: BlogI[]
+    posts: BlogI[]
 }
 
 const initialState: BlogState = {
-    draftBlogPosts: [],
-    publishedBlogPosts: []
+    posts: []
 }
 
 export const blogSlice = createSlice({
     name: 'blog',
     initialState,
     reducers: {
-        setDraftBlogPosts: (state, action: PayloadAction<BlogI[]>) => {
-            state.draftBlogPosts = action.payload
+        setPosts: (state, action: PayloadAction<BlogI[]>) => {
+            state.posts = action.payload
         },
-        setPublishedBlogPosts: (state, action: PayloadAction<BlogI[]>) => {
-            state.publishedBlogPosts = action.payload
+        addPosts: (state, action: PayloadAction<BlogI[]>) => {
+            state.posts = [...state.posts, ...action.payload]
         },
-        addDraftBlogPosts: (state, action: PayloadAction<BlogI>) => {
-            state.draftBlogPosts = [...(state.draftBlogPosts ?? []), action.payload] as typeof state.draftBlogPosts
-        },
-        addPublisedBlogPosts: (state, action: PayloadAction<BlogI[]>) => {
-            state.publishedBlogPosts = [...(state.publishedBlogPosts ?? []), ...action.payload] as typeof state.publishedBlogPosts
-        },
-        updateBlogPostData: (state, action: PayloadAction<BlogI>) => {
-            const index = state.draftBlogPosts.findIndex((post) => post.id === action.payload.id)
-            if (index !== -1) {
-                state.draftBlogPosts[index] = action.payload
-
-                // Remove the post from the published blog posts
-                state.publishedBlogPosts = state.publishedBlogPosts.filter((post) => post.id !== action.payload.id)
-            }
-
-            const index2 = state.publishedBlogPosts.findIndex((post) => post.id === action.payload.id)
-            if (index2 !== -1) {
-                state.publishedBlogPosts[index2] = action.payload
-
-                // Remove the post from the draft blog posts
-                state.draftBlogPosts = state.draftBlogPosts.filter((post) => post.id !== action.payload.id)
-            }
+        updatePost: (state, action: PayloadAction<BlogI>) => {
+            const index = state.posts.findIndex(post => post.id === action.payload.id)
+            state.posts[index] = action.payload
         }
-
     }
 })
 
-export const { addDraftBlogPosts, addPublisedBlogPosts, setDraftBlogPosts, setPublishedBlogPosts, updateBlogPostData} = blogSlice.actions
+export const { setPosts, addPosts, updatePost } = blogSlice.actions
