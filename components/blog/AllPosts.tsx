@@ -80,6 +80,7 @@ const columns: TableColumnsType<BlogI> = [
                             <div className="flex flex-col gap-3 w-[100px]">
                                 <EditPost post={
                                     {
+                                        id: record.id,
                                         title: record.title,
                                         category: record.category,
                                         createdAt: record.createdAt,
@@ -106,65 +107,6 @@ const columns: TableColumnsType<BlogI> = [
         },
     },
 ]
-
-// const data: BlogI[] = [
-//     {
-//         title: "Nutrition Tips for Healthy Aging",
-//         category: "healthcare",
-//         createdAt: "2021-09-01",
-//         updatedAt: "2021-09-01",
-//         tags: ["nice", "developer"],
-//         author: "John Smith",
-//         description: "",
-//         content: "",
-//         preview_image:
-//             "https://www.figma.com/file/b3EMEjIO5usiDthl0I4Yxz/image/d6cc761a47a4339500c9fd46030863e87528e8da",
-//         cover_image:
-//             "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-//     },
-//     {
-//         title: "Nutrition Tips for Healthy Aging",
-//         category: "healthcare",
-//         createdAt: "2021-09-01",
-//         updatedAt: "2021-09-01",
-//         tags: ["nice", "developer"],
-//         author: "John Smith",
-//         description: "",
-//         content: "",
-//         preview_image:
-//             "https://www.figma.com/file/b3EMEjIO5usiDthl0I4Yxz/image/d6cc761a47a4339500c9fd46030863e87528e8da",
-//         cover_image:
-//             "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-//     },
-//     {
-//         title: "Nutrition Tips for Healthy Aging",
-//         category: "healthcare",
-//         createdAt: "2021-09-01",
-//         updatedAt: "2021-09-01",
-//         tags: ["nice", "developer"],
-//         author: "John Smith",
-//         description: "",
-//         content: "",
-//         preview_image:
-//             "https://www.figma.com/file/b3EMEjIO5usiDthl0I4Yxz/image/d6cc761a47a4339500c9fd46030863e87528e8da",
-//         cover_image:
-//             "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-//     },
-//     {
-//         title: "Nutrition Tips for Healthy Aging",
-//         category: "healthcare",
-//         createdAt: "2021-09-01",
-//         updatedAt: "2021-09-01",
-//         tags: ["nice", "developer"],
-//         author: "John Smith",
-//         description: "",
-//         content: "",
-//         preview_image:
-//             "https://www.figma.com/file/b3EMEjIO5usiDthl0I4Yxz/image/d6cc761a47a4339500c9fd46030863e87528e8da",
-//         cover_image:
-//             "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-//     },
-// ]
 
 const onChange: TableProps<BlogI>["onChange"] = (
     pagination,

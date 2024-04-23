@@ -6,6 +6,7 @@ import { UploadMedia } from "./UploadMedia"
 import { BlogI } from "@/types/blog"
 import { useCreateBlogPostMutation, useUpdateBlogPostMutation } from "@/services/blog.service"
 import { useDispatch } from "react-redux"
+import { toast } from "react-toastify"
 
 export const BlogForm = ({ post }: { post?: BlogI }) => {
     const [createBlogPost, { isLoading: createIsLoading }] = useCreateBlogPostMutation()
@@ -16,8 +17,10 @@ export const BlogForm = ({ post }: { post?: BlogI }) => {
         console.log({ formValues: values })
         if (post?.id) {
             await updateBlogPost({ ...values, blogPostId: post.id })
+            toast.success("Post updated successfully")
         } else {
             await createBlogPost(values)
+            toast.success("Post created successfully")
         }
     }
 
@@ -97,7 +100,7 @@ export const BlogForm = ({ post }: { post?: BlogI }) => {
                     ]}
                     initialValue={post?.preview_image}
                 >
-                    <UploadMedia id={"preview_image"} />
+                    <UploadMedia id={"preview_image"} existingFile={post?.preview_image} />
                 </Form.Item>
                 <Form.Item
                     label="Cover Image"
@@ -111,7 +114,7 @@ export const BlogForm = ({ post }: { post?: BlogI }) => {
                     ]}
                     initialValue={post?.cover_image}
                 >
-                    <UploadMedia id={"cover_image"} />
+                    <UploadMedia id={"cover_image"} existingFile={post?.cover_image} />
                 </Form.Item>
                 <Button type="primary" htmlType="submit" className="bg-secondary w-full" size="large">
                     {

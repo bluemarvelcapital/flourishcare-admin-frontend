@@ -3,7 +3,7 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import { NavBar } from "@/components/NavBar"
 import { Content } from "@/components/Content"
-import { Header } from "@/components/Header"
+import { toast, ToastContainer } from "react-toastify"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -22,6 +22,7 @@ export default function RootLayout({
             <body className={inter.className}>
                 <NavBar />
                 <Content>
+                    <ToastContainer />
                     {/* <Header /> */}
                     <div className="md:px-[2.8rem] md:py-[3rem] px-[1rem] py-[2rem] mx-auto container">
                         {children}
