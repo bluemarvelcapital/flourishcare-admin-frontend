@@ -119,10 +119,9 @@ const onChange: TableProps<BlogI>["onChange"] = (
 ) => {
     console.log("params", pagination, filters, sorter, extra)
 }
-const apiData = { data: { blogPosts: data } }
 
 export const AllPosts: React.FC = () => {
-    // const { data: apiData } = useGetBlogPostsQuery(null)
+    const { data: apiData } = useGetBlogPostsQuery(null)
     const dispatch = useDispatch()
     const { draftBlogPosts, publishedBlogPosts } = useSelector((state: RootState) => state.blog)
 
