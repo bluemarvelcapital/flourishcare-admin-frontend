@@ -7,7 +7,7 @@ import { BlogI } from "@/types/blog"
 import { useCreateBlogPostMutation, useUpdateBlogPostMutation } from "@/services/blog.service"
 import { useDispatch } from "react-redux"
 import { updateBlogPostData } from "@/context/blog.slice"
-import { toast } from "react-hot-toast"
+import { toast } from "react-toastify"
 
 async function convertImageToBase64(file: File) {
     return new Promise<string>((resolve, reject) => {
@@ -69,10 +69,15 @@ export const BlogForm = ({ post }: { post?: BlogI }) => {
 
         if (updatedPost) {
             dispatch(updateBlogPostData(updatedPost))
+            await updateBlogPost({ ...values, blogPostId: post.id })
+            toast.success("Post updated successfully")
+        } else {
+            await createBlogPost(values)
+            toast.success("Post created successfully")
         }
     }
 
-    const handleStatusChange = (value) => {
+    const handleStatusChange = (value: string) => {
         form.setFieldsValue({ status: value });
     };
 
@@ -157,7 +162,7 @@ export const BlogForm = ({ post }: { post?: BlogI }) => {
                     ]}
                     initialValue={previewImage}
                 >
-                    <UploadMedia id={"preview_image"} setImage={(image: File) => setPreviewImage(image)} />
+                    <UploadMedia id={"preview_image"} existingFile={post?.preview_image} setImage={(image: File) => setPreviewImage(image)} />
                 </Form.Item>
                 <Form.Item
                     label="Cover Image"
@@ -171,7 +176,7 @@ export const BlogForm = ({ post }: { post?: BlogI }) => {
                     ]}
                     initialValue={coverImage}
                 >
-                    <UploadMedia id={"cover_image"} setImage={(image: File) => setCoverImage(image)} />
+                    <UploadMedia id={"cover_image"} existingFile={post?.cover_image} setImage={(image: File) => setCoverImage(image)} />
                 </Form.Item>
                 <Button loading={createIsLoading || updateIsLoading} type="primary" htmlType="submit" className="bg-secondary w-full" size="large">
                     {

@@ -10,78 +10,7 @@ import { BlogI } from "@/types/blog"
 
 export const PendingPosts = () => {
     const { draftBlogPosts: data } = useSelector((state: RootState) => state.blog)
-    // const data: BlogI[] = [
-    //     {
-    //         title: "Nutrition Tips for Healthy Aging",
-    //         category: "healthcare",
-    //         createdAt: "2021-09-01",
-    //         updatedAt: "2021-09-01",
-    //         tags: ["nice", "developer"],
-    //         author: "John Smith",
-    //         description: "",
-    //         content: "",
-    //         preview_image:
-    //             "https://www.figma.com/file/b3EMEjIO5usiDthl0I4Yxz/image/d6cc761a47a4339500c9fd46030863e87528e8da",
-    //         cover_image:
-    //             "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-    //     },
-    //     {
-    //         title: "Nutrition Tips for Healthy Aging",
-    //         category: "healthcare",
-    //         createdAt: "2021-09-01",
-    //         updatedAt: "2021-09-01",
-    //         tags: ["nice", "developer"],
-    //         author: "John Smith",
-    //         description: "",
-    //         content: "",
-    //         preview_image:
-    //             "https://www.figma.com/file/b3EMEjIO5usiDthl0I4Yxz/image/d6cc761a47a4339500c9fd46030863e87528e8da",
-    //         cover_image:
-    //             "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-    //     },
-    //     {
-    //         title: "Nutrition Tips for Healthy Aging",
-    //         category: "healthcare",
-    //         createdAt: "2021-09-01",
-    //         updatedAt: "2021-09-01",
-    //         tags: ["nice", "developer"],
-    //         author: "John Smith",
-    //         description: "",
-    //         content: "",
-    //         preview_image:
-    //             "https://www.figma.com/file/b3EMEjIO5usiDthl0I4Yxz/image/d6cc761a47a4339500c9fd46030863e87528e8da",
-    //         cover_image:
-    //             "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-    //     },
-    //     {
-    //         title: "Nutrition Tips for Healthy Aging",
-    //         category: "healthcare",
-    //         createdAt: "2021-09-01",
-    //         updatedAt: "2021-09-01",
-    //         tags: ["nice", "developer"],
-    //         author: "John Smith",
-    //         description: "",
-    //         content: "",
-    //         preview_image:
-    //             "https://www.figma.com/file/b3EMEjIO5usiDthl0I4Yxz/image/d6cc761a47a4339500c9fd46030863e87528e8da",
-    //         cover_image:
-    //             "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-    //     },
-    //     {
-    //         title: "Nutrition Tips for Healthy Aging",
-    //         category: "healthcare",
-    //         createdAt: "2021-09-01",
-    //         updatedAt: "2021-09-01",
-    //         tags: ["nice", "developer"],
-    //         author: "John Smith",
-    //         description: "",
-    //         content: "",
-    //         preview_image:
-    //             "https://www.figma.com/file/b3EMEjIO5usiDthl0I4Yxz/image/d6cc761a47a4339500c9fd46030863e87528e8da",
-    //         cover_image:
-    //             "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-    //     },
-    // ]
+
     return (
         <div className="border-[1px] border-[#E4E7EC] px-7 py-7 rounded-xl">
             <div className="mb-4 flex justify-between items-center">
