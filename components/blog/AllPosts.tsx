@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { Avatar, Image, Input, Popover, Table } from "antd"
 import type { TableColumnsType, TableProps } from "antd"
 import { BlogI } from "@/types/blog"
@@ -8,11 +8,9 @@ import { BiSearch } from "react-icons/bi"
 import { EditPost } from "./EditPost"
 import { useGetBlogPostsQuery } from "@/services/blog.service"
 import { useDispatch, useSelector } from "react-redux"
-import { addDraftBlogPosts, addPublisedBlogPosts, setDraftBlogPosts, setPosts, setPublishedBlogPosts } from "@/context/blog.slice"
+import { setPosts } from "@/context/blog.slice"
 import DateUtil from "@/utils/date"
 import { RootState } from "@/context/store"
-import { randomUUID } from "crypto"
-import { v4 as uuid } from 'uuid'
 
 const columns: TableColumnsType<BlogI> = [
     {
@@ -50,7 +48,7 @@ const columns: TableColumnsType<BlogI> = [
             },
         ],
         // @ts-ignore
-        onFilter: (value: string, record) => record.category.indexOf(value) === 0,
+        onFilter: (value: string, record) => record.category === value,
     },
     {
         title: "Status",
@@ -65,6 +63,8 @@ const columns: TableColumnsType<BlogI> = [
                 value: "draft",
             },
         ],
+        // @ts-ignore
+        onFilter: (value: string, record) => record.status === value,
     },
     {
         title: "Date",
@@ -96,7 +96,7 @@ const columns: TableColumnsType<BlogI> = [
                                         status: record.status
                                     }
                                 } />
-                                <p className="cursor-pointer">View</p>
+                                {/* <p className="cursor-pointer">View</p> */}
                                 <p className="text-error-500 cursor-pointer">Delete</p>
                             </div>
                         }
@@ -119,39 +119,49 @@ const onChange: TableProps<BlogI>["onChange"] = (
 ) => {
     console.log("params", pagination, filters, sorter, extra)
 }
+const { Search } = Input;
 
-export const AllPosts: React.FC = () => {
-    const { data: apiData } = useGetBlogPostsQuery(null)
-    const dispatch = useDispatch()
-    const { posts } = useSelector((state: RootState) => state.blog)
+const AllPosts: React.FC = () => {
+    const [searchQuery, setSearchQuery] = useState<string>('');
 
-    // console.log({ apiData })
-    console.log({ posts })
+    const { data: apiData } = useGetBlogPostsQuery(null);
+    const dispatch = useDispatch();
+    const { posts } = useSelector((state: RootState) => state.blog);
+
     useEffect(() => {
         if (apiData?.data.blogPosts) {
-            dispatch(setPosts(apiData.data.blogPosts)
-            )
+            dispatch(setPosts(apiData.data.blogPosts));
         }
-    }, [apiData?.data.blogPosts, dispatch])
+    }, [apiData?.data.blogPosts, dispatch]);
 
+    const filteredPosts = posts.filter(post =>
+        post.title.toLowerCase().includes(searchQuery.toLowerCase())
+        || post.tags.includes(searchQuery.toLowerCase())
+        || post.status.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    const handleSearch = (value: string) => {
+        setSearchQuery(value);
+    };
 
     return (
         <div>
             <div className="mb-4 flex md:flex-row flex-col gap-3 md:items-center justify-between">
                 <div className="flex items-center gap-2">
                     <h2 className="text-xl">All Posts</h2>
-                    <Avatar className="bg-primary">{apiData?.data.blogPosts.length || 0}</Avatar>
+                    <Avatar className="bg-primary">{posts.length || 0}</Avatar>
                 </div>
-                <Input
+                <Search
                     placeholder="Search Posts"
                     size="large"
                     prefix={<BiSearch />}
                     className="md:w-[350px]"
+                    onSearch={handleSearch}
                 />
             </div>
             <Table
                 columns={columns}
-                dataSource={posts.map(post => ({
+                dataSource={filteredPosts.map(post => ({
                     title: post.title,
                     category: 'healthcare',
                     createdAt: DateUtil.convertDateStringToLocaleToYMDD(post.createdAt),
@@ -164,8 +174,11 @@ export const AllPosts: React.FC = () => {
                     status: post.status,
                     id: post.id
                 }))}
+                pagination={{ pageSize: 5 }}
                 onChange={onChange}
             />
         </div>
-    )
-}
+    );
+};
+
+export { AllPosts };

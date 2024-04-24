@@ -18,8 +18,8 @@ async function convertImageToBase64(file: File) {
         reader.onerror = reject
         reader.readAsDataURL(file)
     })
-
 }
+
 export const BlogForm = ({ post }: { post?: BlogI }) => {
     const [createBlogPost, { isLoading: createIsLoading }] = useCreateBlogPostMutation()
     const [updateBlogPost, { isLoading: updateIsLoading }] = useUpdateBlogPostMutation()
@@ -51,17 +51,21 @@ export const BlogForm = ({ post }: { post?: BlogI }) => {
             action = 'update'
         } else {
             action = 'create'
-            if (!previewImage || !coverImage) {
+            if (previewImage && coverImage) {
+                console.log({ values, action, previewImage: await convertImageToBase64(previewImage as File), coverImage: await convertImageToBase64(coverImage as File) })
+                values.preview_image = await convertImageToBase64(previewImage as File)
+                values.cover_image = await convertImageToBase64(coverImage as File)
+
+                console.log({ values })
+
                 await createBlogPost({
                     ...values,
-                    preview_image: await convertImageToBase64(previewImage as File),
-                    cover_image: await convertImageToBase64(coverImage as File)
                 }).unwrap().then(res => {
                     updatedPost = {
-                        ...res,
-                        id: res.id,
-                        preview_image: res.preview_image,
-                        cover_image: res.cover_image
+                        ...res.data.blogPost,
+                        id: res.data.blogPost.id,
+                        preview_image: res.data.blogPost.preview_image,
+                        cover_image: res.data.blogPost.cover_image
                     }
                 })
             }
@@ -72,9 +76,7 @@ export const BlogForm = ({ post }: { post?: BlogI }) => {
         if (updatedPost) {
             dispatch({ create: addPosts([updatedPost]), update: updatePost(updatedPost) }[action])
             toast.success(`Post ${action}d  successfully`)
-        } else {
-            await createBlogPost(values)
-        }
+        } 
     }
 
     const handleStatusChange = (value: string) => {
@@ -96,7 +98,7 @@ export const BlogForm = ({ post }: { post?: BlogI }) => {
                     ]}
                     initialValue={post?.title}
                 >
-                    <Input size="large" />
+                    <Input size="large" onChange={(e) => form.setFieldValue('title', e.target.value)} />
                 </Form.Item>
                 <Form.Item
                     label="Category"
@@ -110,7 +112,7 @@ export const BlogForm = ({ post }: { post?: BlogI }) => {
                     ]}
                     initialValue={post?.category}
                 >
-                    <Input size="large" />
+                    <Input size="large" onChange={(e) => form.setFieldValue('category', e.target.value)} />
                 </Form.Item>
                 <Form.Item
                     label="Description"
@@ -124,7 +126,7 @@ export const BlogForm = ({ post }: { post?: BlogI }) => {
                     ]}
                     initialValue={post?.description}
                 >
-                    <Input size="large" />
+                    <Input size="large" onChange={(e) => form.setFieldValue('description', e.target.value)} />
                 </Form.Item>
                 <Form.Item
                     label="Content"
@@ -138,18 +140,27 @@ export const BlogForm = ({ post }: { post?: BlogI }) => {
                     ]}
                     initialValue={post?.content}
                 >
-                    <BlogEditor content={post?.content} />
+                    <BlogEditor content={post?.content} updateContent={(content) => form.setFieldValue("content", content)} />
                 </Form.Item>
                 <Form.Item
                     label="Status"
                     name='status'
                     initialValue={post?.status}>
                     <Select style={({ width: '100%' })}>
-                        <Select.Option value="draft" onClick={() => handleStatusChange('draft')}>Draft</Select.Option>
-                        <Select.Option value="published" onClick={() => handleStatusChange('published')}>Published</Select.Option>
-                        <Select.Option value="hidden" onClick={() => handleStatusChange('hidden')}>Hidden</Select.Option>
+                        <Select.Option value="draft" onClick={() => {
+                            handleStatusChange('draft')
+                            form.setFieldValue('status', 'draft')
+                        }}>Draft</Select.Option>
+                        <Select.Option value="published" onClick={() => {
+                            handleStatusChange('published')
+                            form.setFieldValue('status', 'published')
+                        }}>Published</Select.Option>
+                        <Select.Option value="hidden" onClick={() => {
+                            handleStatusChange('hidden')
+                            form.setFieldValue('status', 'hidden')
+                        }}>Hidden</Select.Option>
                     </Select>
-                </Form.Item>
+                </Form.Item >
                 <Form.Item
                     label="Preview Image"
                     name="preview_image"
@@ -162,7 +173,10 @@ export const BlogForm = ({ post }: { post?: BlogI }) => {
                     ]}
                     initialValue={previewImage}
                 >
-                    <UploadMedia id={"preview_image"} existingFile={post?.preview_image} setImage={(image: File) => setPreviewImage(image)} />
+                    <UploadMedia id={"preview_image"} existingFile={post?.preview_image} setImage={(image: File) => {
+                        setPreviewImage(image)
+                        form.setFieldValue('preview_image', image)
+                    }} />
                 </Form.Item>
                 <Form.Item
                     label="Cover Image"
@@ -176,14 +190,17 @@ export const BlogForm = ({ post }: { post?: BlogI }) => {
                     ]}
                     initialValue={coverImage}
                 >
-                    <UploadMedia id={"cover_image"} existingFile={post?.cover_image} setImage={(image: File) => setCoverImage(image)} />
+                    <UploadMedia id={"cover_image"} existingFile={post?.cover_image} setImage={(image: File) => {
+                        setCoverImage(image)
+                        form.setFieldValue('cover_image', image)
+                    }} />
                 </Form.Item>
                 <Button loading={createIsLoading || updateIsLoading} type="primary" htmlType="submit" className="bg-secondary w-full" size="large">
                     {
                         post?.id ? 'Update Post' : 'Create Post'
                     }
                 </Button>
-            </Form>
+            </Form >
         </div >
     )
 }

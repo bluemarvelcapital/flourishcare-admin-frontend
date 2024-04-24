@@ -1,7 +1,7 @@
 import React, { useRef } from "react"
 import { Editor } from "@tinymce/tinymce-react"
 
-export function BlogEditor({ content }: { content?: string }) {
+export function BlogEditor({ content, updateContent }: { content?: string, updateContent?: (content: string) => void }) {
     const editorRef = useRef(null)
     const log = () => {
         if (editorRef.current) {
@@ -15,6 +15,7 @@ export function BlogEditor({ content }: { content?: string }) {
                 apiKey={process.env.NEXT_PUBLIC_TINYMCE_API_KEY}
                 onChange={(e) => {
                     console.log(e.target.getContent())
+                    updateContent && updateContent(e.target.getContent())   
                 }}
                 // @ts-ignore
                 onInit={(evt, editor) => (editorRef.current = editor)}

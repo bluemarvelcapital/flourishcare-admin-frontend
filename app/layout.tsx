@@ -25,7 +25,6 @@ export default function RootLayout({
                 <NavBar />
                 <Content>
                     <ToastContainer />
-                    {/* <Header /> */}
                     <div className="md:px-[2.8rem] md:py-[3rem] px-[1rem] py-[2rem] h-full mx-auto container">
                         {children}
                     </div>

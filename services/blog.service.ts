@@ -36,8 +36,8 @@ export const blogApi = createApi({
             updateBlogPost: builder.mutation<UpdateBlogPostResponse, Partial<BlogI> & { blogPostId: string }>({
                 query: (body) => {
                     console.log({ body });
-                    (body as unknown as Record<string, string>)['preview_image'] = body.preview_image as string;
-                    (body as unknown as Record<string, string>)['cover_image'] = body.cover_image as string;
+                    (body as unknown as Record<string, string>)['previewImage'] = body.preview_image as string;
+                    (body as unknown as Record<string, string>)['coverImage'] = body.cover_image as string;
                     return {
                         url: "/",
                         method: "PATCH",
@@ -45,12 +45,13 @@ export const blogApi = createApi({
                     }
                 },
             }),
-            createBlogPost: builder.mutation<BlogI, Omit<BlogI, 'id'>>({
+            createBlogPost: builder.mutation<UpdateBlogPostResponse, Omit<BlogI, 'id'>>({
                 query: (body) => {
-                    (body as unknown as Record<string, string>)['preview_img'] = body.preview_image as string;
-                    (body as unknown as Record<string, string>)['cover_img'] = body.cover_image as string;
+                    (body as unknown as Record<string, string>)['previewImage'] = body.preview_image as string;
+                    (body as unknown as Record<string, string>)['coverImage'] = body.cover_image as string;
+
                     return {
-                        url: "/",
+                        url: "/new",
                         method: "POST",
                         body: body,
                     }
