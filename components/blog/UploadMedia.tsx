@@ -60,7 +60,7 @@ export const UploadMedia: React.FC<props> = ({ id, existingFile, setImage }) => 
                 id={id}
                 type="file"
                 onChange={(e) => {
-                    setImage ? (e.target.files![0]);
+                    setImage && setImage(e.target.files![0]);
                     setFile(e.target.files![0])
                 }}
             />

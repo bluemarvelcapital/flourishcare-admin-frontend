@@ -1,4 +1,5 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
+const defaultColors = require("tailwindcss/colors");
 
 const config: Config = {
   content: [
@@ -15,6 +16,7 @@ const config: Config = {
       },
     },
     colors: {
+      ...defaultColors,
       primary: "#66ACDC",
       secondary: "#04BD4B",
       error: {
@@ -23,5 +25,5 @@ const config: Config = {
     },
   },
   plugins: [],
-}
-export default config
+};
+export default config;
