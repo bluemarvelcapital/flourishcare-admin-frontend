@@ -73,19 +73,21 @@ export default function Home() {
     //   </div>
     // </main>
 
-    <main className=" w-full h-full flex justify-center 2xl:justify-center bg-blak">
-      <div className="grid justify-items-center 2xl:container md:grid-cols-12 bg-white">
-        <div className="md:col-span-7 w-full h-full">
+    <main className=" w-full h-full flex justify-between">
+      <div className="grid sm:grid-cols-12 bg-white w-full xl:gap-x-14">
+        <div className="md:col-span-7 sm:col-span-6  w-full h-full">
           <Image
             src={landingImage}
             alt="landing page image"
             className="normal-case w-full h-[100dvh]"
           />
         </div>{" "}
-        <div className="md:col-span-5  w-full text-sm md:text-lg md:px-10">
+        <div
+          className="md:col-span-5 sm:col-span-6 w-full text-sm xl:text-lg xl:px-10 px-2 md:px-4 h-[100dvh]"
+        >
           <header className="flex items-center flex-col">
             <Image src={Logo} alt="Flourish care logo" className="w-60 " />{" "}
-            <p className="font font-semibold text-xl lg:text-4xl mb-1 lg:mb-5">
+            <p className="font font-semibold text-xl xl:text-2xl 2xl:text-4xl mb-1 xl:mb-5">
               Welcome back 👋{" "}
             </p>
           </header>
@@ -97,7 +99,7 @@ export default function Home() {
               <input
                 type="text"
                 id="email-input"
-                className=" focus:border-secondary duration-300 rounded-md lg:py-4 py-2 px-4 outline-none border-solid border-2 lg:mb-6 mb-4"
+                className=" focus:border-secondary duration-300 rounded-md 2xl:py-4 py-2 px-4 outline-none border-solid border-2 2xl:mb-6 mb-4"
               />
             </div>
 
@@ -108,7 +110,7 @@ export default function Home() {
               <input
                 type="password"
                 id="password-input"
-                className=" focus:border-secondary duration-300 rounded-md lg:py-4 py-2 px-4 outline-none border-solid border-2"
+                className=" focus:border-secondary duration-300 rounded-md 2xl:py-4 py-2 px-4 outline-none border-solid border-2"
               />
             </div>
 
@@ -120,10 +122,10 @@ export default function Home() {
             id="sign-up"
             className="flex flex-col justify-center items-center"
           >
-            <button className="bg-secondary w-full lg:py-3 py-1 rounded-md text-white">
+            <button className="bg-secondary w-full 2xl:py-3 py-1 rounded-md text-white">
               Login
             </button>
-            <p className="mt-4 lg:mt-6 text-[#98999A]">
+            <p className="mt-4 2xl:mt-6 text-[#98999A]">
               Don&apos;t have an account?{" "}
               <span className="text-secondary">Sign Up</span>
             </p>
@@ -133,7 +135,7 @@ export default function Home() {
             <p className="mx-3 text-[#555656]">or</p>
             <div className="border-b border-[#EEEEEE] flex-1"> </div>{" "}
           </div>{" "}
-          <button className="flex justify-center w-full hover:bg-secondary mt-5 rounded-md border border-secondary py-1 lg:py-4 duration-200  hover:border-secondary">
+          <button className="flex justify-center w-full hover:bg-secondary mt-5 rounded-md border border-secondary py-1 2xl:py-4 duration-200  hover:border-secondary">
             <Image src={googleLogo} alt="google logo" />
             <p className="ml-2">Continue With Google</p>{" "}
           </button>
