@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { setPosts } from "@/context/blog.slice"
 import DateUtil from "@/utils/date"
 import { RootState } from "@/context/store"
+import { useLocalStorage } from "usehooks-ts"
 
 const columns: TableColumnsType<BlogI> = [
     {
@@ -123,6 +124,7 @@ const { Search } = Input;
 
 const AllPosts: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState<string>('');
+    const [localStorage, setLocalStorage] = useLocalStorage('postsExist', false)
 
     const { data: apiData } = useGetBlogPostsQuery(null);
     const dispatch = useDispatch();
@@ -130,9 +132,12 @@ const AllPosts: React.FC = () => {
 
     useEffect(() => {
         if (apiData?.data.blogPosts) {
+            setLocalStorage(true)
             dispatch(setPosts(apiData.data.blogPosts));
+        } else {
+            setLocalStorage(false)
         }
-    }, [apiData?.data.blogPosts, dispatch]);
+    }, [apiData?.data.blogPosts, dispatch, setLocalStorage]);
 
     const filteredPosts = posts.filter(post =>
         post.title.toLowerCase().includes(searchQuery.toLowerCase())
