@@ -76,7 +76,7 @@ export const BlogForm = ({ post }: { post?: BlogI }) => {
         if (updatedPost) {
             dispatch({ create: addPosts([updatedPost]), update: updatePost(updatedPost) }[action])
             toast.success(`Post ${action}d  successfully`)
-        } 
+        }
     }
 
     const handleStatusChange = (value: string) => {
