@@ -1,14 +1,15 @@
 'use client'
 
 import Image from "next/image"
-import "./globals.css"
-import { IoEllipsisVertical } from "react-icons/io5";
+
+import { IoEllipsisVertical,IoFilterOutline } from "react-icons/io5";
 import { IoIosSearch } from "react-icons/io";
 import MetricCard from "@/components/MetricCard";
 import { RiArrowRightSLine } from "react-icons/ri";
 import AppointmentTiles from "@/components/AppointmentTiles";
 import BookingTiles from "@/components/BookingTiles";
 import { useState } from "react";
+import { FaSort } from "react-icons/fa6";
 
 
 const firstimage : string = "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-55958-614810.jpg&fm=jpg";
@@ -18,28 +19,28 @@ interface Items {
   id: number;
   url?: string;
   name: string;
-  email: string;
-  phone: number;
-  address: string;
+  date: string;
+  amount: number;
+//   address: string;
   // isActive: boolean;
 }
 
 const items : Items[] = [
    {
   id: 1,
-  url: firstimage,
-  name: "Henry",
-  email: "henry.eyo2@gmail.com",
-  phone: 9062056518,
-  address: "13 Lagos street"
+  url: secondimage,
+  name: "Cameron Williams",
+  date: "May 25, 2023 05:43 PM",
+  amount: 4800.00,
+//   address: "13 Lagos street"
 },
 {
   id: 2,
   url: secondimage,
-  name: "Simisola",
-  email: "simisola411@gmail.com",
-  phone: 3965373338,
-  address: "jubilee street Lagos"
+  name: "Cameron Williams",
+  date: "May 25, 2023 05:43 PM",
+  amount: 4800.00,
+//   address: "jubilee street Lagos"
 
 }
 
@@ -111,10 +112,30 @@ const appointments : Appointments[] = [
   date:"May 25, 2023",
   time: "05:43 PM"
 },
-
+{
+    id: 4,
+    name: "Cameron Williams",
+    tag:"Appointment ID: Flo-AM334",
+    date:"May 25, 2023",
+    time: "05:43 PM"
+  },
+  {
+    id: 5,
+    name: "Cameron Williams",
+    tag:"Appointment ID: Flo-AM334",
+    date:"May 25, 2023",
+    time: "05:43 PM"
+  },
+  {
+    id: 6,
+    name: "Cameron Williams",
+    tag:"Appointment ID: Flo-AM334",
+    date:"May 25, 2023",
+    time: "05:43 PM"
+  },
 ]
 
-export default function Home() {
+export default function Booking() {
   const [selectedItem, setSelectedItem] = useState<Items | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -130,16 +151,12 @@ const handleLeave = () => {
 
   return <main>
 
-<div className="flex justify-between items-center">
-        <div>
-    <p className="text-2xl font-semibold">General Overview</p>
-    <p className="text-sm mt-1">Welcome to the Flourish admin dashboard.</p>
 
-    </div>
 
-    <button className="bg-green-500 px-6 py-2 rounded-md text-white font-light">Create New Service</button>
-    </div>
+    <p className="text-2xl font-semibold">Bookings</p>
+    <p className="text-sm mt-1">Hub for managing all appointments and reservations made by users.</p>
 
+    
 
      {/* big flex */}
  <div className="flex items-start gap-x-12 ">
@@ -159,12 +176,14 @@ const handleLeave = () => {
     
 
 <div className="flex justify-between mt-9">
-  <p className="font-medium">All Users</p>
+  <p className="font-medium">All Appointments</p>
   
 <div className="flex items-center gap-x-4">
   <IoIosSearch />Search
+  <IoFilterOutline />Filter
+  <FaSort />Sort
   
-   <button className="bg-[#04BD4B] rounded-md text-white text-sm px-2 py-1">See All Users</button>
+  
    </div>
    
    </div>
@@ -180,15 +199,15 @@ const handleLeave = () => {
               Name
             </th>
             <th scope="col" className="px-6 py-3 font-light ">
-              Email Address
+              date
             </th>
             <th scope="col" className="px-6 py-3 font-light ">
-              Phone Number
+              Amount
             </th>
        
-            <th scope="col" className="px-6 py-3 font-light ">
+            {/* <th scope="col" className="px-6 py-3 font-light ">
               Address
-            </th>
+            </th> */}
             <th scope="col" className="px-6 py-3 font-light ">
             
             </th>
@@ -213,9 +232,9 @@ const handleLeave = () => {
                  {/* <td className="px-6 py-2">{item.id}</td> */}
      
                <td className="px-6 py-2 flex gap-x-2 items-center"><img src={item.url} className='object-cover h-5 w-5 rounded-full '/>{item.name}</td>
-                <td className="px-6 py-2">{item.email}</td>
-                <td className="px-6 py-2">{item.phone}</td>
-                <td className="px-6 py-2">{item.address}</td>
+                <td className="px-6 py-2">{item.date}</td>
+                <td className="px-6 py-2">{item.amount}</td>
+                {/* <td className="px-6 py-2">{item.address}</td> */}
                 <div onMouseEnter={() => handlePress(item)} onMouseLeave={handleLeave} className="relative cursor-pointer">
                   <IoEllipsisVertical />
                 {selectedItem && showModal && (  <div className="bg-white absolute z-100 border rounded-lg right-16 top-[-15px]">
@@ -237,10 +256,10 @@ const handleLeave = () => {
 
 
 <div>
-<div className="max-h-60 overflow-y-auto border rounded-lg mt-9 px-6">
+<div className="max-h-[500px] overflow-y-auto border rounded-lg mt-9 px-6">
       {/* <button className='border border-[#F08E1F] px-6 py-1 rounded' onClick={descendingEvent}>Latest Booking</button> */}
       <div className="flex justify-between mt-4">
-    <p className="font-semibold">Appointments <span className="bg-blue-400 rounded-full px-[5px] py-[2px] h-2 w-4 text-white text-[12px]">3</span></p>
+    <p className="font-semibold">Pending Bookings <span className="bg-blue-400 rounded-full px-[5px] py-[2px] h-2 w-4 text-white text-[12px]">6</span></p>
     <p className="flex items-center text-green-600 font-medium text-sm">See all <RiArrowRightSLine /></p>
     </div>
  
@@ -254,23 +273,7 @@ const handleLeave = () => {
     <div className="mb-4"></div>
       </div>
 
-      <div className="max-h-60 overflow-y-auto border rounded-lg mt-4 px-6">
-      {/* <button className='border border-[#F08E1F] px-6 py-1 rounded' onClick={descendingEvent}>Latest Booking</button> */}
-      <div className="flex justify-between mt-4">
-    <p className="font-semibold">Bookings <span className="bg-blue-400 rounded-full px-[5px] py-[2px] h-2 w-4 text-white text-[12px]">3</span></p>
-    <p className="flex items-center text-green-600 font-medium text-sm">See all <RiArrowRightSLine /></p>
-    </div>
- 
-      {
-        appointments.map((app) => (
-          <BookingTiles key={app.id} app={app}/>
-        ))
-      }
-
-  
-    <div className="mb-4"></div>
-      </div>
-  
+     
 </div>
 
 </div>

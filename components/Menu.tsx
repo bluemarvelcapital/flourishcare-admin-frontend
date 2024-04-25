@@ -40,6 +40,11 @@ const navItems: NavItemI[] = [
     icon: <LuBookMinus />,
   },
   {
+    name: "Transactions",
+    href: "/transactions",
+    icon: <LuBookMinus />,
+  },
+  {
     name: "Job Applications",
     href: "/job-applications",
     icon: <IoBriefcaseOutline />,
