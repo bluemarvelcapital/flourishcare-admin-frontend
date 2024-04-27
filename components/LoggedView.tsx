@@ -2,6 +2,7 @@
 import { ToastContainer } from "react-toastify"
 import { NavBar } from "./NavBar"
 import { Content } from "./Content"
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function LoggedView({
     children
@@ -10,7 +11,6 @@ export default function LoggedView({
 }>) {
     return (
         <>
-            <ToastContainer position="top-center" />
             <NavBar />
             <Content>
                 <ToastContainer />
