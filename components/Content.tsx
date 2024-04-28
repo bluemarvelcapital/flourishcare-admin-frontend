@@ -1,9 +1,16 @@
+'use client'
 import React from "react"
+import { useLocalStorage } from "usehooks-ts"
 
-interface props {
-  children: React.ReactNode
-}
+export const Content = ({ children }: { children: React.ReactNode }) => {
+    const [localStorage] = useLocalStorage('postsExists', false)
 
-export const Content: React.FC<props> = ({ children }) => {
-  return <div className="lg:ml-[18%]">{children}</div>
+    console.log({ localStorage })
+    return (
+        <>
+            {
+                localStorage ? <div className="lg:ml-[18%]">{children}</div> : <div className="lg:ml-[5%]">{children}</div>
+            }
+        </>
+    )
 }

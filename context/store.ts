@@ -1,12 +1,14 @@
 import { blogApi } from "@/services/blog.service"
 import { configureStore } from "@reduxjs/toolkit"
+import { blogSlice } from "./blog.slice"
 
 export const store = configureStore({
-  reducer: {
-    [blogApi.reducerPath]: blogApi.reducer,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(blogApi.middleware),
+    reducer: {
+        [blogApi.reducerPath]: blogApi.reducer,
+        [blogSlice.reducerPath]: blogSlice.reducer,
+    },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(blogApi.middleware),
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
