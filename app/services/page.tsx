@@ -1,5 +1,6 @@
-import Image from "next/image"
+'use client'
 
+import Image from "next/image"
 import { IoEllipsisVertical,IoFilterOutline } from "react-icons/io5";
 import { IoIosSearch } from "react-icons/io";
 import ServiceMetricCard from "@/components/ServiceMetricCard";
@@ -7,7 +8,11 @@ import { RiArrowRightSLine } from "react-icons/ri";
 import AppointmentTiles from "@/components/AppointmentTiles";
 import BookingTiles from "@/components/BookingTiles";
 import { FaSort } from "react-icons/fa6";
-
+import { useRouter } from 'next/navigation';
+import { useState } from "react";
+import EditModal from "@/components/EditModal";
+import PublishModal from "@/components/PublishModal";
+import DeleteModal from "@/components/DeleteModal";
 
 
 
@@ -126,6 +131,44 @@ const appointments : Appointments[] = [
 ]
 
 export default function Service() {
+  const [selectedItem, setSelectedItem] = useState<Items | null>(null);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
+  const [isPublishModalOpen, setIsPublishModalOpen] = useState<boolean>(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+  const router = useRouter();
+
+  const handlePress = (item: Items) => {
+    setSelectedItem(item);
+    setShowModal(true);
+  }
+
+  // const openModal = (item: Items) => {
+  //   setSelectedItem(item);
+  //   setIsEditModalOpen(true);
+  // }
+
+  const openModal = () => {
+
+    setIsEditModalOpen(true);
+  }
+
+  const openPublishModal = () => {
+
+    setIsPublishModalOpen(true);
+  }
+
+  const openDeleteModal = () => {
+
+    setIsDeleteModalOpen(true);
+  }
+
+  const closeModal = () => {
+   
+    setShowModal(!showModal)
+  }
+
+
   return <main>
     <div className="flex justify-between items-center">
         <div>
@@ -133,18 +176,14 @@ export default function Service() {
     <p className="text-sm mt-1">Welcome to the Service Section</p>
     </div>
 
-    <button className="bg-green-500 px-6 py-2 rounded-md text-white font-light">Create New Service</button>
+    <button onClick={() => openPublishModal()} className="bg-green-500 px-6 py-2 rounded-md text-white font-light">Create New Service</button>
     </div>
-
-
 
   <div>
   <div className="flex justify-between gap-x-9 mt-9">
 {
   metrics.map((m) => (
-  
     <ServiceMetricCard key={m.id} metric={m} />
-  
   ))
 }
 </div>
@@ -178,10 +217,6 @@ export default function Service() {
             <th scope="col" className="px-6 py-3 font-light ">
               Category
             </th>
-            {/* <th scope="col" className="px-6 py-3 font-light ">
-              Phone Number
-            </th> */}
-       
             <th scope="col" className="px-6 py-3 font-light ">
               Description
             </th>
@@ -192,16 +227,7 @@ export default function Service() {
                 Created
             </th>
             <th scope="col" className="px-6 py-3 font-light ">
-          
             </th>
-          
-            {/* <th scope="col" className="px-6 py-3 font-light text-[#F08E1F]">
-              edit
-            </th>
-            <th scope="col" className="px-6 py-3 font-light text-[#F08E1F]">
-              delete
-            </th> */}
- 
           </tr>
         </thead>
         <tbody>
@@ -209,7 +235,7 @@ export default function Service() {
             {items.map((item) => (
               <tr
                 className="bg-white hover:bg-gray-200 text-[#6A6B6C]"
-                key={item.id}
+                key={item.id} onClick={() => setShowModal(!showModal)}
                 //  onClick={()=>navigate(`/reservedetail/${item._id}`)}
               >
                  {/* <td className="px-6 py-2">{item.id}</td> */}
@@ -220,23 +246,27 @@ export default function Service() {
                 <td className="px-6 py-2">{item.description}</td>
                 <td className="px-6 py-2">€{item.price}</td>
                 <td className="px-6 py-2">{item.created}</td>
+                <div onClick={() => handlePress(item)} className="relative cursor-pointer">
                 <IoEllipsisVertical />
+                {selectedItem && selectedItem.id === item.id && showModal && (<div className="bg-white absolute z-100 border rounded-lg right-16 top-[-15px] shadow-lg">
+                      <p onClick={() => { router.push(`/overviewTable/${selectedItem.id}`) }} className=" hover:bg-blue-100 hover:text-blue-600 px-9 py-2">View</p>
+                      <p onClick={() => openModal()}  className="hover:bg-blue-100 hover:text-blue-600 px-9 py-2">Edit</p>
+                     {/* {selectedItem && selectedItem.id === item.id && isEditModalOpen && (<EditModal isOpen={isEditModalOpen} onClose={closeModal} title="Baby" content={""} />)}  */}
+                     {/* <EditModal isOpen={isEditModalOpen} onClose={closeModal} title="Baby" content={""} /> */}
+                      <p onClick={() => openDeleteModal()}  className=" hover:bg-blue-100 hover:text-blue-600 px-9 py-2">Delete</p>
+                      <p onClick={() => openPublishModal()}  className=" hover:bg-blue-100 hover:text-blue-600 px-9 py-2">Publish</p>
 
-                {/* <Link to={`/bookingitem/${item.id}`}><td className="px-6 py-2"><HiOutlineArchiveBox className='mt-3'/></td></Link>
-                <td className="px-6 py-2" onClick={() => handleDelete(item.id)}><SlTrash className='text-red-800'/></td> */}
-               
+                    </div>)}
+                  </div>
+
               </tr>
             ))}
         </tbody>
       </table>
       </div>
   </div>
-
-
-
-
-
-
- 
+  <EditModal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} title="Baby" content={""} />
+  <PublishModal isOpen={isPublishModalOpen} onClose={() => setIsPublishModalOpen(false)} title="Baby" content={""} />
+  <DeleteModal isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} title="Baby" content={""} />
   </main>
 }
