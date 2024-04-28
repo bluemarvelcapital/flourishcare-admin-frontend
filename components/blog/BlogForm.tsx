@@ -195,7 +195,7 @@ export const BlogForm = ({ post }: { post?: BlogI }) => {
                         form.setFieldValue('cover_image', image)
                     }} />
                 </Form.Item>
-                <Button loading={createIsLoading || updateIsLoading} type="primary" htmlType="submit" className="bg-secondary w-full" size="large">
+                <Button loading={createIsLoading || updateIsLoading} type="" htmlType="submit" className="bg-secondary w-full" size="large">
                     {
                         post?.id ? 'Update Post' : 'Create Post'
                     }

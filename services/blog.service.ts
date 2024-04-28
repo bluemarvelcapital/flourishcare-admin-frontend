@@ -16,13 +16,8 @@ interface UpdateBlogPostResponse {
     }
 }
 
-const mappedKeys = {
-    preview_image: 'previewImage',
-    cover_image: 'coverImage',
-}
-
 export const blogApi = createApi({
-    reducerPath: "createApi",
+    reducerPath: "blogApi",
     baseQuery: fetchBaseQuery({ baseUrl: `${api_url}/blog` }),
     endpoints: (builder) => {
         return {
