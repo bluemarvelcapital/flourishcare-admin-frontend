@@ -1,12 +1,20 @@
 'use client'
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import landingImage from "../../../public/images/landing-page-image.png";
 import Logo from "../../../public/logo2.png";
 import googleLogo from "../../../public/images/google-logo.png";
 import { Button, Form, Input } from "antd";
+import { useLoginMutation } from "@/services/auth.service";
+import { useDispatch } from "react-redux";
+import { setAuth } from "@/context/auth.slice";
+import { toast } from "react-toastify";
 
 export default function Home() {
-    const [form] = Form.useForm<{ email: string, password: string}>()
+    const router = useRouter()
+    const [form] = Form.useForm<{ email: string, password: string }>()
+    const [login, { isLoading: loginIsLoading }] = useLoginMutation()
+    const dispatch = useDispatch()
 
     return (
         <div className="grid sm:grid-cols-12 bg-white w-full xl:gap-x-14">
@@ -34,7 +42,21 @@ export default function Home() {
                     </p>
                 </header>
                 <div id="input-section">
-                    <Form layout='vertical'>
+                    <Form layout='vertical' onFinish={(values: { email: string, password: string }) => {
+                        login(values).unwrap()
+                            .then((res) => {
+                                toast.success('Login successful')
+
+                                // TODO: Change to direct to dashboard overview instead of blog section
+                                dispatch(setAuth({
+                                    user: res.data.user,
+                                    accessToken: res.data.accessToken,
+                                    refreshToken: res.data.refreshToken
+                                }))
+                                window.history.pushState({}, '', '/blog')
+                            })
+                            .catch((err) => toast.error(err.message))
+                    }} form={form}>
                         <Form.Item
                             label='Email'
                             name='email'

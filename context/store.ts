@@ -12,7 +12,7 @@ export const store = configureStore({
         [authSlice.reducerPath]: blogSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(blogApi.middleware),
+        getDefaultMiddleware().concat([blogApi.middleware, authApi.middleware]),
 
 })
 
