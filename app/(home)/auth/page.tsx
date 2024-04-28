@@ -54,6 +54,7 @@ export default function Home() {
                                     refreshToken: res.data.refreshToken
                                 }))
                                 window.history.pushState({}, '', '/blog')
+                                window.location.reload()
                             })
                             .catch((err) => toast.error(err.message))
                     }} form={form}>

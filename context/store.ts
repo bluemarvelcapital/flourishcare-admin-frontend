@@ -9,7 +9,7 @@ export const store = configureStore({
         [blogApi.reducerPath]: blogApi.reducer,
         [authApi.reducerPath]: authApi.reducer,
         [blogSlice.reducerPath]: blogSlice.reducer,
-        [authSlice.reducerPath]: blogSlice.reducer,
+        [authSlice.reducerPath]: authSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat([blogApi.middleware, authApi.middleware]),

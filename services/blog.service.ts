@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 import { api_url } from "@/constants/API_URL"
 import { BlogI } from "@/types/blog"
+import { fetchBaseQueryWithAuth } from "./customQuery"
 
 interface GetBlogPostsResponse {
     status: 'success',
@@ -18,13 +19,13 @@ interface UpdateBlogPostResponse {
 
 export const blogApi = createApi({
     reducerPath: "blogApi",
-    baseQuery: fetchBaseQuery({ baseUrl: `${api_url}/blog` }),
+    baseQuery: fetchBaseQueryWithAuth({ baseUrl: `${api_url}/blog` }),
     endpoints: (builder) => {
         return {
             getBlogPosts: builder.query<GetBlogPostsResponse, any>({
                 query: () => {
                     return {
-                        url: "/",
+                        url: "/all",
                     }
                 },
             }),

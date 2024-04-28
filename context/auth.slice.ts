@@ -25,7 +25,16 @@ export const authSlice = createSlice({
             localStorage.setItem('accessToken', action.payload.accessToken)
             localStorage.setItem('refreshToken', action.payload.refreshToken)
         },
+        logOut: (state) => {
+            state.user = undefined
+            state.accessToken = null as any
+            state.refreshToken = null as any
+
+            localStorage.removeItem('user')
+            localStorage.removeItem('accessToken')
+            localStorage.removeItem('refreshToken')
+        }
     }
 })
 
-export const { setAuth } = authSlice.actions
+export const { setAuth, logOut } = authSlice.actions
