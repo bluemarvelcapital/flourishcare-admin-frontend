@@ -46,7 +46,7 @@ const navItems: NavItemI[] = [
   },
   {
     name: "Job Applications",
-    href: "/job-applications",
+    href: "/jobapplications",
     icon: <IoBriefcaseOutline />,
   },
   {
