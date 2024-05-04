@@ -10,6 +10,7 @@ import AppointmentTiles from "@/components/AppointmentTiles";
 import BookingTiles from "@/components/BookingTiles";
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
+import DeleteModal from "@/components/DeleteModal";
 
 
 const firstimage: string = "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-55958-614810.jpg&fm=jpg";
@@ -136,6 +137,7 @@ const appointments: Appointments[] = [
 export default function Home() {
   const [selectedItem, setSelectedItem] = useState<Items | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const router = useRouter();
 
   const handlePress = (item: Items) => {
@@ -144,6 +146,10 @@ export default function Home() {
   }
 
 
+  const openDeleteModal = () => {
+
+    setIsDeleteModalOpen(true);
+  }
 
 
   return <main >
@@ -243,7 +249,7 @@ export default function Home() {
               <IoEllipsisVertical />
               {selectedItem && selectedItem.id === item.id && showModal && (<div className="bg-white absolute z-100 border rounded-lg right-16 top-[-15px]">
                 <p onClick={() => { router.push(`/overviewTable/${selectedItem.id}`) }} className="border-b hover:bg-blue-100 hover:text-blue-600 px-6 py-2">View</p>
-                <p className="border-b hover:bg-blue-100 hover:text-blue-600 px-6 py-2">Delete</p>
+                <p onClick={() => openDeleteModal()}   className="border-b hover:bg-blue-100 hover:text-blue-600 px-6 py-2">Delete</p>
 
               </div>)}
             </div>
@@ -299,6 +305,7 @@ export default function Home() {
 </div>
 
 </div>
+<DeleteModal isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} title="Baby" content={""} />
 
   </main>
 }
