@@ -64,12 +64,12 @@ const page = () => {
             <p onClick={changeLook5} className={`${look5 ? 'text-blue-400' : 'text-gray-600'} font-medium cursor-pointer`}>Preferences</p>
         </div>
 
-   {look? (<div className='bg-blue-400 h-1 w-[64px] absolute bottom-[574px] '></div>) : null }
+   {look? (<div className='bg-blue-400 h-1 w-[64px] absolute bottom-[574px]'></div>) : null }
   
    {look2 ? (<div className='bg-blue-400 h-1 w-[94px] absolute bottom-[574px] left-[500px]'></div>) : null }
         {look3 ? (<div className='bg-blue-400 h-1 w-[94px] absolute bottom-[574px] left-[670px]'></div>) : null}
         {look4 ? (<div className='bg-blue-400 h-1 w-[94px] absolute bottom-[574px] left-[835px]'></div>) : null}
-        {look5 ? (<div className='bg-blue-400 h-1 w-[94px] absolute bottom-[574px] left-[1020px]'></div>) : null}
+        {look5 ? (<div className='bg-blue-400 h-1 w-[94px] absolute bottom-[574px]left-[1020px] '></div>) : null}
         <div className='border-b-2 mt-8'> </div>
 
 

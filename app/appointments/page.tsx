@@ -8,8 +8,11 @@ import MetricCard from "@/components/MetricCard";
 import { RiArrowRightSLine } from "react-icons/ri";
 import AppointmentTiles from "@/components/AppointmentTiles";
 import BookingTiles from "@/components/BookingTiles";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import { FaSort } from "react-icons/fa6";
+import { useRouter } from 'next/navigation';
+import { MdLocalPhone } from "react-icons/md";
+import { MdOutlineMessage } from "react-icons/md";
 
 
 const firstimage : string = "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-55958-614810.jpg&fm=jpg";
@@ -37,7 +40,7 @@ const items : Items[] = [
 {
   id: 2,
   url: secondimage,
-  name: "Cameron Williams",
+  name: "Daniel Elliot",
   date: "May 25, 2023 05:43 PM",
   amount: 4800.00,
 //   address: "jubilee street Lagos"
@@ -138,11 +141,24 @@ const appointments : Appointments[] = [
 export default function Appointment() {
   const [selectedItem, setSelectedItem] = useState<Items | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const router = useRouter();
 
 const handlePress = (item : Items) => {
   setSelectedItem(item);
   setShowModal(true);
 }
+
+
+    // Function to handle search input change
+    const handleSearchInputChange = (e: { target: { value: SetStateAction<string>; }; }) => {
+      setSearchQuery(e.target.value);
+    };
+  
+    // Filtered data based on search query
+    const filteredData = items.filter((item) =>
+      item.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
 const handleLeave = () => {
 
@@ -179,7 +195,12 @@ const handleLeave = () => {
   <p className="font-medium">All Appointments</p>
   
 <div className="flex items-center gap-x-4">
-  <IoIosSearch />Search
+  <IoIosSearch /><input 
+  type="text"
+  value={searchQuery}
+  onChange={handleSearchInputChange}
+  className="border px-2 py-1 rounded-lg"
+   placeholder="search by name"/>
   <IoFilterOutline />Filter
   <FaSort />Sort
   
@@ -223,7 +244,7 @@ const handleLeave = () => {
         </thead>
         <tbody>
       
-            {items.map((item) => (
+            {filteredData.map((item) => (
               <tr
                 className="bg-white hover:bg-gray-200 text-[#6A6B6C]"
                 key={item.id}
@@ -231,18 +252,21 @@ const handleLeave = () => {
               >
                  {/* <td className="px-6 py-2">{item.id}</td> */}
      
-               <td className="px-6 py-2 flex gap-x-2 items-center"><img src={item.url} className='object-cover h-5 w-5 rounded-full '/>{item.name}</td>
+               <td className="px-6 py-3 flex gap-x-2 items-center"><img src={item.url} className='object-cover h-5 w-5 rounded-full '/>{item.name}</td>
                 <td className="px-6 py-2">{item.date}</td>
-                <td className="px-6 py-2">{item.amount}</td>
+                <td className="px-6 py-2">€{item.amount}</td>
                 {/* <td className="px-6 py-2">{item.address}</td> */}
-                <div onMouseEnter={() => handlePress(item)} onMouseLeave={handleLeave} className="relative cursor-pointer">
-                  <IoEllipsisVertical />
-                {selectedItem && showModal && (  <div className="bg-white absolute z-100 border rounded-lg right-16 top-[-15px]">
+                {/* <div onMouseEnter={() => handlePress(item)} onMouseLeave={handleLeave} className="relative cursor-pointer"> */}
+        
+                  <button className="border px-3 py-1"><MdLocalPhone size={20} /></button>
+                  <button className="bg-[#04BD4B] px-3 py-1 ml-2 text-white"><div className="flex items-center gap-x-2"><MdOutlineMessage size={20} />Message</div></button>
+
+                {/* {selectedItem && showModal && (  <div className="bg-white absolute z-100 border rounded-lg right-16 top-[-15px]">
                     <p className="border-b hover:bg-blue-100 hover:text-blue-600 px-6 py-2">View</p>
                     <p className="border-b hover:bg-blue-100 hover:text-blue-600 px-6 py-2">Delete</p>
 
                   </div>)}
-                  </div>
+                  </div> */}
 
                 {/* <Link to={`/bookingitem/${item.id}`}><td className="px-6 py-2"><HiOutlineArchiveBox className='mt-3'/></td></Link>
                 <td className="px-6 py-2" onClick={() => handleDelete(item.id)}><SlTrash className='text-red-800'/></td> */}
@@ -265,7 +289,9 @@ const handleLeave = () => {
  
       {
         appointments.map((app) => (
+          <div onClick={() => { router.push(`/appointmentpage/${app.id}`) }} >
           <AppointmentTiles key={app.id} app={app}/>
+          </div>
         ))
       }
 

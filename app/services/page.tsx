@@ -9,7 +9,7 @@ import AppointmentTiles from "@/components/AppointmentTiles";
 import BookingTiles from "@/components/BookingTiles";
 import { FaSort } from "react-icons/fa6";
 import { useRouter } from 'next/navigation';
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import EditModal from "@/components/EditModal";
 import PublishModal from "@/components/PublishModal";
 import DeleteModal from "@/components/DeleteModal";
@@ -43,7 +43,7 @@ const items : Items[] = [
 {
     id: 2,
     url: firstimage,
-    title: "Home Care - Domiciliary",
+    title: "School Care - Domiciliary",
     category: "Social Care",
     description: "Our home care service assists with",
     price : 2000,
@@ -52,7 +52,7 @@ const items : Items[] = [
   {
     id: 3,
     url: firstimage,
-    title: "Home Care - Domiciliary",
+    title: "Church Care - Domiciliary",
     category: "Social Care",
     description: "Our home care service assists with",
     price : 2000,
@@ -136,12 +136,23 @@ export default function Service() {
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [isPublishModalOpen, setIsPublishModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const router = useRouter();
 
   const handlePress = (item: Items) => {
     setSelectedItem(item);
     setShowModal(true);
   }
+
+    // Function to handle search input change
+    const handleSearchInputChange = (e: { target: { value: SetStateAction<string>; }; }) => {
+      setSearchQuery(e.target.value);
+    };
+  
+    // Filtered data based on search query
+    const filteredData = items.filter((item) =>
+      item.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
   // const openModal = (item: Items) => {
   //   setSelectedItem(item);
@@ -194,8 +205,13 @@ export default function Service() {
 <div className="flex justify-between mt-9">
   <p className="font-medium">All Services</p>
   
-<div className="flex items-center gap-x-4">
-  <IoIosSearch />Search
+<div className="flex items-center gap-x-3">
+  <IoIosSearch /><input 
+  type="text"
+  value={searchQuery}
+  onChange={handleSearchInputChange}
+  className="border px-2 py-1 rounded-lg"
+   placeholder="search by title"/>
   <IoFilterOutline />Filter
   <FaSort />Sort
   
@@ -232,7 +248,8 @@ export default function Service() {
         </thead>
         <tbody>
       
-            {items.map((item) => (
+            {/* {items.map((item) => ( */}
+            {filteredData.map((item) => (
               <tr
                 className="bg-white hover:bg-gray-200 text-[#6A6B6C]"
                 key={item.id} onClick={() => setShowModal(!showModal)}
