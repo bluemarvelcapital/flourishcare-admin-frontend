@@ -149,7 +149,7 @@ export default function Transaction() {
     
 
 <div className="flex justify-between mt-9">
-  <p className="font-medium">All Services</p>
+  <p className="font-medium">All Transactions</p>
   
 <div className="flex items-center gap-x-4">
   <IoIosSearch />Search
@@ -163,7 +163,7 @@ export default function Transaction() {
 <div className="max-h-60 overflow-y-auto border rounded-lg mt-4">
       {/* <button className='border border-[#F08E1F] px-6 py-1 rounded' onClick={descendingEvent}>Latest Booking</button> */}
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 mt-5">
-        <thead className=" text-[#555656]">
+        <thead className="bg-[#66ACDC] text-white">
           <tr >
           {/* <th scope="col" className="px-6 py-3 font-light text-[#F">
               id

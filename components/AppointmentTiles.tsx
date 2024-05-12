@@ -6,13 +6,16 @@ interface App {
 
 
 
-
 const AppointmentTiles : React.FC<App> = ({app}) => {
   return (
-    <div className="flex justify-between gap-x-24 mt-4">
+    <div className="flex justify-between gap-x-24 mt-4 items-center py-1">
+
+      <div className='flex items-center gap-x-2'>
+      <span className='text-[12px] text-[#555656] font-medium'>{app.id}</span>
          <div>
-      <p><span className='text-[12px] font-light'>{app.id}</span>{app.name}</p>
-      <p className="bg-[#D3F4FB] text-[10px] px-2">{app.tag}</p>
+      <p className='text-[#555656]'>{app.name}</p>
+      <p className="bg-[#daedf4] rounded-md text-[#555656] text-[10px] px-2">{app.tag}</p>
+      </div>
       </div>
 
       <div>

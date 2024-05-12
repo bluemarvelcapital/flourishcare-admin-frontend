@@ -197,28 +197,28 @@ export default function Home() {
     </div>
 
   </div>
-  <div className="max-h-60 overflow-y-auto border rounded-lg mt-4">
+  <div className="max-h-60 overflow-y-auto border rounded-lg mt-4 bg-[#66ACDC]">
     {/* <button className='border border-[#F08E1F] px-6 py-1 rounded' onClick={descendingEvent}>Latest Booking</button> */}
-    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 mt-5">
-      <thead className="bg-[#D3F4FB] text-[#555656]">
+    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 mt-1">
+      <thead className="bg-[#66ACDC] text-white">
         <tr >
           {/* <th scope="col" className="px-6 py-3 font-light text-[#F">
         id
       </th> */}
-          <th scope="col" className="px-6 py-3 font-light">
+          <th scope="col" className="px-6 py-2 font-light">
             Name
           </th>
-          <th scope="col" className="px-6 py-3 font-light ">
+          <th scope="col" className="px-6 py-2 font-light ">
             Email Address
           </th>
-          <th scope="col" className="px-6 py-3 font-light ">
+          <th scope="col" className="px-6 py-2 font-light ">
             Phone Number
           </th>
 
-          <th scope="col" className="px-6 py-3 font-light ">
+          <th scope="col" className="px-6 py-2 font-light ">
             Address
           </th>
-          <th scope="col" className="px-6 py-3 font-light ">
+          <th scope="col" className="px-6 py-2 font-light ">
 
           </th>
 
@@ -241,10 +241,10 @@ export default function Home() {
           >
             {/* <td className="px-6 py-2">{item.id}</td> */}
 
-            <td className="px-6 py-2 flex gap-x-2 items-center"><img src={item.url} className='object-cover h-5 w-5 rounded-full ' />{item.name}</td>
-            <td className="px-6 py-2">{item.email}</td>
-            <td className="px-6 py-2">{item.phone}</td>
-            <td className="px-6 py-2">{item.address}</td>
+            <td className="px-6 py-3 flex gap-x-2 items-center"><img src={item.url} className='object-cover h-5 w-5 rounded-full ' />{item.name}</td>
+            <td className="px-6 py-3">{item.email}</td>
+            <td className="px-6 py-3">{item.phone}</td>
+            <td className="px-6 py-3">{item.address}</td>
             <div onClick={() => handlePress(item)} className="relative cursor-pointer">
               <IoEllipsisVertical />
               {selectedItem && selectedItem.id === item.id && showModal && (<div className="bg-white absolute z-100 border rounded-lg right-16 top-[-15px]">

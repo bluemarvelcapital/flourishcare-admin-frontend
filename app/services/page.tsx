@@ -219,30 +219,30 @@ export default function Service() {
    </div>
    
    </div>
-<div className="max-h-60 overflow-y-auto border rounded-lg mt-4">
+<div className="max-h-60 overflow-y-auto border rounded-lg mt-4 bg-[#66ACDC]">
       {/* <button className='border border-[#F08E1F] px-6 py-1 rounded' onClick={descendingEvent}>Latest Booking</button> */}
-      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 mt-5">
-        <thead className="bg-[#D3F4FB] text-[#555656]">
+      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 mt-1">
+        <thead className="bg-[#66ACDC] text-white">
           <tr >
           {/* <th scope="col" className="px-6 py-3 font-light text-[#F">
               id
             </th> */}
-            <th scope="col" className="px-6 py-3 font-light">
+            <th scope="col" className="px-6 py-2 font-light">
               Title
             </th>
-            <th scope="col" className="px-6 py-3 font-light ">
+            <th scope="col" className="px-6 py-2 font-light ">
               Category
             </th>
-            <th scope="col" className="px-6 py-3 font-light ">
+            <th scope="col" className="px-6 py-2 font-light ">
               Description
             </th>
-            <th scope="col" className="px-6 py-3 font-light ">
+            <th scope="col" className="px-6 py-2 font-light ">
                 Price
             </th>
-            <th scope="col" className="px-6 py-3 font-light ">
+            <th scope="col" className="px-6 py-2 font-light ">
                 Created
             </th>
-            <th scope="col" className="px-6 py-3 font-light ">
+            <th scope="col" className="px-6 py-2 font-light ">
             </th>
           </tr>
         </thead>
@@ -257,7 +257,7 @@ export default function Service() {
               >
                  {/* <td className="px-6 py-2">{item.id}</td> */}
      
-               <td className="px-6 py-2 flex gap-x-2 items-center"><img src={item.url} className='object-cover h-5 w-9 rounded-md '/>{item.title}</td>
+               <td className="px-6 py-4 flex gap-x-2 items-center"><img src={item.url} className='object-cover h-5 w-9 rounded-md '/>{item.title}</td>
                 {/* <td className="px-6 py-2">{item.title}</td> */}
                 <td className="px-6 py-2">{item.category}</td>
                 <td className="px-6 py-2">{item.description}</td>
