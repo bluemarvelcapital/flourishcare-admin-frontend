@@ -162,7 +162,7 @@ export const AllPosts: React.FC = () => {
           className="md:w-[350px]"
         />
       </div>
-      <Table columns={columns} dataSource={data} onChange={onChange} />
+      <Table columns={columns} dataSource={[]} onChange={onChange} />
     </div>
   )
 }
