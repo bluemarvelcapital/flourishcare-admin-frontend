@@ -1,4 +1,4 @@
-const api_url_dev = "https://c583-197-210-28-236.ngrok-free.app/api/v1"
+const api_url_dev = "https://flourishcare-api.onrender.com"
 const api_url_prod = ""
 
 export const api_url =
