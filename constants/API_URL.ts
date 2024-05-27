@@ -1,4 +1,4 @@
-const api_url_dev = "https://flourishcare-api.onrender.com"
+const api_url_dev = "https://flourishcare-api.onrender.com/api/v1"
 const api_url_prod = ""
 
 export const api_url =
