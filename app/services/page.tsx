@@ -184,7 +184,7 @@ export default function Service() {
     <div className="flex justify-between items-center">
         <div>
     <p className="text-2xl font-semibold">Services</p>
-    <p className="text-sm mt-1">Welcome to the Service Section</p>
+    <p className="text-sm mt-1">Welcome to the Service Section.</p>
     </div>
 
     <button onClick={() => openPublishModal()} className="bg-green-500 px-6 py-2 rounded-md text-white font-light">Create New Service</button>
