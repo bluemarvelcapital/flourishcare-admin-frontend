@@ -1,20 +1,20 @@
-"use client"
-import { useRouter } from "next/navigation"
-import Image from "next/image"
-import landingImage from "../../../public/images/landing-page-image.png"
-import Logo from "../../../public/logo2.png"
-import googleLogo from "../../../public/images/google-logo.png"
-import { Button, Form, Input } from "antd"
-import { useLoginMutation } from "@/services/auth.service"
-import { useDispatch } from "react-redux"
-import { setAuth } from "@/context/auth.slice"
-import { toast } from "react-toastify"
+"use client";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import landingImage from "../../../public/images/landing-page-image.png";
+import Logo from "../../../public/logo2.png";
+import googleLogo from "../../../public/images/google-logo.png";
+import { Button, Form, Input } from "antd";
+import { useLoginMutation } from "@/services/auth.service";
+import { useDispatch } from "react-redux";
+import { setAuth } from "@/context/auth.slice";
+import { toast } from "react-toastify";
 
-export default function Home() {
-  const router = useRouter()
-  const [form] = Form.useForm<{ email: string; password: string }>()
-  const [login, { isLoading: loginIsLoading }] = useLoginMutation()
-  const dispatch = useDispatch()
+export default function Auth() {
+  const router = useRouter();
+  const [form] = Form.useForm<{ email: string; password: string }>();
+  const [login, { isLoading: loginIsLoading }] = useLoginMutation();
+  const dispatch = useDispatch();
 
   return (
     <div className="grid sm:grid-cols-12 bg-white w-full xl:gap-x-14">
@@ -53,7 +53,7 @@ export default function Home() {
               login(values)
                 .unwrap()
                 .then((res) => {
-                  toast.success("Login successful")
+                  toast.success("Login successful");
 
                   // TODO: Change to direct to dashboard overview instead of blog section
                   dispatch(
@@ -61,15 +61,15 @@ export default function Home() {
                       user: res.data.user,
                       accessToken: res.data.accessToken,
                       refreshToken: res.data.refreshToken,
-                    })
-                  )
-                  router.replace("/blog")
+                    }),
+                  );
+                  router.replace("/blog");
                 })
                 .catch((err) =>
                   toast.error(
-                    err?.message || err?.data?.message || "An Error Occured"
-                  )
-                )
+                    err?.message || err?.data?.message || "An Error Occured",
+                  ),
+                );
             }}
             form={form}
           >
@@ -147,5 +147,5 @@ export default function Home() {
                 </button> */}
       </div>
     </div>
-  )
+  );
 }
