@@ -342,6 +342,7 @@ export default function Service() {
       </table>
       </div>
   </div>
+  
   <EditModal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} title="Baby" content={""} />
   <PublishModal isOpen={isPublishModalOpen} onClose={() => setIsPublishModalOpen(false)} title="Baby" content={""} />
   <DeleteModal isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} title="Baby" content={""} />
