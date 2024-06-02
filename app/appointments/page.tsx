@@ -13,6 +13,8 @@ import { FaSort } from "react-icons/fa6";
 import { useRouter } from 'next/navigation';
 import { MdLocalPhone } from "react-icons/md";
 import { MdOutlineMessage } from "react-icons/md";
+import { Menu } from "@/components/Menu";
+import { useAuth } from "@/context/authContext";
 
 
 const firstimage : string = "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-55958-614810.jpg&fm=jpg";
@@ -165,9 +167,19 @@ const handleLeave = () => {
   setShowModal(false);
 }
 
+interface User {
+  name: string;
+  [key: string]: any; // Add other user properties as needed
+}
+
+const { user, logout } = useAuth();
+
+
   return <main>
 
-
+<div className="h-screen fixed top-0 left-0 lg:w-[18%] w-[300px] border-r-[0.5px] border-r-[#D2DBEC] z-[10] bg-[#fafafa] py-[2rem] md:px-[2rem] px-[1rem] lg:block hidden">
+{user && <Menu user={user as User} />}
+</div>
 
     <p className="text-2xl font-semibold">Appointments</p>
     <p className="text-sm mt-1">Welcome to the Appointment Page, your window into the booked appointments by our valued users.</p>

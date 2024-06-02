@@ -15,7 +15,7 @@ const page = () => {
 
 <div className='flex justify-between mt-9 gap-x-12'>
 
-        <div className='flex flex-col items-center'>
+        <div className='flex flex-col items-center ml-6'>
         <img src={firstimage} className='object-cover h-[71px] w-[70px] rounded-full' />
         <p className='text-white px-2 rounded-full bg-[#1C871B] flex justify-center mt-4'>Verified <HiOutlineCheckBadge color='#1C871B' /></p>
         <button className='bg-[#66ACDC] text-white px-6 py-1 rounded-md mt-4'>Contact User</button>

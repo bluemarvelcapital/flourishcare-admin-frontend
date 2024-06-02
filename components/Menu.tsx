@@ -13,6 +13,7 @@ import { Avatar } from "antd"
 import { CgLogOut } from "react-icons/cg"
 import { IUser } from "@/types/user"
 
+
 interface NavItemI {
     name: string
     href: string
@@ -57,7 +58,13 @@ const navItems: NavItemI[] = [
     },
 ]
 
-export const Menu = ({ user }: { user: IUser }) => {
+interface User {
+    name: string;
+    [key: string]: any; // Add other user properties as needed
+  }
+
+export const Menu = ({ user }: { user :User }) => {
+    
     const pathName = usePathname()
     const active = true
     return (
@@ -86,7 +93,7 @@ export const Menu = ({ user }: { user: IUser }) => {
                 <p className="text-primary">Profile</p>
                 <div className="my-4 flex gap-3 items-center text-[14px] font-[500]">
                     <Avatar size={50} className="bg-secondary">
-                        JW
+                        {user.firstname.charAt(0).toUpperCase()}{user.lastname.charAt(0).toUpperCase()}
                     </Avatar>
                     <div>
                         <p>{user.firstname} {user.lastname}</p>

@@ -9,57 +9,66 @@ import AppointmentTiles from "@/components/AppointmentTiles";
 import BookingTiles from "@/components/BookingTiles";
 import { FaSort } from "react-icons/fa6";
 import { useRouter } from 'next/navigation';
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useState, useEffect } from "react";
 import EditModal from "@/components/EditModal";
 import PublishModal from "@/components/PublishModal";
 import DeleteModal from "@/components/DeleteModal";
+import { Menu } from "@/components/Menu";
+import { useAuth } from "@/context/authContext";
+import axios from "axios";
 
 
 
 const firstimage : string = "https://static.vecteezy.com/system/resources/previews/000/273/744/non_2x/valentine-s-day-background-with-hearts-design-vector.jpg";
 // const secondimage : string = "https://img.freepik.com/free-photo/portrait-smiling-happy-young-man-isolated-white_186202-6708.jpg";
 
+
+
+interface serviceCategory {
+  name: string;
+}
+
 interface Items {
   id: number;
-  url?: string;
-  title: string;
-  category: string;
+  previewImage?: string;
+  name: string;
+  serviceCategory: serviceCategory[];
   description: string;
   price: number;
-  created : string;
+  createdAt : string;
   // isActive: boolean;
 }
 
-const items : Items[] = [
-   {
-  id: 1,
-  url: firstimage,
-  title: "Home Care - Domiciliary",
-  category: "Social Care",
-  description: "Our home care service assists with",
-  price : 2000,
-  created: "May 25, 2023 05:43 PM"
-},
-{
-    id: 2,
-    url: firstimage,
-    title: "School Care - Domiciliary",
-    category: "Social Care",
-    description: "Our home care service assists with",
-    price : 2000,
-    created: "May 25, 2023 05:43 PM"
-  },
-  {
-    id: 3,
-    url: firstimage,
-    title: "Church Care - Domiciliary",
-    category: "Social Care",
-    description: "Our home care service assists with",
-    price : 2000,
-    created: "May 25, 2023 05:43 PM"
-  },
+// const items : Items[] = [
+//    {
+//   id: 1,
+//   url: firstimage,
+//   title: "Home Care - Domiciliary",
+//   category: "Social Care",
+//   description: "Our home care service assists with",
+//   price : 2000,
+//   created: "May 25, 2023 05:43 PM"
+// },
+// {
+//     id: 2,
+//     url: firstimage,
+//     title: "School Care - Domiciliary",
+//     category: "Social Care",
+//     description: "Our home care service assists with",
+//     price : 2000,
+//     created: "May 25, 2023 05:43 PM"
+//   },
+//   {
+//     id: 3,
+//     url: firstimage,
+//     title: "Church Care - Domiciliary",
+//     category: "Social Care",
+//     description: "Our home care service assists with",
+//     price : 2000,
+//     created: "May 25, 2023 05:43 PM"
+//   },
 
-]
+// ]
 
 
 interface Metrics {
@@ -131,6 +140,7 @@ const appointments : Appointments[] = [
 ]
 
 export default function Service() {
+  const [data, setData] = useState<Items[]>([]);
   const [selectedItem, setSelectedItem] = useState<Items | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
@@ -138,6 +148,8 @@ export default function Service() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const router = useRouter();
+
+  console.log("this is for service",data)
 
   const handlePress = (item: Items) => {
     setSelectedItem(item);
@@ -150,8 +162,8 @@ export default function Service() {
     };
   
     // Filtered data based on search query
-    const filteredData = items.filter((item) =>
-      item.title.toLowerCase().includes(searchQuery.toLowerCase())
+    const filteredData = data.filter((item) =>
+      item.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
   // const openModal = (item: Items) => {
@@ -179,8 +191,56 @@ export default function Service() {
     setShowModal(!showModal)
   }
 
+  interface User {
+    name: string;
+    [key: string]: any; // Add other user properties as needed
+  }
+  
+
+  const URL = process.env.NEXT_PUBLIC_API_URL as string;
+
+
+
+
+  //fetching User endpoint
+  const fetchData = async (page = 1, limit = 10, status = 'ACTIVE', ) => {
+    try {
+      const accessToken = localStorage.getItem("access_token");
+
+      if (!accessToken) {
+        console.error('Access token not found');
+        return;
+      }
+
+      const res = await axios.get(`${URL}/api/v1/service`, {
+        params: { page, limit, status },
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setData(res.data.data.services); // Update according to actual API response structure
+      console.log("Henry look see services here ->", res.data)
+    } catch (error) {
+      console.log('Error fetching data', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [])
+
+
+
+  const { user, logout } = useAuth();
+
 
   return <main>
+
+<div className="h-screen fixed top-0 left-0 lg:w-[18%] w-[300px] border-r-[0.5px] border-r-[#D2DBEC] z-[10] bg-[#fafafa] py-[2rem] md:px-[2rem] px-[1rem] lg:block hidden">
+{user && <Menu user={user as User} />}
+</div>
+
+
     <div className="flex justify-between items-center">
         <div>
     <p className="text-2xl font-semibold">Services</p>
@@ -205,7 +265,7 @@ export default function Service() {
 <div className="flex justify-between mt-9">
   <p className="font-medium">All Services</p>
   
-<div className="flex items-center gap-x-3">
+<div className="flex items-center gap-x-3 ">
   <IoIosSearch /><input 
   type="text"
   value={searchQuery}
@@ -257,12 +317,12 @@ export default function Service() {
               >
                  {/* <td className="px-6 py-2">{item.id}</td> */}
      
-               <td className="px-6 py-4 flex gap-x-2 items-center"><img src={item.url} className='object-cover h-5 w-9 rounded-md '/>{item.title}</td>
+               <td className="px-6 py-4 flex gap-x-2 items-center"><img src={item.previewImage} className='object-cover h-5 w-9 rounded-md '/>{item.name}</td>
                 {/* <td className="px-6 py-2">{item.title}</td> */}
-                <td className="px-6 py-2">{item.category}</td>
+                <td className="px-6 py-2">{item.serviceCategory[0].name}</td>
                 <td className="px-6 py-2">{item.description}</td>
                 <td className="px-6 py-2">€{item.price}</td>
-                <td className="px-6 py-2">{item.created}</td>
+                <td className="px-6 py-2">{new Date(item.createdAt).toLocaleDateString()}</td>
                 <div onClick={() => handlePress(item)} className="relative cursor-pointer">
                 <IoEllipsisVertical />
                 {selectedItem && selectedItem.id === item.id && showModal && (<div className="bg-white absolute z-100 border rounded-lg right-16 top-[-15px] shadow-lg">

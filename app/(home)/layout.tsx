@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import { ClientProvider } from "@/components/ClientProvider"
+// import { ClientProvider } from "@/components/ClientProvider"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
@@ -20,10 +20,10 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={inter.className}>
-                <ClientProvider>
+              
                     <ToastContainer />
                     {children}
-                </ClientProvider>
+          
             </body>
         </html>
     )

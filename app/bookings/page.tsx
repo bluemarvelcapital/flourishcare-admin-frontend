@@ -10,6 +10,8 @@ import AppointmentTiles from "@/components/AppointmentTiles";
 import BookingTiles from "@/components/BookingTiles";
 import { useState } from "react";
 import { FaSort } from "react-icons/fa6";
+import { Menu } from "@/components/Menu";
+import { useAuth } from "@/context/authContext";
 
 
 const firstimage : string = "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-55958-614810.jpg&fm=jpg";
@@ -149,10 +151,24 @@ const handleLeave = () => {
   setShowModal(false);
 }
 
-  return <main>
+
+interface User {
+  name: string;
+  [key: string]: any; // Add other user properties as needed
+}
+
+const { user, logout } = useAuth();
 
 
+  return <main >
+{/* <div className=""> */}
 
+<div className="h-screen fixed top-0 left-0 lg:w-[18%] w-[300px] border-r-[0.5px] border-r-[#D2DBEC] z-[10] bg-[#fafafa] py-[2rem] md:px-[2rem] px-[1rem] lg:block hidden">
+{user && <Menu user={user as User} />}
+</div>
+
+
+<div className="">
     <p className="text-2xl font-semibold">Bookings</p>
     <p className="text-sm mt-1">Hub for managing all appointments and reservations made by users.</p>
 
@@ -278,6 +294,8 @@ const handleLeave = () => {
 
 </div>
 
+</div>
+{/* </div> */}
  
   </main>
 }

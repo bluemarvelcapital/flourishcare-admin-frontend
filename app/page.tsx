@@ -8,9 +8,13 @@ import MetricCard from "@/components/MetricCard";
 import { RiArrowRightSLine } from "react-icons/ri";
 import AppointmentTiles from "@/components/AppointmentTiles";
 import BookingTiles from "@/components/BookingTiles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 import DeleteModal from "@/components/DeleteModal";
+import { Menu } from "@/components/Menu";
+import { useAuth } from "@/context/authContext";
+import axios from 'axios'
+import PublishModal from "@/components/PublishModal";
 
 
 const firstimage: string = "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-55958-614810.jpg&fm=jpg";
@@ -19,7 +23,8 @@ const secondimage: string = "https://img.freepik.com/free-photo/portrait-smiling
 interface Items {
   id: number;
   url?: string;
-  name: string;
+  firstname: string;
+  lastname: string;
   email: string;
   phone: number;
   address: string;
@@ -27,28 +32,29 @@ interface Items {
   // isActive: boolean;
 }
 
-const items: Items[] = [
-  {
-    id: 1,
-    url: firstimage,
-    name: "Henry",
-    email: "henry.eyo2@gmail.com",
-    phone: 9062056518,
-    address: "13 Lagos street",
+// const items: Items[] = [
+//   {
+//     id: 1,
+//     url: firstimage,
+//     firstname: "Henry",
+//     lastname:"Eyo",
+//     email: "henry.eyo2@gmail.com",
+//     phone: 9062056518,
+//     address: "13 Lagos street",
 
-  },
-  {
-    id: 2,
-    url: secondimage,
-    name: "Simisola",
-    email: "simisola411@gmail.com",
-    phone: 3965373338,
-    address: "jubilee street Lagos",
+//   },
+//   {
+//     id: 2,
+//     url: secondimage,
+//     name: "Simisola",
+//     email: "simisola411@gmail.com",
+//     phone: 3965373338,
+//     address: "jubilee street Lagos",
   
 
-  }
+//   }
 
-]
+// ]
 
 
 interface Metrics {
@@ -135,43 +141,92 @@ const appointments: Appointments[] = [
 ]
 
 export default function Home() {
+  const [data, setData] = useState<Items[]>([]);
   const [selectedItem, setSelectedItem] = useState<Items | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [isPublishModalOpen, setIsPublishModalOpen] = useState<boolean>(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const router = useRouter();
+
+  console.log("wait o",data)
 
   const handlePress = (item: Items) => {
     setSelectedItem(item);
     setShowModal(true);
   }
 
+   
+  const openPublishModal = () => {
+    setIsPublishModalOpen(true);
+  }
+
+
 
   const openDeleteModal = () => {
-
     setIsDeleteModalOpen(true);
   }
 
 
+
+  interface User {
+    name: string;
+    [key: string]: any; // Add other user properties as needed
+  }
+  
+  const URL = process.env.NEXT_PUBLIC_API_URL as string;
+
+
+
+
+//fetching User endpoint
+const fetchData = async() => {
+  try{
+
+    const accessToken = localStorage.getItem("access_token");
+
+    if(!accessToken){
+          // Handle the case where the access token is not available
+      console.error('Access token not found')
+    }
+
+    const res = await axios.get(URL+"/api/v1/user/", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    setData(res.data.data.users);
+    console.log("Henry look see users here ->", res.data)
+  } catch (error){
+    console.log('Error fetching data', error);
+  }
+};
+
+useEffect(() => {
+  fetchData();
+}, [])
+
+  const { user, logout } = useAuth();
+
   return <main >
 
+<div className="h-screen fixed top-0 left-0 lg:w-[18%] w-[300px] border-r-[0.5px] border-r-[#D2DBEC] z-[10] bg-[#fafafa] py-[2rem] md:px-[2rem] px-[1rem] lg:block hidden">
+{user && <Menu user={user as User} />}
+</div>
+
+
 <div className="flex justify-between items-center">
-
-
-
-
-      
+    
 <div>
   <p className="text-2xl font-semibold">General Overview</p>
   <p className="text-sm mt-1">Welcome to the Flourish admin dashboard.</p>
-
 </div>
 
-<button className="bg-green-500 px-6 py-2 rounded-md text-white font-light">Create New Service</button>
+<button onClick={() => openPublishModal()}  className="bg-green-500 px-6 md:mr-[200px] py-2 rounded-md text-white font-light">Create New Service</button>
 </div>
 
 
 {/* big flex */}
-<div className="flex items-start gap-x-12 ">
+<div className="flex items-start gap-x-12">
 
 <div>
   <div className="flex justify-between gap-x-9 mt-9">
@@ -233,7 +288,7 @@ export default function Home() {
       </thead>
       <tbody>
 
-        {items.map((item) => (
+        {data.map((item) => (
           <tr
             className="bg-white hover:bg-gray-200 text-[#6A6B6C]"
             key={item.id} onClick={() => setShowModal(!showModal)} 
@@ -241,7 +296,7 @@ export default function Home() {
           >
             {/* <td className="px-6 py-2">{item.id}</td> */}
 
-            <td className="px-6 py-3 flex gap-x-2 items-center"><img src={item.url} className='object-cover h-5 w-5 rounded-full ' />{item.name}</td>
+            <td className="px-6 py-3 flex gap-x-2 items-center"><img src={item.url} className='object-cover h-5 w-5 rounded-full ' />{item.firstname}{item.lastname}</td>
             <td className="px-6 py-3">{item.email}</td>
             <td className="px-6 py-3">{item.phone}</td>
             <td className="px-6 py-3">{item.address}</td>
@@ -305,6 +360,7 @@ export default function Home() {
 </div>
 
 </div>
+<PublishModal isOpen={isPublishModalOpen} onClose={() => setIsPublishModalOpen(false)} title="Baby" content={""} />
 <DeleteModal isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} title="Baby" content={""} />
 
   </main>

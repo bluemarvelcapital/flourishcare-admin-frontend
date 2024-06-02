@@ -4,12 +4,14 @@ import { Logo } from "./Logo"
 import { Menu } from "./Menu"
 import { useNav } from "@/hooks/useNav"
 import { useSelector } from "react-redux"
-import { RootState } from "@/context/store"
+// import { RootState } from "@/context/store"
+import { useAuth } from "@/context/authContext";
 
 export const NavBar = () => {
+    const { user, logout } = useAuth();
     const { showNav } = useNav()
     const activeClass = showNav ? "translate-x-0" : "-translate-x-full"
-    const { user } = useSelector((state: RootState) => state.auth)
+    // const { user } = useSelector((state: RootState) => state.auth)
 
     return (
         <>
