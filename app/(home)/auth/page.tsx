@@ -97,9 +97,6 @@ export default function Home() {
                                 />
                             </div>
                         </Form.Item>
-                        {/* <h3 className="text-secondary flex justify-end mb-4" style={{ cursor: 'pointer' }}>
-                            Forgot Password ?
-                        </h3> */}
                         <div
                             id="sign-up"
                             className="flex flex-col justify-center items-center"
@@ -107,23 +104,10 @@ export default function Home() {
                             <Button type="primary" htmlType='submit' className="bg-secondary w-full rounded-md text-white flex flex-row justify-center items-center" style={{ padding: '25px', marginTop: '20px' }}>
                                 <p>Login</p>
                             </Button>
-                            {/* <p className="mt-4 2xl:mt-6 text-[#98999A]">
-                                Don&apos;t have an account?{" "}
-                                <span className="text-secondary" style={{ cursor: 'pointer' }}>Sign Up</span>
-                            </p> */}
                         </div>{" "}
                     </Form>
 
                 </div>
-                {/* <div className="flex flex-row mt-5">
-                    <div className="border-b border-[#EEEEEE] flex-1"> </div>
-                    <p className="mx-3 text-[#555656]">or</p>
-                    <div className="border-b border-[#EEEEEE] flex-1"> </div>{" "}
-                </div>{" "}
-                <button className="flex justify-center w-full hover:bg-secondary mt-5 rounded-md border border-secondary py-1 2xl:py-4 duration-200  hover:border-secondary">
-                    <Image src={googleLogo} alt="google logo" />
-                    <p className="ml-2">Continue With Google</p>{" "}
-                </button> */}
             </div >
         </div >
     );
