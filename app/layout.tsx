@@ -19,16 +19,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* <body className={inter.className}>
-        <NavBar />
-        <Content>
-          <Header />
-          <div className="md:px-[2.8rem] md:py-[3rem] px-[1rem] py-[2rem] mx-auto container">
-            {children}
-          </div>
-        </Content>
-      </body> */}
-
       <body className="">
           <div className="">
             {children}
