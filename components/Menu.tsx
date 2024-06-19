@@ -13,6 +13,7 @@ import { Avatar } from "antd";
 import { CgLogOut } from "react-icons/cg";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { IoIosArrowForward } from "react-icons/io";
+import { SlBriefcase } from "react-icons/sl";
 
 interface NavItemI {
   name: string;
@@ -65,6 +66,11 @@ const navItems: NavItemI[] = [
     name: "Job Applications",
     href: "/job-applications",
     icon: <IoBriefcaseOutline />,
+  },
+  {
+    name: "Transactions",
+    href: "/transactions",
+    icon: <SlBriefcase />,
   },
   {
     name: "Blog",
