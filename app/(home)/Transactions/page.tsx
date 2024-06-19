@@ -10,7 +10,8 @@ const AdminBlog = () => {
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div>
           <Header
-            header="Job Applications"
+            header="Transactions"
+            paragraph="This page allows you to customize and manage various aspects of your account and preferences."
           />
         </div>
         <CreatePost />

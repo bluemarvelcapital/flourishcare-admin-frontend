@@ -25,3 +25,4 @@ const NoData: React.FC<NoDataProps> = ({ imageUrl, headerText, paragraph }) => {
 };
 
 export default NoData;
+
