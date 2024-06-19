@@ -1,12 +1,10 @@
 export interface BlogI {
-  title: string
-  content: string
-  preview_img: string
-  cover_img: string
-  tags: string[]
-  description: string
+  name: string
   createdAt: string
   updatedAt: string
-  category: string
-  author?: string
+  amount: number
+  status: string
+  preview_img: string
+  cover_img: string
+  id: string
 }
