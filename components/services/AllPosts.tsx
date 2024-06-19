@@ -1,17 +1,17 @@
-"use client"
-import React from "react"
-import { Avatar, Image, Input, Popover, Table } from "antd"
-import type { TableColumnsType, TableProps } from "antd"
-import { BlogI } from "@/types/blog"
-import { HiOutlineDotsVertical } from "react-icons/hi"
-import { BiSearch } from "react-icons/bi"
-import { EditPost } from "./EditPost"
-import { useGetBlogPostsQuery } from "@/services/blog.service"
-import NoData from "../misc/NoData"
+"use client";
+import React from "react";
+import { Avatar, Image, Input, Popover, Table } from "antd";
+import type { TableColumnsType, TableProps } from "antd";
+import { BlogI } from "@/types/blog";
+import { HiOutlineDotsVertical } from "react-icons/hi";
+import { BiSearch } from "react-icons/bi";
+import { useGetBlogPostsQuery } from "@/services/blog.service";
+import NoData from "../misc/NoData";
+import { EditPost } from "./EditPost";
 
 const columns: TableColumnsType<BlogI> = [
   {
-    title: "Name",
+    title: "Title",
     dataIndex: "title",
     render(value, record) {
       return (
@@ -27,12 +27,12 @@ const columns: TableColumnsType<BlogI> = [
             <p>{record.title}</p>
           </div>
         </div>
-      )
+      );
     },
   },
   {
-    title: "Author",
-    dataIndex: "author",
+    title: "Description",
+    dataIndex: "description",
     responsive: ["lg"],
   },
   {
@@ -50,6 +50,12 @@ const columns: TableColumnsType<BlogI> = [
   {
     title: "Date",
     dataIndex: "createdAt",
+    defaultSortOrder: "descend",
+    sorter: (a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt),
+  },
+  {
+    title: "Price",
+    dataIndex: "price",
     defaultSortOrder: "descend",
     sorter: (a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt),
   },
@@ -73,10 +79,10 @@ const columns: TableColumnsType<BlogI> = [
             <HiOutlineDotsVertical className="text-lg cursor-pointer" />
           </Popover>
         </div>
-      )
+      );
     },
   },
-]
+];
 
 const data: BlogI[] = [
   {
@@ -135,7 +141,7 @@ const data: BlogI[] = [
     cover_img:
       "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
   },
-]
+];
 
 const onChange: TableProps<BlogI>["onChange"] = (
   pagination,
@@ -143,17 +149,17 @@ const onChange: TableProps<BlogI>["onChange"] = (
   sorter,
   extra
 ) => {
-  console.log("params", pagination, filters, sorter, extra)
-}
+  console.log("params", pagination, filters, sorter, extra);
+};
 
 export const AllPosts: React.FC = () => {
-  const { data } = useGetBlogPostsQuery(null)
-  console.log(data)
+  const { data } = useGetBlogPostsQuery(null);
+  console.log(data);
   return (
     <div>
       <div className="mb-4 flex md:flex-row flex-col gap-3 md:items-center justify-between">
         <div className="flex items-center gap-2">
-          <h2 className="text-xl">All Posts</h2>
+          <h2 className="text-xl">All Services</h2>
           <Avatar className="bg-primary">16</Avatar>
         </div>
         <Input
@@ -166,4 +172,4 @@ export const AllPosts: React.FC = () => {
       <Table columns={columns} dataSource={data} onChange={onChange} />
     </div>
   );
-}
+};

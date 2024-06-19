@@ -20,4 +20,17 @@
   .text-balance {
     text-wrap: balance;
   }
+
+    #json-container::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  #json-container::-webkit-scrollbar-thumb {
+    background-color: #bbbbbb9c;
+    border-radius: 5px;
+  }
+
+  #json-container::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+  }
 }

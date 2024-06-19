@@ -38,13 +38,16 @@ const navItems: NavItemI[] = [
     childrenLinks: [
       {
         name: "Listed Services",
-        href: "/services",
+        href: "/services/listed-services",
         icon: <AiOutlineSolution />,
       },
       {
-        name: "Other Service",
-        href: "/services",
-        icon: <AiOutlineSolution />,
+        name: "Categories",
+        href: "/services/categories",
+      },
+      {
+        name: "Reviews",
+        href: "/services/reviews",
       },
     ],
   },
@@ -67,6 +70,16 @@ const navItems: NavItemI[] = [
     name: "Blog",
     href: "/blog",
     icon: <RiBookReadLine />,
+    childrenLinks: [
+      {
+        name: "Blog Posts",
+        href: "/blog",
+      },
+      {
+        name: "Blog Categories",
+        href: "/blog/categories",
+      },
+    ],
   },
   {
     name: "Settings",

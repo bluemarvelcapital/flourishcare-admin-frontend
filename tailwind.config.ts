@@ -19,6 +19,7 @@ const config: Config = {
       ...defaultColors,
       primary: "#66ACDC",
       secondary: "#04BD4B",
+      tertiary: "#6A6B6C",
       error: {
         500: "#EB270B",
       },
