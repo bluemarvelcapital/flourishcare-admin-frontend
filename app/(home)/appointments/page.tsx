@@ -5,7 +5,7 @@ import { MetaData } from "@/components/appointments/MetaData";
 import { AllAppointments } from "@/components/appointments/AllAppointments";
 import { PendingAppointments } from "@/components/appointments/PendingAppointments";
 
-const AdminBlog = () => {
+const AdminAppointments = () => {
   return (
     <div>
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
@@ -29,4 +29,4 @@ const AdminBlog = () => {
   );
 };
 
-export default AdminBlog;
+export default AdminAppointments;

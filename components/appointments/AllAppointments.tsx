@@ -2,12 +2,8 @@
 import React from "react";
 import { Avatar, Image, Input, Popover, Table } from "antd";
 import type { TableColumnsType, TableProps } from "antd";
-import { BlogI } from "@/types/blog";
-import { HiOutlineDotsVertical } from "react-icons/hi";
+import { BlogI } from "@/types/appointments";
 import { BiSearch } from "react-icons/bi";
-import { EditAppointment } from "./EditPost";
-import { useGetBlogPostsQuery } from "@/services/blog.service";
-import NoData from "../misc/NoData";
 import { MdLocalPhone } from "react-icons/md";
 
 const statusOrder: Record<string, number> = {
@@ -110,8 +106,6 @@ const data: BlogI[] = [
     id: "FLo-1495DD",
     preview_img:
       "/bookings-user-image.svg",
-    cover_img:
-      "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
   },
   {
     name: "Flourish Davidson",
@@ -122,8 +116,6 @@ const data: BlogI[] = [
     id: "FLo-1495DD",
     preview_img:
       "/bookings-user-image.svg",
-    cover_img:
-      "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
   },
   {
     name: "Flourish Davidson",
@@ -134,8 +126,6 @@ const data: BlogI[] = [
     id: "FLo-1495DD",
     preview_img:
       "/bookings-user-image.svg",
-    cover_img:
-      "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
   },
   {
     name: "Flourish Davidson",
@@ -146,8 +136,6 @@ const data: BlogI[] = [
     id: "FLo-1495DD",
     preview_img:
       "/bookings-user-image.svg",
-    cover_img:
-      "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
   },
   {
     name: "Flourish Davidson",
@@ -158,8 +146,6 @@ const data: BlogI[] = [
     id: "FLo-1495DD",
     preview_img:
       "/bookings-user-image.svg",
-    cover_img:
-      "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
   },
   {
     name: "Flourish Davidson",
@@ -170,8 +156,6 @@ const data: BlogI[] = [
     id: "FLo-1495DD",
     preview_img:
       "/bookings-user-image.svg",
-    cover_img:
-      "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
   },
   {
     name: "Flourish Davidson",
@@ -182,8 +166,6 @@ const data: BlogI[] = [
     id: "FLo-1495DD",
     preview_img:
       "/bookings-user-image.svg",
-    cover_img:
-      "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
   },
   {
     name: "Flourish Davidson",
@@ -194,8 +176,6 @@ const data: BlogI[] = [
     id: "FLo-1495DD",
     preview_img:
       "/bookings-user-image.svg",
-    cover_img:
-      "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
   },
   {
     name: "Flourish Davidson",
@@ -206,8 +186,6 @@ const data: BlogI[] = [
     id: "FLo-1495DD",
     preview_img:
       "/bookings-user-image.svg",
-    cover_img:
-      "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
   },
   {
     name: "Flourish Davidson",
@@ -218,8 +196,6 @@ const data: BlogI[] = [
     id: "FLo-1495DD",
     preview_img:
       "/bookings-user-image.svg",
-    cover_img:
-      "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
   },
   {
     name: "Flourish Davidson",
@@ -230,8 +206,6 @@ const data: BlogI[] = [
     id: "FLo-1495DD",
     preview_img:
       "/bookings-user-image.svg",
-    cover_img:
-      "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
   },
   {
     name: "Flourish Davidson",
@@ -242,8 +216,6 @@ const data: BlogI[] = [
     id: "FLo-1495DD",
     preview_img:
       "/bookings-user-image.svg",
-    cover_img:
-      "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
   },
 ];
 
@@ -264,7 +236,7 @@ export const AllAppointments: React.FC = () => {
       <div className="mb-4 flex md:flex-row flex-col gap-3 md:items-center justify-between">
         <div className="flex items-center gap-2">
           <h2 className="text-xl">All Appointments</h2>
-          <Avatar className="bg-primary">{data.length - 1}</Avatar>
+          <Avatar className="bg-primary">{data.length - 2}</Avatar>
         </div>
         <Input
           placeholder="Search Posts"

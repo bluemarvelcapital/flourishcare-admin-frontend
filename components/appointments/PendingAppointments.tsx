@@ -1,9 +1,9 @@
 "use client";
 import { Avatar, Image, Popover } from "antd";
 import React from "react";
-import { BlogI } from "@/types/blog";
+import { BlogI } from "@/types/appointments";
 import Link from "next/link";
-import { BsArrowRight } from "react-icons/bs";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
 export const PendingAppointments = () => {
   const data: BlogI[] = [
@@ -15,8 +15,6 @@ export const PendingAppointments = () => {
       status: "pending",
       id: "FLo-1495DD",
       preview_img: "/bookings-user-image.svg",
-      cover_img:
-        "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
     },
     {
       name: "Maximillian Schwarzmueller",
@@ -26,8 +24,6 @@ export const PendingAppointments = () => {
       status: "completed",
       id: "FLo-1495DD",
       preview_img: "/bookings-user-image.svg",
-      cover_img:
-        "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
     },
     {
       name: "Maximillian Schwarzmueller",
@@ -37,8 +33,6 @@ export const PendingAppointments = () => {
       status: "pending",
       id: "FLo-1495DD",
       preview_img: "/bookings-user-image.svg",
-      cover_img:
-        "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
     },
     {
       name: "Maximillian Schwarzmueller",
@@ -48,8 +42,6 @@ export const PendingAppointments = () => {
       status: "canceled",
       id: "FLo-1495DD",
       preview_img: "/bookings-user-image.svg",
-      cover_img:
-        "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
     },
     {
       name: "Maximillian Schwarzmueller",
@@ -59,8 +51,6 @@ export const PendingAppointments = () => {
       status: "pending",
       id: "FLo-1495DD",
       preview_img: "/bookings-user-image.svg",
-      cover_img:
-        "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
     },
     {
       name: "Maximillian Schwarzmueller",
@@ -70,8 +60,6 @@ export const PendingAppointments = () => {
       status: "canceled",
       id: "FLo-1495DD",
       preview_img: "/bookings-user-image.svg",
-      cover_img:
-        "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
     },
     {
       name: "Maximillian Schwarzmueller",
@@ -81,8 +69,6 @@ export const PendingAppointments = () => {
       status: "completed",
       id: "FLo-1495DD",
       preview_img: "/bookings-user-image.svg",
-      cover_img:
-        "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
     },
     {
       name: "Maximillian Schwarzmueller",
@@ -92,8 +78,6 @@ export const PendingAppointments = () => {
       status: "canceled",
       id: "FLo-1495DD",
       preview_img: "/bookings-user-image.svg",
-      cover_img:
-        "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
     },
     {
       name: "Maximillian Schwarzmueller",
@@ -103,8 +87,6 @@ export const PendingAppointments = () => {
       status: "pending",
       id: "FLo-1495DD",
       preview_img: "/bookings-user-image.svg",
-      cover_img:
-        "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
     },
     {
       name: "Maximillian Schwarzmueller",
@@ -114,8 +96,6 @@ export const PendingAppointments = () => {
       status: "completed",
       id: "FLo-1495DD",
       preview_img: "/bookings-user-image.svg",
-      cover_img:
-        "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
     },
     {
       name: "Maximillian Schwarzmueller",
@@ -125,8 +105,6 @@ export const PendingAppointments = () => {
       status: "pending",
       id: "FLo-1495DD",
       preview_img: "/bookings-user-image.svg",
-      cover_img:
-        "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
     },
     {
       name: "Maximillian Schwarzmueller",
@@ -136,8 +114,6 @@ export const PendingAppointments = () => {
       status: "canceled",
       id: "FLo-1495DD",
       preview_img: "/bookings-user-image.svg",
-      cover_img:
-        "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
     },
   ];
   return (
@@ -148,9 +124,9 @@ export const PendingAppointments = () => {
           <Avatar className="bg-primary">8</Avatar>
         </div>
         <Link href="appointments/pending-appointments">
-          <div className="flex flex-row justify-between items-center space-x-5">
+          <div className="flex flex-row justify-between hover:border-b border-secondary duration-300 transition-all items-center space-x-5">
             <p className="text-secondary">See All</p>
-            <BsArrowRight className="text-secondary" />
+            <MdKeyboardArrowRight className="text-secondary" />
           </div>
         </Link>
       </div>
