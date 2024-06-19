@@ -1,10 +1,9 @@
 "use client";
-import { CreatePost } from "@/components/blog";
-import { PendingPosts } from "@/components/blog/PendingPosts";
 import React from "react";
 import Header from "@/components/misc/Header";
 import { MetaData } from "@/components/appointments/MetaData";
-import { AllPosts } from "@/components/appointments/AllPosts";
+import { AllAppointments } from "@/components/appointments/AllAppointments";
+import { PendingAppointments } from "@/components/appointments/PendingAppointments";
 
 const AdminBlog = () => {
   return (
@@ -20,10 +19,10 @@ const AdminBlog = () => {
       <MetaData />
       <div className="mt-[3rem] flex justify-between lg:flex-row flex-col gap-3">
         <div className="lg:w-[70%]">
-          <AllPosts />
+          <AllAppointments />
         </div>
         <div className="lg:w-[27%]">
-          <PendingPosts />
+          <PendingAppointments />
         </div>
       </div>
     </div>
