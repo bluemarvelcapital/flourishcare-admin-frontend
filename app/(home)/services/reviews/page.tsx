@@ -1,27 +1,20 @@
 "use client";
-import { AllPosts, CreatePost, MetaData } from "@/components/blog";
-import { PendingPosts } from "@/components/blog/PendingPosts";
+import Header from "@/components/misc/Header";
 import NoData from "@/components/misc/NoData";
+import { AllServices } from "@/components/services/serviceReviews/AllServices";
 import React from "react";
 
 const AdminBlog = () => {
   return (
-    <div>
-      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-        <div>
-          <h2 className="md:text-4xl text-2xl md:mb-1">Reviews Nigguh</h2>
-          <p className="text-[15px]">Welcome to the categories section</p>
-        </div>
-        <CreatePost />
+    <div className="flex flex-col">
+      <div className="flex flex-col gap-3 md:flex-row md:items-center">
+        <Header
+          header="Service Reviews"
+          paragraph="Welcome to service reviews, Jenny"
+        />
       </div>
-      <MetaData />
-      <div className="mt-[3rem] flex justify-between lg:flex-row flex-col gap-3">
-        <div className="lg:w-[70%]">
-          <AllPosts />
-        </div>
-        <div className="lg:w-[27%]">
-          <PendingPosts />
-        </div>
+      <div className="mt-[3rem] flex flex-col">
+          <AllServices />
       </div>
     </div>
   );

@@ -157,7 +157,6 @@ const onChange: TableProps<ApplicationTypes>["onChange"] = (
 };
 
 export const AllTransactions: React.FC = () => {
-  //   const { data } = useGetBlogPostsQuery(null);
   console.log(data);
   return (
     <div>
