@@ -1,8 +1,10 @@
 "use client";
-import { AllPosts, CreatePost, MetaData } from "@/components/blog";
 import { PendingPosts } from "@/components/blog/PendingPosts";
 import React from "react";
 import Header from "@/components/misc/Header";
+import { AllBookings } from "../../../components/bookings/AllBookings";
+import { MetaData } from "../../../components/bookings/MetaData";
+import { PendingBookings } from "@/components/bookings/PendingBookings";
 
 const AdminBlog = () => {
   return (
@@ -14,15 +16,14 @@ const AdminBlog = () => {
             paragraph="Hub for managing all appointments and reservations made by users."
           />
         </div>
-        <CreatePost />
       </div>
       <MetaData />
       <div className="mt-[3rem] flex justify-between lg:flex-row flex-col gap-3">
         <div className="lg:w-[70%]">
-          <AllPosts />
+          <AllBookings />
         </div>
         <div className="lg:w-[27%]">
-          <PendingPosts />
+          <PendingBookings />
         </div>
       </div>
     </div>
