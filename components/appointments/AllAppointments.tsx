@@ -2,7 +2,7 @@
 import React from "react";
 import { Avatar, Image, Input, Popover, Table } from "antd";
 import type { TableColumnsType, TableProps } from "antd";
-import { BlogI } from "@/types/appointments";
+import { AppointmentTypes } from "@/types/appointments";
 import { BiSearch } from "react-icons/bi";
 import { MdLocalPhone } from "react-icons/md";
 
@@ -11,7 +11,7 @@ const statusOrder: Record<string, number> = {
   pending: 2,
   canceled: 3,
 };
-const columns: TableColumnsType<BlogI> = [
+const columns: TableColumnsType<AppointmentTypes> = [
   {
     title: "Name",
     dataIndex: "name",
@@ -47,7 +47,7 @@ const columns: TableColumnsType<BlogI> = [
     sorter: (a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt),
   },
   {
-    title: "amount",
+    title: "Amount",
     dataIndex: "amount",
     render(value, record) {
       return <div className="flex items-center gap-3">${record.amount}</div>;
@@ -55,9 +55,25 @@ const columns: TableColumnsType<BlogI> = [
     // @ts-ignore
   },
   {
-    title: "status",
+    title: "Status",
     dataIndex: "status",
-    defaultSortOrder: "descend",
+    // defaultSortOrder: "",
+    filters: [
+      {
+        text: "Completed",
+        value: "completed",
+      },
+      {
+        text: "Pending",
+        value: "pending",
+      },
+      {
+        text: "canceled",
+        value: "canceled",
+      },
+    ],
+    filterMultiple: true,
+    onFilter: (value, record) => record.status === value,
     sorter: (a, b) =>
       statusOrder[a.status.toLowerCase()] - statusOrder[b.status.toLowerCase()],
     render(value, record) {
@@ -96,7 +112,7 @@ const columns: TableColumnsType<BlogI> = [
   },
 ];
 
-const data: BlogI[] = [
+const data: AppointmentTypes[] = [
   {
     name: "Flourish Davidson",
     createdAt: "2021-09-01",
@@ -219,7 +235,7 @@ const data: BlogI[] = [
   },
 ];
 
-const onChange: TableProps<BlogI>["onChange"] = (
+const onChange: TableProps<AppointmentTypes>["onChange"] = (
   pagination,
   filters,
   sorter,

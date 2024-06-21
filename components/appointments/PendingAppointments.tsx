@@ -1,12 +1,12 @@
 "use client";
 import { Avatar, Image, Popover } from "antd";
 import React from "react";
-import { BlogI } from "@/types/appointments";
+import { AppointmentTypes } from "@/types/appointments";
 import Link from "next/link";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 export const PendingAppointments = () => {
-  const data: BlogI[] = [
+  const data: AppointmentTypes[] = [
     {
       name: "Maximillian Schwarzmueller",
       createdAt: "2021-09-01",

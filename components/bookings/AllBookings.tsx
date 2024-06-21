@@ -23,7 +23,7 @@ const columns: TableColumnsType<BookingsTypes> = [
           <Image
             alt={value}
             src={record.preview_img}
-            width={100}
+            width={55}
             height={55}
             style={{ objectFit: "cover", borderRadius: "800px" }}
           />
@@ -40,7 +40,7 @@ const columns: TableColumnsType<BookingsTypes> = [
   },
   {
     title: "Date",
-    dataIndex: "createdAt",
+    dataIndex: "date",
     responsive: ["lg"],
     defaultSortOrder: "descend",
     sorter: (a, b) => Date.parse(a.date) - Date.parse(b.date),
@@ -49,10 +49,11 @@ const columns: TableColumnsType<BookingsTypes> = [
     title: "Contract",
     dataIndex: "contract",
     defaultSortOrder: "descend",
+    responsive : ["sm"],
     sorter: (a, b) => a.contract - b.contract,
     render(value, record) {
       return (
-        <div className="flex flex-row gap-x-2 bg-slate-300 justify-between">
+        <div className="flex flex-row h-[55px] w-44 items-center bg-[#F7F7F7] justify-center gap-x-5">
           <BsFileEarmarkPdfFill className="text-error-500" />
           <p>Contract - {record.contract}</p>
           <FiDownload className="text-black" />
@@ -66,10 +67,10 @@ const columns: TableColumnsType<BookingsTypes> = [
     render() {
       return (
         <div className="flex flex-row gap-x-2">
-          <div className="flex items-center p-2 bg-white border border-slate-300 text-stone-600">
-            <FaPhoneAlt />
+          <div className="flex h-10 w-14 justify-center items-center p-2 bg-white border border-slate-300 text-stone-600 rounded-md">
+            <FaPhoneAlt className=" " />
           </div>
-          <div className="flex items-center p-2 bg-secondary text-white">
+          <div className="flex h-10 w-14 items-center justify-center rounded-md p-2 bg-secondary text-white">
             <MdOutlineMessage />
           </div>
         </div>

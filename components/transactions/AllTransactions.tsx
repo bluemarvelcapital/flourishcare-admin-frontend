@@ -40,7 +40,21 @@ const columns: TableColumnsType<ApplicationTypes> = [
   {
     title: "Status",
     dataIndex: "status",
-    responsive: ["lg"], 
+    responsive: ["lg"],
+    filters: [
+      {
+        text: "Completed",
+        value: "completed",
+      },
+      {
+        text: "Failed",
+        value: "failed",
+      },
+    ],
+    filterMultiple: false,
+    onFilter: (value, record) => record.status === value,
+    sorter: (a, b) =>
+      a.status.toLocaleLowerCase().localeCompare(b.status.toLowerCase()),
     render(value, record) {
       return (
         <div>
