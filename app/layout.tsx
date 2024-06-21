@@ -3,8 +3,7 @@ import { Inter } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
-import { Provider } from "react-redux";
-import { store } from "@/context/store";
+import { ClientProvider } from "@/components/ClientProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,13 +18,13 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <Provider store={store}>
-            <html lang="en">
-                <body className="">
+        <html lang="en">
+            <body className="">
+                <ClientProvider>
                     <ToastContainer />
                     <div className="">{children}</div>
-                </body>
-            </html>
-        </Provider>
+                </ClientProvider>
+            </body>
+        </html>
     );
 }

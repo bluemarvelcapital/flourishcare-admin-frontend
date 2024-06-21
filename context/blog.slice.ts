@@ -70,4 +70,3 @@ export const blogSlice = createSlice({
 });
 
 export const { setPosts, addPosts, updatePost } = blogSlice.actions;
-
