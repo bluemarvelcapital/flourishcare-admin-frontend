@@ -9,10 +9,14 @@ type AuthState = {
     | { accessToken: null; refreshToken: null }
 );
 
+const _user = localStorage.getItem("user");
+const _access = localStorage.getItem("access");
+const _refresh = localStorage.getItem("refresh");
+
 const initialState: AuthState = {
-    user: undefined,
-    accessToken: "",
-    refreshToken: "",
+    user: _user ? JSON.parse(_user) : undefined,
+    accessToken: _access ? _access : "",
+    refreshToken: _refresh ? _refresh : "",
 };
 
 export const authSlice = createSlice({
@@ -27,28 +31,22 @@ export const authSlice = createSlice({
                 refreshToken: string;
             }>,
         ) => {
-            const { setAuth } = useAuth();
             state.user = action.payload.user;
             state.accessToken = action.payload.accessToken;
             state.refreshToken = action.payload.refreshToken;
-            //
-            setAuth({
-                access: action.payload.accessToken,
-                refresh: action.payload.refreshToken,
-                user: action.payload.user,
-            });
+
+            localStorage.setItem("access", action.payload.accessToken);
+            localStorage.setItem("refresh", action.payload.refreshToken);
+            localStorage.setItem("user", JSON.stringify(action.payload.user));
         },
         logOut: (state) => {
             state.user = undefined;
             state.accessToken = null as any;
             state.refreshToken = null as any;
 
-            const { setAuth } = useAuth();
-            setAuth({
-                access: null,
-                refresh: null,
-                user: null,
-            });
+            localStorage.removeItem("access");
+            localStorage.removeItem("refresh");
+            localStorage.removeItem("user");
         },
     },
 });
