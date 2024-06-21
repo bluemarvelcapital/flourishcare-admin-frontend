@@ -18,4 +18,5 @@ export interface IBlogPost {
     cover_image: string;
     status: IBlogPostStatus;
     blogTags: IBlogTag[];
+    createdAt: string;
 }

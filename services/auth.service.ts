@@ -1,4 +1,3 @@
-"use-client";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { api_url } from "@/constants/API_URL";
 import { IUser } from "@/types/user";
