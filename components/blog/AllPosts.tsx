@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { Avatar, Image, Input, Popover, Table } from "antd";
 import type { TableColumnsType, TableProps } from "antd";
 import { IBlogPost, IBlogPostStatus } from "@/types/blog";

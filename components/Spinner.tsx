@@ -14,11 +14,9 @@ export const WindowSpinner = () => {
 export const ButtonSpinner = ({ size = "10" }) => {
     return (
         <div className="flex items-center justify-center">
-            <div className="">
-                <div
-                    className={`animate-spin rounded-full h-${size} w-${size} border-t-2 border-b-2 border-white`}
-                ></div>
-            </div>
+            <div
+                className={`animate-spin rounded-full h-${size} w-${size} border-t-2 border-b-2 border-white background-white`}
+            ></div>
         </div>
     );
 };

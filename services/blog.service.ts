@@ -1,19 +1,19 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { api_url } from "@/constants/API_URL";
-import { BlogI } from "@/types/blog";
+import { IBlogPost } from "@/types/blog";
 import { fetchBaseQueryWithAuth } from "./customQuery";
 
 interface GetBlogPostsResponse {
     status: "success";
     data: {
-        blogPosts: (BlogI & { status: "draft" | "published" | "hidden" })[];
+        blogPosts: (IBlogPost & { status: "draft" | "published" | "hidden" })[];
     };
 }
 
 interface UpdateBlogPostResponse {
     status: "success";
     data: {
-        blogPost: BlogI & { status: "draft" | "published" | "hidden" };
+        blogPost: IBlogPost & { status: "draft" | "published" | "hidden" };
     };
 }
 
@@ -31,7 +31,7 @@ export const blogApi = createApi({
             }),
             updateBlogPost: builder.mutation<
                 UpdateBlogPostResponse,
-                Partial<BlogI> & { blogPostId: string }
+                Partial<IBlogPost> & { blogPostId: string }
             >({
                 query: (body) => {
                     console.log({ body });
@@ -49,7 +49,7 @@ export const blogApi = createApi({
             }),
             createBlogPost: builder.mutation<
                 UpdateBlogPostResponse,
-                Omit<BlogI, "id">
+                Omit<IBlogPost, "id">
             >({
                 query: (body) => {
                     (body as unknown as Record<string, string>)[
