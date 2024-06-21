@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { api_url } from "@/constants/API_URL";
 import { IUser } from "@/types/user";
 import { fetchBaseQueryWithAuth } from "./customQuery";

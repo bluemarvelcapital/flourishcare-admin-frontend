@@ -1,9 +1,8 @@
 "use client";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import landingImage from "../../../public/images/landing-page-image.png";
-import Logo from "../../../public/logo2.png";
-import googleLogo from "../../../public/images/google-logo.png";
+import Logo from "../../public/logo.svg";
+import landingImage from "../../public/login_image.svg";
 import { Button, Form, Input } from "antd";
 import { useLoginMutation } from "@/services/auth.service";
 import { useDispatch } from "react-redux";
@@ -18,7 +17,7 @@ export default function Auth() {
 
     return (
         <div className="grid sm:grid-cols-12 bg-white w-full xl:gap-x-14">
-            <div className="md:col-span-7 sm:col-span-6  w-full h-full">
+            <div className="md:col-span-7 sm:col-span-6 w-full h-full">
                 <Image
                     src={landingImage}
                     alt="landing page image"
@@ -26,14 +25,8 @@ export default function Auth() {
                 />
             </div>{" "}
             <div
-                className="md:col-span-5 sm:col-span-6 w-full text-sm xl:text-lg xl:px-10 px-2 md:px-4 h-full"
-                style={{
-                    margin: "auto 0",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignContent: "center",
-                    justifyContent: "center",
-                }}
+                className="md:col-span-5 flex flex-row align-center justify-center sm:col-span-6 w-full text-sm xl:text-lg xl:px-10 px-2 md:px-4 h-full mx-auto my-auto"
+                // style={{}}
             >
                 <header className="flex items-center flex-col">
                     <Image

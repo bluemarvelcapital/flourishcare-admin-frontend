@@ -1,0 +1,32 @@
+version: "2.1"
+
+services:
+  # flourishcare-api:
+  #   image: flourishcare
+  #   container_name: flourishcare-api
+  #   env_file: "./.env.api"
+  #   ports:
+  #     - "5000:5000"
+  #   working_dir: /app/api
+  #   command: "npm run dev"
+  #
+  # flourishcare-user-web:
+  #   image: flourishcare
+  #   container_name: flourishcare-user-web
+  #   env_file: "./.env.admin"
+  #   ports:
+  #     - "3001:3000"
+  #   depends_on:
+  #     - flourishcare-api
+  #   working_dir: /app/flourishcare-frontend
+  #   command: >
+  #     /bin/sh -c "sleep 20 && npm run dev"
+  #
+  flourishcare-admin-web:
+    image: realrichi3/fac-admin 
+    container_name: flourishcare-admin-web
+    env_file: "./.env.local"
+    ports:
+      - "3000:3000"
+    working_dir: /app/flourishcare-admin-frontend
+    command: "npm run dev"

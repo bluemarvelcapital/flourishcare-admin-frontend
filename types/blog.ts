@@ -1,12 +1,21 @@
-export interface BlogI {
-  title: string;
-  content: string;
-  preview_img: string;
-  cover_img: string;
-  tags: string[];
-  description: string;
-  createdAt: string;
-  updatedAt: string;
-  category: string;
-  author?: string;
+export enum IBlogPostStatus {
+    HIDDEN = "hidden",
+    PUBLISHED = "published",
+    DRAFT = "draft",
+}
+
+export interface IBlogTag {
+    id: string;
+    name: string;
+}
+
+export interface IBlogPost {
+    id: string;
+    title: string;
+    description: string;
+    content: string;
+    preview_image: string;
+    cover_image: string;
+    status: IBlogPostStatus;
+    blogTags: IBlogTag[];
 }
