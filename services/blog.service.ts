@@ -31,19 +31,42 @@ export const blogApi = createApi({
             }),
             updateBlogPost: builder.mutation<
                 UpdateBlogPostResponse,
-                Partial<IBlogPost> & { blogPostId: string }
+                Partial<IBlogPost> & {
+                    blogPostId: string;
+                    preview_image: File | string;
+                    cover_image: File | string;
+                }
             >({
                 query: (body) => {
-                    console.log({ body });
-                    (body as unknown as Record<string, string>)[
-                        "previewImage"
-                    ] = body.preview_image as string;
-                    (body as unknown as Record<string, string>)["coverImage"] =
-                        body.cover_image as string;
+                    const { preview_image, cover_image, ...rest } = body;
+                    const formData = new FormData();
+
+                    // Check if files are passed and add to FormData
+                    if (preview_image instanceof File) {
+                        formData.append("preview_image", preview_image);
+                    }
+                    if (cover_image instanceof File) {
+                        formData.append("cover_image", cover_image);
+                    }
+
+                    // Add the rest of the data
+                    Object.keys(rest).forEach((key) => {
+                        if (rest[key] !== undefined) {
+                            formData.append(key, rest[key] as string | Blob);
+                        }
+                    });
+
+                    // Determine the request payload
+                    const payload =
+                        preview_image instanceof File ||
+                        cover_image instanceof File
+                            ? formData
+                            : { ...rest, preview_image, cover_image };
+
                     return {
-                        url: "/",
+                        url: `/${body.blogPostId}`,
                         method: "PATCH",
-                        body: body,
+                        body: payload,
                     };
                 },
             }),
@@ -52,16 +75,35 @@ export const blogApi = createApi({
                 Omit<IBlogPost, "id">
             >({
                 query: (body) => {
-                    (body as unknown as Record<string, string>)[
-                        "previewImage"
-                    ] = body.preview_image as string;
-                    (body as unknown as Record<string, string>)["coverImage"] =
-                        body.cover_image as string;
+                    const { preview_image, cover_image, ...rest } = body;
+                    const formData = new FormData();
+
+                    // Check if files are passed and add to FormData
+                    if (preview_image instanceof File) {
+                        formData.append("preview_image", preview_image);
+                    }
+                    if (cover_image instanceof File) {
+                        formData.append("cover_image", cover_image);
+                    }
+
+                    // Add the rest of the data
+                    Object.keys(rest).forEach((key) => {
+                        if (rest[key] !== undefined) {
+                            formData.append(key, rest[key] as string | Blob);
+                        }
+                    });
+
+                    // Determine the request payload
+                    const payload =
+                        preview_image instanceof File ||
+                        cover_image instanceof File
+                            ? formData
+                            : { ...rest, preview_image, cover_image };
 
                     return {
                         url: "/new",
                         method: "POST",
-                        body: body,
+                        body: payload,
                     };
                 },
             }),
