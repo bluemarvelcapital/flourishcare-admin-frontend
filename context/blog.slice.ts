@@ -1,8 +1,9 @@
-import { IBlogPost, IBlogPostStatus } from "@/types/blog";
+import { IBlogPost, IBlogPostStatus, IBlogTag } from "@/types/blog";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface BlogState {
     posts: IBlogPost[];
+    tags: IBlogTag[];
     total: number;
     published: number;
     draft: number;
@@ -12,6 +13,7 @@ interface BlogState {
 
 const initialState: BlogState = {
     posts: [],
+    tags: [],
     total: 0,
     published: 0,
     draft: 0,
@@ -66,7 +68,10 @@ export const blogSlice = createSlice({
                 (post) => post.status === IBlogPostStatus.HIDDEN,
             ).length;
         },
+        setTags: (state, action: PayloadAction<IBlogTag[]>) => {
+            state.tags = action.payload;
+        },
     },
 });
 
-export const { setPosts, addPosts, updatePost } = blogSlice.actions;
+export const { setPosts, addPosts, updatePost, setTags } = blogSlice.actions;

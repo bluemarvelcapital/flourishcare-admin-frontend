@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { api_url } from "@/constants/API_URL";
-import { IBlogPost } from "@/types/blog";
+import { IBlogPost, IBlogTag } from "@/types/blog";
 import { fetchBaseQueryWithAuth } from "./customQuery";
+import { GetProp } from "antd";
 
 interface GetBlogPostsResponse {
     status: "success";
@@ -14,6 +15,13 @@ interface UpdateBlogPostResponse {
     status: "success";
     data: {
         blogPost: IBlogPost & { status: "draft" | "published" | "hidden" };
+    };
+}
+
+interface GetBlogPostTagsResponse {
+    status: "success";
+    data: {
+        tags: IBlogTag[];
     };
 }
 
@@ -114,12 +122,20 @@ export const blogApi = createApi({
                     };
                 },
             }),
+            getBlogTags: builder.query<GetBlogPostTagsResponse, any>({
+                query: () => {
+                    return {
+                        url: "/tag",
+                    };
+                },
+            }),
         };
     },
 });
 
 export const {
     useGetBlogPostsQuery,
+    useGetBlogTagsQuery,
     useCreateBlogPostMutation,
     useUpdateBlogPostMutation,
 } = blogApi;

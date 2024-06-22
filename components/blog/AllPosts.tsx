@@ -6,8 +6,13 @@ import { IBlogPost, IBlogPostStatus } from "@/types/blog";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
 import { EditPost } from "./EditPost";
-import { useGetBlogPostsQuery } from "@/services/blog.service";
+import {
+    useGetBlogPostsQuery,
+    useGetBlogTagsQuery,
+} from "@/services/blog.service";
 import NoData from "../misc/NoData";
+import { useDispatch } from "react-redux";
+import { setPosts, setTags } from "@/context/blog.slice";
 
 const columns: TableColumnsType<IBlogPost> = [
     {
@@ -55,8 +60,10 @@ const columns: TableColumnsType<IBlogPost> = [
     {
         title: "Date",
         dataIndex: "createdAt",
+
         defaultSortOrder: "descend",
         sorter: (a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt),
+        render: (value) => new Date(value).toDateString(),
     },
     {
         title: "",
@@ -146,11 +153,22 @@ const onChange: TableProps<IBlogPost>["onChange"] = (
     sorter,
     extra,
 ) => {
-    console.log("params", pagination, filters, sorter, extra);
 };
 
 export const AllPosts: React.FC = () => {
-    const { data } = useGetBlogPostsQuery(null);
+    const { data: postsData } = useGetBlogPostsQuery(null);
+    const { data: tagsData } = useGetBlogTagsQuery(null);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (tagsData?.data.tags) {
+            dispatch(setTags(tagsData.data.tags));
+        }
+
+        if (postsData?.data.blogPosts) {
+            dispatch(setPosts(postsData.data.blogPosts));
+        }
+    }, [tagsData, postsData]);
 
     return (
         <div>
@@ -168,7 +186,7 @@ export const AllPosts: React.FC = () => {
             </div>
             <Table
                 columns={columns}
-                dataSource={data?.data.blogPosts ?? ([] as IBlogPost[])}
+                dataSource={postsData?.data.blogPosts ?? ([] as IBlogPost[])}
                 onChange={onChange}
             />
         </div>
