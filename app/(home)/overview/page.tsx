@@ -1,8 +1,8 @@
 "use client";
 import { CreatePost } from "@/components/blog";
-import { PendingPosts } from "@/components/blog/PendingPosts";
 import Header from "@/components/misc/Header";
 import { AllUsers } from "@/components/overview/AllUsers";
+import { AppointmentsTable } from "@/components/overview/AppointmentsTable";
 import { BookingsTable } from "@/components/overview/BookingsTable";
 import DataTable from "@/components/overview/DataTable";
 import { MetaData } from "@/components/overview/MetaData";
@@ -24,7 +24,7 @@ const AdminBlog = () => {
           <AllUsers />
         </div>
         <div className="lg:w-[27%] flex-col flex gap-y-4">
-          <PendingPosts />
+          <AppointmentsTable />
           <BookingsTable />
         </div>
       </div>
