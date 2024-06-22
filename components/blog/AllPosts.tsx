@@ -67,7 +67,7 @@ const columns: TableColumnsType<IBlogPost> = [
                     <Popover
                         content={
                             <div className="flex flex-col gap-3 w-[100px]">
-                                <EditPost />
+                                <EditPost blogPost={record} />
                                 <p className="cursor-pointer">View</p>
                                 <p className="text-error-500 cursor-pointer">
                                     Delete

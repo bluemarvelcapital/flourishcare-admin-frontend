@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 
 export function BlogEditor({
@@ -8,20 +8,21 @@ export function BlogEditor({
     content: string;
     setContent: (content: string) => void;
 }) {
-    const [localContent, setLocalContent] = useState(content ?? "");
+    const [localContent, setLocalContent] = useState<string | undefined>();
     const editorRef = useRef(null);
+
     return (
         <>
             <Editor
                 apiKey={process.env.NEXT_PUBLIC_TINYMCE_API_KEY}
-                onChange={(e) => {
-                    setContent && setContent(e.target.value);
-                    setLocalContent(e.target.value);
+                onEditorChange={(content) => {
+                    setLocalContent(content);
+                    setContent && setContent(content);
                 }}
                 // @ts-ignore
                 onInit={(evt, editor) => (editorRef.current = editor)}
                 value={localContent}
-                initialValue={content}
+                initialValue={content ?? localContent}
                 init={{
                     min_height: 300,
                     menubar: false,

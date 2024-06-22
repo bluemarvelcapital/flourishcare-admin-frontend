@@ -1,14 +1,13 @@
-"use client";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Select } from "antd";
 import React from "react";
 import { BlogEditor } from "./BlogEditor";
 import { UploadMedia } from "./UploadMedia";
 import { IBlogPost, IBlogPostStatus } from "@/types/blog";
-import { useForm } from "antd/es/form/Form";
+import { FormInstance, useForm } from "antd/es/form/Form";
 import { useUpdateBlogPostMutation } from "@/services/blog.service";
 import { toast } from "react-toastify";
 
-export const BlogForm = () => {
+export const BlogForm = ({ blogPost }: { blogPost: IBlogPost }) => {
     return (
         <div className="mt-5">
             <Form layout="vertical">
@@ -49,7 +48,10 @@ export const BlogForm = () => {
                         },
                     ]}
                 >
-                    <BlogEditor />
+                    <BlogEditor
+                        content={blogPost.description}
+                        setContent={() => {}}
+                    />
                 </Form.Item>
                 <Form.Item
                     label="Preview Image"
@@ -89,32 +91,46 @@ export const BlogForm = () => {
     );
 };
 
+interface FormData {
+    id: string;
+    title: string;
+    description: string;
+    status: IBlogPostStatus;
+    content: string;
+    preview_image: string | File | undefined;
+    cover_image: string | File | undefined;
+}
+
+const convertFileToDataURI = (file: File) =>
+    new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
+
+    
 export const EditBlogForm = ({ blogPost }: { blogPost: IBlogPost }) => {
-    const [form, setForm] = Form.useForm<{
-        id: string;
-        title: string;
-        description: string;
-        status: IBlogPostStatus;
-        content: string;
-        preview_image: string | File | null;
-        cover_image: string | File | null;
-    }>();
+    const [form] = Form.useForm<FormData>();
     const [updateBlogPost, { isLoading }] = useUpdateBlogPostMutation();
 
-    const handleFinish = async (values: any) => {
+    const handleFinish = async (values: FormData) => {
         const { preview_image, cover_image, ...rest } = values;
-        const body = { ...rest, blogPostId: blogPost.id };
+        const body = { ...values, blogPostId: blogPost.id };
 
-        if (preview_image && preview_image.file) {
-            body.preview_image = preview_image.file.originFileObj;
+        // Check if preview_image is a file and convert to data URI
+        if (preview_image instanceof File) {
+            body.preview_image = await convertFileToDataURI(preview_image);
         }
 
-        if (cover_image && cover_image.file) {
-            body.cover_image = cover_image.file.originFileObj;
+        if (cover_image instanceof File) {
+            body.cover_image = await convertFileToDataURI(cover_image);
         }
+
+        console.log({ values, form });
 
         try {
-            await updateBlogPost(body).unwrap();
+            await updateBlogPost({ ...body, blogPostId: blogPost.id }).unwrap();
             toast.success("Blog post updated successfully");
         } catch (error) {
             toast.error(
@@ -127,7 +143,7 @@ export const EditBlogForm = ({ blogPost }: { blogPost: IBlogPost }) => {
     return (
         <div className="mt-5">
             <Form
-                form={form}
+                form={form as FormInstance}
                 layout="vertical"
                 initialValues={{
                     id: blogPost.id,
@@ -144,6 +160,7 @@ export const EditBlogForm = ({ blogPost }: { blogPost: IBlogPost }) => {
                     label="Title"
                     name="title"
                     required
+                    initialValue={blogPost.title}
                     rules={[
                         {
                             required: true,
@@ -155,6 +172,9 @@ export const EditBlogForm = ({ blogPost }: { blogPost: IBlogPost }) => {
                 </Form.Item>
                 <Form.Item
                     label="Category"
+                    initialValue={blogPost.blogTags
+                        .map((tag) => tag.name.toUpperCase())
+                        .join(", ")}
                     name="category"
                 >
                     <Input
@@ -166,9 +186,29 @@ export const EditBlogForm = ({ blogPost }: { blogPost: IBlogPost }) => {
                     />
                 </Form.Item>
                 <Form.Item
+                    label="Status"
+                    initialValue={blogPost.status}
+                    name="status"
+                >
+                    <Select
+                        size="large"
+                        value={blogPost.status.toUpperCase()}
+                        onChange={(value) =>
+                            form.setFieldValue("status", value)
+                        }
+                    >
+                        {Object.values(IBlogPostStatus).map((status) => (
+                            <Select.Option key={status} value={status}>
+                                {status}
+                            </Select.Option>
+                        ))}
+                    </Select>
+                </Form.Item>
+                <Form.Item
                     label="Description"
                     name="description"
                     required
+                    initialValue={blogPost.description}
                     rules={[
                         {
                             required: true,
@@ -176,7 +216,14 @@ export const EditBlogForm = ({ blogPost }: { blogPost: IBlogPost }) => {
                         },
                     ]}
                 >
-                    <BlogEditor content={blogPost.description} setContent={(value) => setForm({ ...form, description: value})} />
+                    <BlogEditor
+                        content={blogPost.description}
+                        setContent={(value) => {
+                            console.log("setting value", { value });
+
+                            form.setFieldValue("description", value);
+                        }}
+                    />
                 </Form.Item>
                 <Form.Item
                     label="Preview Image"
@@ -189,6 +236,7 @@ export const EditBlogForm = ({ blogPost }: { blogPost: IBlogPost }) => {
                         return e && e.fileList;
                     }}
                     required
+                    initialValue={blogPost.preview_image}
                     rules={[
                         {
                             required: true,
@@ -196,7 +244,13 @@ export const EditBlogForm = ({ blogPost }: { blogPost: IBlogPost }) => {
                         },
                     ]}
                 >
-                    <UploadMedia id={"preview_image"} />
+                    <UploadMedia
+                        id={"preview_image"}
+                        initialValue={blogPost.preview_image}
+                        setValue={(file) =>
+                            form.setFieldValue("preview_image", file)
+                        }
+                    />
                 </Form.Item>
                 <Form.Item
                     label="Cover Image"
@@ -209,6 +263,7 @@ export const EditBlogForm = ({ blogPost }: { blogPost: IBlogPost }) => {
                         return e && e.fileList;
                     }}
                     required
+                    initialValue={blogPost.cover_image}
                     rules={[
                         {
                             required: true,
@@ -216,7 +271,13 @@ export const EditBlogForm = ({ blogPost }: { blogPost: IBlogPost }) => {
                         },
                     ]}
                 >
-                    <UploadMedia id={"cover_image"} />
+                    <UploadMedia
+                        id={"cover_image"}
+                        initialValue={blogPost.preview_image}
+                        setValue={(file) =>
+                            form.setFieldValue("cover_image", file)
+                        }
+                    />
                 </Form.Item>
                 <Button
                     type="primary"

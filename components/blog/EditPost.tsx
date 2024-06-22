@@ -1,9 +1,10 @@
 "use client";
 import { Button, Modal } from "antd";
 import React, { useState } from "react";
-import { BlogForm } from "./BlogForm";
+import { BlogForm, EditBlogForm } from "./BlogForm";
+import { IBlogPost } from "@/types/blog";
 
-export const EditPost = () => {
+export const EditPost = ({ blogPost }: { blogPost: IBlogPost }) => {
     const [open, setOpen] = useState(false);
     return (
         <>
@@ -29,7 +30,7 @@ export const EditPost = () => {
                 closeIcon={<></>}
                 footer={null}
             >
-                <BlogForm />
+                <EditBlogForm blogPost={blogPost} />
             </Modal>
         </>
     );

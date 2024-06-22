@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { IoCloudUploadOutline } from "react-icons/io5";
 
 interface Props {
     id: string;
+    initialValue?: string | null; // Optional prop for existing file or image URL
+    setValue?: (file: File) => void; // Optional callback to set the selected file
 }
 
-export const UploadMedia: React.FC<Props> = ({ id }) => {
+export const UploadMedia: React.FC<Props> = ({
+    id,
+    initialValue = null,
+    setValue,
+}) => {
     const [file, setFile] = React.useState<File | null>(null);
-    const [preview, setPreview] = React.useState<string | null>(null);
+    const [preview, setPreview] = React.useState<string | null>(initialValue);
+
+    // Set initial preview if there's an initialValue
+    useEffect(() => {
+        if (initialValue) {
+            setPreview(initialValue);
+        }
+    }, [initialValue]);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = e.target.files?.[0] || null;
@@ -19,6 +32,11 @@ export const UploadMedia: React.FC<Props> = ({ id }) => {
                 setPreview(reader.result as string);
             };
             reader.readAsDataURL(selectedFile);
+
+            // Call setValue if provided
+            if (setValue) {
+                setValue(selectedFile);
+            }
         } else {
             setPreview(null);
         }
