@@ -3,6 +3,7 @@ import { Button, Modal } from "antd";
 import React, { useState } from "react";
 import { BlogForm, EditBlogForm } from "./BlogForm";
 import { IBlogPost } from "@/types/blog";
+import { IoClose } from "react-icons/io5";
 
 export const EditPost = ({ blogPost }: { blogPost: IBlogPost }) => {
     const [open, setOpen] = useState(false);
@@ -27,7 +28,7 @@ export const EditPost = ({ blogPost }: { blogPost: IBlogPost }) => {
                 open={open}
                 onOk={() => setOpen(false)}
                 onCancel={() => setOpen(false)}
-                closeIcon={<></>}
+                closeIcon={<IoClose />}
                 footer={null}
             >
                 <EditBlogForm blogPost={blogPost} />

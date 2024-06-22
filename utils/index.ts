@@ -17,4 +17,8 @@ export default class Util {
         } as const;
         return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
     };
+
+    static capitalizeFirstLetter = (str: string) => {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    };
 }
