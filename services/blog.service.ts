@@ -7,7 +7,7 @@ import { GetProp } from "antd";
 interface GetBlogPostsResponse {
     status: "success";
     data: {
-        blogPosts: (IBlogPost & { status: "draft" | "published" | "hidden" })[];
+        blogPosts: (IBlogPost )[];
     };
 }
 

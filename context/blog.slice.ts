@@ -52,11 +52,20 @@ export const blogSlice = createSlice({
                 (post) => post.status === IBlogPostStatus.HIDDEN,
             ).length;
         },
-        updatePost: (state, action: PayloadAction<IBlogPost>) => {
+        updatePost: (
+            state,
+            action: PayloadAction<Partial<IBlogPost> & { id: string }>,
+        ) => {
             const index = state.posts.findIndex(
                 (post) => post.id === action.payload.id,
             );
-            state.posts[index] = action.payload;
+
+            const updatedPost = {
+                ...state.posts[index],
+                ...action.payload,
+            };
+
+            state.posts[index] = updatedPost;
 
             state.published = state.posts.filter(
                 (post) => post.status === IBlogPostStatus.PUBLISHED,

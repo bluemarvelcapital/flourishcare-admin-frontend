@@ -10,16 +10,25 @@ import {
     useGetBlogPostsQuery,
     useGetBlogTagsQuery,
 } from "@/services/blog.service";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setPosts, setTags } from "@/context/blog.slice";
+import { RootState } from "@/context/store";
 
 export const AllPosts: React.FC = () => {
     const { data: postsData } = useGetBlogPostsQuery(null);
     const { data: tagsData } = useGetBlogTagsQuery(null);
+    const { posts } = useSelector((state: RootState) => state.blog);
+    const [allPosts, setAllPosts] = useState<IBlogPost[]>(posts);
     const dispatch = useDispatch();
 
     const [columns, setColumns] = useState<TableColumnsType<IBlogPost>>([]);
     const [filteredPosts, setFilteredPosts] = useState<IBlogPost[]>([]);
+
+    useEffect(() => {
+        if (posts.length) {
+            setAllPosts(posts);
+        }
+    }, [posts]);
 
     useEffect(() => {
         if (tagsData?.data.tags) {
@@ -44,16 +53,16 @@ export const AllPosts: React.FC = () => {
                     render(value, record) {
                         return (
                             <div className="flex items-center gap-3">
-                                <Image
-                                    alt={value}
-                                    src={record.preview_image}
-                                    width={100}
-                                    height={55}
-                                    style={{
-                                        objectFit: "cover",
-                                        borderRadius: "8px",
-                                    }}
-                                />
+                                <div className="w-[100px] h-[55px] flex-shrink-0 bg-[#f1f1f1] px-auto py-auto">
+                                    <Image
+                                        width={100}
+                                        height={55}
+                                        src={record.preview_image}
+                                        alt=""
+                                        className="w-full h-full rounded-md object-contain"
+                                        style={{ objectFit: "contain" }}
+                                    />
+                                </div>{" "}
                                 <div>
                                     <p>{record.title}</p>
                                 </div>
@@ -67,11 +76,10 @@ export const AllPosts: React.FC = () => {
                     responsive: ["lg"],
                     render(value) {
                         const statusColor =
+                            value === IBlogPostStatus.DRAFT ||
                             value === IBlogPostStatus.PUBLISHED
-                                ? "bg-success-400"
-                                : value === IBlogPostStatus.DRAFT
-                                  ? "bg-primary"
-                                  : "bg-error-100";
+                                ? "bg-primary"
+                                : "bg-gray-200";
                         return (
                             <div
                                 className={`w-[100px] py-1 px-2 text-white rounded-md text-center ${statusColor}`}
@@ -153,15 +161,14 @@ export const AllPosts: React.FC = () => {
         extra,
     ) => {};
 
-
     return (
         <div>
             <div className="mb-4 flex md:flex-row flex-col gap-3 md:items-center justify-between">
                 <div className="flex items-center gap-2">
                     <h2 className="text-xl">All Posts</h2>
-                    <Avatar className="bg-primary">{
-                        postsData?.data.blogPosts?.length ?? 0
-                    }</Avatar>
+                    <Avatar className="bg-primary">
+                        {postsData?.data.blogPosts?.length ?? 0}
+                    </Avatar>
                 </div>
                 <Input
                     placeholder="Search Posts"
@@ -169,9 +176,9 @@ export const AllPosts: React.FC = () => {
                     prefix={<BiSearch />}
                     className="md:w-[350px]"
                     onChange={(e) => {
-                        if (postsData?.data.blogPosts) {
+                        if (posts.length) {
                             setFilteredPosts(
-                                postsData.data.blogPosts.filter((post) =>
+                                posts.filter((post) =>
                                     post.title
                                         .toLowerCase()
                                         .includes(e.target.value.toLowerCase()),
@@ -183,13 +190,12 @@ export const AllPosts: React.FC = () => {
             </div>
             <Table
                 columns={columns}
-                dataSource={
-                    filteredPosts.length
-                        ? filteredPosts
-                        : postsData?.data.blogPosts ?? []
-                }
+                dataSource={filteredPosts.length ? filteredPosts : allPosts}
                 onChange={onChange}
+                className="primary-header-table"
             />
         </div>
     );
 };
+
+export default AllPosts;

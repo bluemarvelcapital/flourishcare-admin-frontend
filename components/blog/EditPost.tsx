@@ -5,8 +5,14 @@ import { BlogForm, EditBlogForm } from "./BlogForm";
 import { IBlogPost } from "@/types/blog";
 import { IoClose } from "react-icons/io5";
 
-export const EditPost = ({ blogPost }: { blogPost: IBlogPost }) => {
-    const [open, setOpen] = useState(false);
+export const EditPost = ({
+    blogPost,
+    open: _open,
+}: {
+    blogPost?: IBlogPost;
+    open?: boolean;
+}) => {
+    const [open, setOpen] = useState(_open != undefined ? _open : false);
     return (
         <>
             <p
@@ -15,24 +21,28 @@ export const EditPost = ({ blogPost }: { blogPost: IBlogPost }) => {
             >
                 Edit
             </p>
-            <Modal
-                width={"700px"}
-                title={
-                    <div>
-                        <h2 className="text-2xl font-normal">Edit Blog Post</h2>
-                        <p className="font-normal text-[#ACACAC] mt-1">
-                            Fields must be filled and cannot be empty
-                        </p>
-                    </div>
-                }
-                open={open}
-                onOk={() => setOpen(false)}
-                onCancel={() => setOpen(false)}
-                closeIcon={<IoClose />}
-                footer={null}
-            >
-                <EditBlogForm blogPost={blogPost} />
-            </Modal>
+            {blogPost && (
+                <Modal
+                    width={"700px"}
+                    title={
+                        <div>
+                            <h2 className="text-2xl font-normal">
+                                Edit Blog Post
+                            </h2>
+                            <p className="font-normal text-[#ACACAC] mt-1">
+                                Fields must be filled and cannot be empty
+                            </p>
+                        </div>
+                    }
+                    open={open}
+                    onOk={() => setOpen(false)}
+                    onCancel={() => setOpen(false)}
+                    closeIcon={<IoClose />}
+                    footer={null}
+                >
+                    <EditBlogForm blogPost={blogPost} />
+                </Modal>
+            )}
         </>
     );
 };

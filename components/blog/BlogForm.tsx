@@ -7,8 +7,9 @@ import { FormInstance, useForm } from "antd/es/form/Form";
 import { useUpdateBlogPostMutation } from "@/services/blog.service";
 import { toast } from "react-toastify";
 import Util from "@/utils";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/context/store";
+import { updatePost } from "@/context/blog.slice";
 
 export const BlogForm = ({ blogPost }: { blogPost: IBlogPost }) => {
     return (
@@ -108,6 +109,7 @@ export const EditBlogForm = ({ blogPost }: { blogPost: IBlogPost }) => {
     const [form] = Form.useForm<FormData>();
     const [updateBlogPost, { isLoading }] = useUpdateBlogPostMutation();
     const { tags } = useSelector((state: RootState) => state.blog);
+    const disptach = useDispatch();
 
     const handleFinish = async (values: FormData) => {
         const { preview_image, cover_image, ...rest } = values;
@@ -125,7 +127,11 @@ export const EditBlogForm = ({ blogPost }: { blogPost: IBlogPost }) => {
         console.log({ values, form });
 
         try {
-            await updateBlogPost({ ...body, blogPostId: blogPost.id }).unwrap();
+            const res = await updateBlogPost({
+                ...body,
+                blogPostId: blogPost.id,
+            }).unwrap();
+            disptach(updatePost(res.data.blogPost));
             toast.success("Blog post updated successfully");
         } catch (error) {
             toast.error(
@@ -174,7 +180,7 @@ export const EditBlogForm = ({ blogPost }: { blogPost: IBlogPost }) => {
                         }}
                     >
                         {tags.map((tag) => (
-                            <Select.Option key={tag.id} value={tag.id} >
+                            <Select.Option key={tag.id} value={tag.id}>
                                 {tag.name}
                             </Select.Option>
                         ))}
