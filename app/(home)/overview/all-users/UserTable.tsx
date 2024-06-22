@@ -55,7 +55,7 @@ const columns: TableColumnsType<OverviewTypes> = [
                         content={
                             <div className="flex flex-col gap-3 w-[100px]">
                                 {/* <EditPost /> */}
-                                <p className="cursor-pointer">View</p>
+                                <Link href="/overview/user-details" className="cursor-pointer">View</Link>
                                 <p className="text-error-500 cursor-pointer">
                                     Delete
                                 </p>
