@@ -7,8 +7,7 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
 // import { EditPost } from "./EditPost";
 import { useGetBlogPostsQuery } from "@/services/blog.service";
-import {data, OverviewTypes} from "../../types/overview"
-import NoData from "../misc/NoData";
+import { data, OverviewTypes } from "../../../../types/overview";
 import Link from "next/link";
 
 const columns: TableColumnsType<OverviewTypes> = [
@@ -81,7 +80,7 @@ const onChange: TableProps<OverviewTypes>["onChange"] = (
     console.log("params", pagination, filters, sorter, extra);
 };
 
-export const AllUsers: React.FC = () => {
+const UserTable: React.FC = () => {
     // const { data } = useGetBlogPostsQuery(null);
 
     return (
@@ -97,11 +96,6 @@ export const AllUsers: React.FC = () => {
                     prefix={<BiSearch />}
                     className="md:w-[350px]"
                 />
-               <button className="bg-secondary hover:bg-opacity-75 transition-all duration-300 ml-5 px-4 py-2 rounded-lg text-white">
-                <Link href="/overview/all-users" >
-                See All Users
-                </Link>
-               </button>
             </div>
             <Table
                 columns={columns}
@@ -112,3 +106,5 @@ export const AllUsers: React.FC = () => {
         </div>
     );
 };
+
+export default UserTable
