@@ -4,6 +4,7 @@ import "./globals.css";
 import { NavBar } from "@/components/NavBar";
 import { Content } from "@/components/Content";
 import { Header } from "@/components/Header";
+import AuthenticatedPage from "@/components/AuthenticatedPage/page";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,14 +25,16 @@ export default function RootLayout({
                     className="flex flex-row h-[100dvh] overflow-auto xl:overflow-hidden"
                     id="json-container"
                 >
-                    <NavBar />
-                    <Content>
-                        <Header />
-                        {/* <div className="md:px-[2.8rem] md:py-[3rem] px-[1rem] py-[2rem] mx-auto container"> */}
-                        <div className="h-fit flex-1 overflow-hidden px-8">
-                            {children}
-                        </div>
-                    </Content>
+                    <AuthenticatedPage>
+                        <NavBar />
+                        <Content>
+                            <Header />
+                            {/* <div className="md:px-[2.8rem] md:py-[3rem] px-[1rem] py-[2rem] mx-auto container"> */}
+                            <div className="h-fit flex-1 overflow-hidden px-8">
+                                {children}
+                            </div>
+                        </Content>
+                    </AuthenticatedPage>
                 </div>
             </body>
         </html>
