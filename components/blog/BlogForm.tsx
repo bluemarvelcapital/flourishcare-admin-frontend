@@ -1,20 +1,73 @@
 import { Button, Form, Input, Select } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import { BlogEditor } from "./BlogEditor";
 import { UploadMedia } from "./UploadMedia";
 import { IBlogPost, IBlogPostStatus } from "@/types/blog";
 import { FormInstance, useForm } from "antd/es/form/Form";
-import { useUpdateBlogPostMutation } from "@/services/blog.service";
+import {
+    useCreateBlogPostMutation,
+    useGetBlogTagsQuery,
+    useUpdateBlogPostMutation,
+} from "@/services/blog.service";
 import { toast } from "react-toastify";
 import Util from "@/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/context/store";
-import { updatePost } from "@/context/blog.slice";
+import { addPosts, setPosts, updatePost } from "@/context/blog.slice";
 
-export const BlogForm = ({ blogPost }: { blogPost: IBlogPost }) => {
+export const BlogForm = () => {
+    const { data: tagsData } = useGetBlogTagsQuery(null);
+    const { tags } = useSelector((state: RootState) => state.blog);
+    const [blogTags, setBlogTags] = React.useState<IBlogPost["blogTags"]>([]);
+    const dispatch = useDispatch();
+    const [form] = Form.useForm<FormDataWithFiles>();
+
+    const [createBlogPost, { isLoading }] = useCreateBlogPostMutation();
+
+    useEffect(() => {
+        if (tagsData?.data.tags) {
+            setBlogTags(tagsData.data.tags);
+        }
+    }, [tagsData, dispatch]);
+
+    const handleFinish = async (values: FormData) => {
+        const { preview_image, cover_image, ...rest } = values;
+
+        // Check if preview_image is a file and convert to data URI
+        if (preview_image instanceof File) {
+            values.preview_image =
+                await Util.convertFileToDataURI(preview_image);
+        }
+
+        if (cover_image instanceof File) {
+            values.cover_image = await Util.convertFileToDataURI(cover_image);
+        }
+
+        try {
+            const res = await createBlogPost({
+                ...values,
+                preview_image: values.preview_image as string,
+                cover_image: values.cover_image as string,
+                createdAt: new Date().toDateString(),
+                tags: values.tags.join(","),
+            }).unwrap();
+            dispatch(addPosts([res.data.blogPost]));
+            toast.success("Blog post created successfully");
+        } catch (error) {
+            toast.error(
+                (error as any).message ??
+                    "An error occurred. Please try again.",
+            );
+        }
+    };
+
     return (
         <div className="mt-5">
-            <Form layout="vertical">
+            <Form
+                form={form as FormInstance}
+                layout="vertical"
+                onFinish={handleFinish}
+            >
                 <Form.Item
                     label="Title"
                     name="title"
@@ -28,18 +81,33 @@ export const BlogForm = ({ blogPost }: { blogPost: IBlogPost }) => {
                 >
                     <Input size="large" />
                 </Form.Item>
-                <Form.Item
-                    label="Category"
-                    name="category"
-                    required
-                    rules={[
-                        {
-                            required: true,
-                            message: "Please enter the category",
-                        },
-                    ]}
-                >
-                    <Input size="large" />
+                <Form.Item label="Category" name="tags">
+                    <Select
+                        mode="multiple"
+                        onChange={(e) => {
+                            form.setFieldValue("tags", e);
+                        }}
+                    >
+                        {tags.map((tag) => (
+                            <Select.Option key={tag.id} value={tag.id}>
+                                {tag.name}
+                            </Select.Option>
+                        ))}
+                    </Select>
+                </Form.Item>
+                <Form.Item label="Status" name="status">
+                    <Select
+                        size="large"
+                        onChange={(value) =>
+                            form.setFieldValue("status", value)
+                        }
+                    >
+                        {Object.values(IBlogPostStatus).map((status) => (
+                            <Select.Option key={status} value={status}>
+                                {status}
+                            </Select.Option>
+                        ))}
+                    </Select>
                 </Form.Item>
                 <Form.Item
                     label="Description"
@@ -52,44 +120,89 @@ export const BlogForm = ({ blogPost }: { blogPost: IBlogPost }) => {
                         },
                     ]}
                 >
+                    <Input.TextArea
+                        onChange={(e) => {
+                            form.setFieldValue("description", e.target.value);
+                        }}
+                    ></Input.TextArea>
+                </Form.Item>
+                <Form.Item
+                    label="Content"
+                    name="content"
+                    required
+                    rules={[
+                        {
+                            required: true,
+                            message: "Please enter the description",
+                        },
+                    ]}
+                >
                     <BlogEditor
-                        content={blogPost.description}
-                        setContent={() => {}}
+                        content={""}
+                        setContent={(value) => {
+                            form.setFieldValue("content", value);
+                        }}
                     />
                 </Form.Item>
                 <Form.Item
                     label="Preview Image"
                     name="preview_image"
+                    valuePropName="fileList"
+                    getValueFromEvent={(e) => {
+                        if (Array.isArray(e)) {
+                            return e;
+                        }
+                        return e && e.fileList;
+                    }}
                     required
                     rules={[
                         {
                             required: true,
-                            message: "Please enter the preview image",
+                            message: "Please upload a preview image",
                         },
                     ]}
                 >
-                    <UploadMedia id={"preview_image"} />
+                    <UploadMedia
+                        id={"preview_image"}
+                        setValue={(file) =>
+                            form.setFieldValue("preview_image", file)
+                        }
+                    />
                 </Form.Item>
                 <Form.Item
                     label="Cover Image"
                     name="cover_image"
+                    valuePropName="fileList"
+                    getValueFromEvent={(e) => {
+                        if (Array.isArray(e)) {
+                            return e;
+                        }
+                        return e && e.fileList;
+                    }}
                     required
                     rules={[
                         {
                             required: true,
-                            message: "Please enter the cover image",
+                            message: "Please upload a cover image",
                         },
                     ]}
                 >
-                    <UploadMedia id={"cover_image"} />
+                    <UploadMedia
+                        id={"cover_image"}
+                        setValue={(file) =>
+                            form.setFieldValue("cover_image", file)
+                        }
+                    />
                 </Form.Item>
-                <Button
-                    type="primary"
-                    className="bg-secondary w-full"
-                    size="large"
-                >
-                    Create Post
-                </Button>
+                <Form.Item>
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                        loading={isLoading}
+                    >
+                        Create Post
+                    </Button>
+                </Form.Item>
             </Form>
         </div>
     );
@@ -103,7 +216,13 @@ interface FormData {
     content: string;
     preview_image: string | File | undefined;
     cover_image: string | File | undefined;
+    tags: string[];
 }
+
+type FormDataWithFiles = Exclude<FormData, "preview_image" | "cover_image"> & {
+    preview_image: File | string;
+    cover_image: File | string;
+};
 
 export const EditBlogForm = ({ blogPost }: { blogPost: IBlogPost }) => {
     const [form] = Form.useForm<FormData>();
@@ -212,12 +331,28 @@ export const EditBlogForm = ({ blogPost }: { blogPost: IBlogPost }) => {
                         },
                     ]}
                 >
+                    <Input.TextArea
+                        value={blogPost.description}
+                        onChange={(e) => {
+                            form.setFieldValue("description", e.target.value);
+                        }}
+                    ></Input.TextArea>
+                </Form.Item>
+                <Form.Item
+                    label="Content"
+                    name="content"
+                    required
+                    rules={[
+                        {
+                            required: true,
+                            message: "Please enter the description",
+                        },
+                    ]}
+                >
                     <BlogEditor
-                        content={blogPost.description}
+                        content={blogPost.content}
                         setContent={(value) => {
-                            console.log("setting value", { value });
-
-                            form.setFieldValue("description", value);
+                            form.setFieldValue("content", value);
                         }}
                     />
                 </Form.Item>

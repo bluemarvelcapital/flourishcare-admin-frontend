@@ -101,7 +101,7 @@ export const AllPosts: React.FC = () => {
                     render: (_, record) => {
                         return (
                             <>
-                                {record.blogTags.map((tag) => (
+                                {record.blogTags?.map((tag) => (
                                     <span
                                         key={tag.id}
                                         className="text-xs bg-gray-100 text-gray-500 px-2 py-1 rounded-md"
@@ -131,12 +131,6 @@ export const AllPosts: React.FC = () => {
                                     content={
                                         <div className="flex flex-col gap-3 w-[100px]">
                                             <EditPost blogPost={record} />
-                                            <p className="cursor-pointer">
-                                                View
-                                            </p>
-                                            <p className="text-error-500 cursor-pointer">
-                                                Delete
-                                            </p>
                                         </div>
                                     }
                                     arrow={false}

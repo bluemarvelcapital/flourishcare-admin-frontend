@@ -7,7 +7,7 @@ import { GetProp } from "antd";
 interface GetBlogPostsResponse {
     status: "success";
     data: {
-        blogPosts: (IBlogPost )[];
+        blogPosts: IBlogPost[];
     };
 }
 
@@ -82,10 +82,13 @@ export const blogApi = createApi({
             }),
             createBlogPost: builder.mutation<
                 UpdateBlogPostResponse,
-                Omit<IBlogPost, "preview_image" | "cover_image" | "id"> & {
-                    blogPostId: string;
+                Omit<
+                    IBlogPost,
+                    "preview_image" | "blogTags" | "cover_image" | "id"
+                > & {
                     preview_image: File | string;
                     cover_image: File | string;
+                    tags: string;
                 }
             >({
                 query: (body) => {
