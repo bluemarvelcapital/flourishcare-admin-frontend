@@ -11,7 +11,7 @@ const Transactions: React.FC = () => {
                     <p className="text-primary text-2xl font-medium">
                         $4800.00
                     </p>
-                    <div className="text-secondary flex items-center flex-row">
+                    <div className="text-secondary text-sm flex items-center flex-row">
                         <BsDot />
                         Completed
                     </div>
@@ -42,7 +42,7 @@ const Transactions: React.FC = () => {
                         </div>{" "}
                         <div className="text-[#6a6b6c] text-xs">
                             <p>Phone : </p>
-                            <p className="text-black text-base">
+                            <p className="text-black text-sm">
                                 +(308) 555-0121
                             </p>
                         </div>
@@ -54,7 +54,7 @@ const Transactions: React.FC = () => {
                     <p className="text-primary text-2xl font-medium">
                         $4800.00
                     </p>
-                    <div className="text-secondary flex items-center flex-row">
+                    <div className="text-secondary flex items-center text-base flex-row">
                         <BsDot />
                         Completed
                     </div>
@@ -94,7 +94,7 @@ const Transactions: React.FC = () => {
             </div>
             <Link
                 href="/transactions"
-                className="text-secondary hover:text-opacity-80 duration-300 transition-all mt-auto text-lg"
+                className="text-secondary py-3 text-center hover:text-opacity-80 duration-300 transition-all mt-auto text-lg"
             >
                 View All
             </Link>
