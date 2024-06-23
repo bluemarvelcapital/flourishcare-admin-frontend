@@ -1,126 +1,156 @@
 "use client";
 import React from "react";
-import { Avatar, Image, Input, Popover, Table } from "antd";
+import { Image, Input, Popover, Table } from "antd";
 import type { TableColumnsType, TableProps } from "antd";
 import { BookingsTypes, data } from "@/types/bookings";
 import { BiSearch } from "react-icons/bi";
 import { useGetBlogPostsQuery } from "@/services/blog.service";
-import { MdOutlineMessage } from "react-icons/md";
-import { FaPhoneAlt } from "react-icons/fa";
 import { FiDownload } from "react-icons/fi";
 import { BsFileEarmarkPdfFill } from "react-icons/bs";
+import Link from "next/link";
+import { HiOutlineDotsVertical } from "react-icons/hi";
 
 const columns: TableColumnsType<BookingsTypes> = [
-  {
-    title: "Name",
-    dataIndex: "name",
-    responsive: ["lg"],
-    render(value, record) {
-      return (
-        <div className="flex items-center flex-row gap-3">
-          <Image
-            alt={value}
-            src={record.preview_img}
-            width={55}
-            height={55}
-            style={{ objectFit: "cover", borderRadius: "800px" }}
-          />
-          <div className="flex flex-col gap-2">
-            <p>{record.name}</p>
-          </div>
-        </div>
-      );
+    {
+        title: "Name",
+        dataIndex: "name",
+        responsive: ["lg"],
+        render(value, record) {
+            return (
+                <div className="flex items-center flex-row gap-3">
+                    <Image
+                        alt={value}
+                        src={record.preview_img}
+                        width={55}
+                        height={55}
+                        style={{ objectFit: "cover", borderRadius: "800px" }}
+                    />
+                    <div className="flex flex-col gap-2">
+                        <p>{record.name}</p>
+                    </div>
+                </div>
+            );
+        },
     },
-  },
-  {
-    title: "Appointment ID",
-    dataIndex: "ID",
-    render(value, record) {
-      return (
-        <div className="px-5 text-center py-2 bg-primary bg-opacity-20">
-          {record.ID}
-        </div>
-      );
+    {
+        title: "Appointment ID",
+        dataIndex: "ID",
+        render(value, record) {
+            return (
+                <div className="px-5 text-center py-2 bg-primary bg-opacity-20">
+                    {record.ID}
+                </div>
+            );
+        },
     },
-  },
-  {
-    title: "Contract",
-    dataIndex: "contract",
-    defaultSortOrder: "descend",
-    responsive: ["sm"],
-    sorter: (a, b) => a.contract - b.contract,
-    render(value, record) {
-      return (
-        <div className="flex flex-row h-[55px] w-44 items-center bg-[#F7F7F7] justify-center gap-x-5">
-          <BsFileEarmarkPdfFill className="text-error-500" />
-          <p>Contract - {record.contract}</p>
-          <FiDownload className="text-black" />
-        </div>
-      );
+    {
+        title: "Contract",
+        dataIndex: "contract",
+        defaultSortOrder: "descend",
+        responsive: ["sm"],
+        sorter: (a, b) => a.contract - b.contract,
+        render(value, record) {
+            return (
+                <div className="flex flex-row h-[55px] w-44 items-center bg-[#F7F7F7] justify-center gap-x-5">
+                    <BsFileEarmarkPdfFill className="text-error-500" />
+                    <p>Contract - {record.contract}</p>
+                    <FiDownload className="text-black" />
+                </div>
+            );
+        },
     },
-  },
-  {
-    title: "Date",
-    dataIndex: "date",
-    responsive: ["lg"],
-    defaultSortOrder: "descend",
-    sorter: (a, b) => Date.parse(a.date) - Date.parse(b.date),
-  },
-  {
-    title: "Invoice",
-    dataIndex: "",
-    render(value, record) {
-      return (
-        <div className="flex flex-row h-[55px] w-44 items-center bg-[#F7F7F7] justify-center gap-x-5">
-          <BsFileEarmarkPdfFill className="text-error-500" />
-          <p>INV - {record.contract}</p>
-          <FiDownload className="text-black" />
-        </div>
-      );
+    {
+        title: "Date",
+        dataIndex: "date",
+        responsive: ["lg"],
+        defaultSortOrder: "descend",
+        sorter: (a, b) => Date.parse(a.date) - Date.parse(b.date),
     },
-  },
-  {
-    title: "Payment",
-    dataIndex: "status",
-    responsive: ["sm"],
-    filters: [
-      {
-        text: "Completed",
-        value: "completed",
-      },
-      {
-        text: "Pending",
-        value: "pending",
-      },
-      {
-        text: "canceled",
-        value: "canceled",
-      },
-    ],
-    filterMultiple: true,
-    onFilter: (value, record) => record.status === value,
-    render(value, record) {
-      return (
-        <div className="flex flex-row gap-x-2">
-          {record.status?.toLowerCase() === "completed" && (
-            <p className="bg-secondary py-2 px-4 text-secondary capitalize bg-opacity-20 rounded-full font-semibold">
-              {record.status}
-            </p>
-          )}
-          {record.status?.toLowerCase() === "canceled" && (
-            <p className="bg-error-500 py-2 px-4 text-error-500 capitalize bg-opacity-20 rounded-full font-semibold">
-              {record.status}
-            </p>
-          )}
-          {record.status?.toLowerCase() === "pending" && (
-            <p className="bg-[#FFBF00] py-2 px-4 text-[#FFBF00] capitalize bg-opacity-20 rounded-full font-semibold">
-              {record.status}
-            </p>
-          )}
-        </div>
-      );
+    {
+        title: "Invoice",
+        dataIndex: "",
+        render(value, record) {
+            return (
+                <div className="flex flex-row h-[55px] w-44 items-center bg-[#F7F7F7] justify-center gap-x-5">
+                    <BsFileEarmarkPdfFill className="text-error-500" />
+                    <p>INV - {record.contract}</p>
+                    <FiDownload className="text-black" />
+                </div>
+            );
+        },
     },
-  },
+    {
+        title: "Payment",
+        dataIndex: "status",
+        responsive: ["sm"],
+        filters: [
+            {
+                text: "Completed",
+                value: "completed",
+            },
+            {
+                text: "Pending",
+                value: "pending",
+            },
+            {
+                text: "canceled",
+                value: "canceled",
+            },
+        ],
+        filterMultiple: true,
+        onFilter: (value, record) => record.status === value,
+        render(value, record) {
+            return (
+                <div className="flex flex-row gap-x-2">
+                    {record.status?.toLowerCase() === "completed" && (
+                        <p className="bg-secondary py-2 px-4 text-secondary capitalize bg-opacity-20 rounded-full font-semibold">
+                            {record.status}
+                        </p>
+                    )}
+                    {record.status?.toLowerCase() === "canceled" && (
+                        <p className="bg-error-500 py-2 px-4 text-error-500 capitalize bg-opacity-20 rounded-full font-semibold">
+                            {record.status}
+                        </p>
+                    )}
+                    {record.status?.toLowerCase() === "pending" && (
+                        <p className="bg-[#FFBF00] py-2 px-4 text-[#FFBF00] capitalize bg-opacity-20 rounded-full font-semibold">
+                            {record.status}
+                        </p>
+                    )}
+                </div>
+            );
+        },
+    },
+    {
+        title: "",
+        dataIndex: "id",
+        responsive : ["sm"],
+        render(value, record) {
+            return (
+                <Popover
+                    content={
+                        <div className="flex flex-col gap-3 w-[100px]">
+                            <div>
+                                <Link
+                                    href="/bookings/bookings-overview"
+                                    className="cursor-pointer"
+                                >
+                                    View
+                                </Link>
+                            </div>
+                            <p className="text-error-500 cursor-pointer">
+                                Delete
+                            </p>
+                        </div>
+                    }
+                    arrow={false}
+                    trigger={"hover"}
+                >
+                    <HiOutlineDotsVertical className="text-lg cursor-pointer" />
+                </Popover>
+            );
+        },
+    },
 ];
 
 const onChange: TableProps<BookingsTypes>["onChange"] = (

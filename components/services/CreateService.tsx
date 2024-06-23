@@ -3,7 +3,7 @@ import { Button, Modal } from "antd";
 import React, { useState } from "react";
 import { ServiceForm } from "./ServiceForm";
 
-export const CreatePost = () => {
+export const CreateService = () => {
   const [open, setOpen] = useState(false);
   return (
     <>
