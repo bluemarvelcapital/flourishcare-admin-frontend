@@ -16,7 +16,7 @@ export default function AuthenticatedPage({
     useEffect(() => {
         if (isError) {
             toast.error("Session expired please login");
-            router.push("/");
+            router.replace("/");
         }
     }, [isError, data]);
 

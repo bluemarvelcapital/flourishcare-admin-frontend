@@ -3,7 +3,7 @@ import { IUser } from "@/types/user";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type AuthState = {
-    user?: IUser;
+    user: IUser;
 } & (
     | { accessToken: string; refreshToken: string }
     | { accessToken: null; refreshToken: null }
@@ -39,8 +39,8 @@ export const authSlice = createSlice({
             localStorage.setItem("refresh", action.payload.refreshToken);
             localStorage.setItem("user", JSON.stringify(action.payload.user));
         },
-        logOut: (state) => {
-            state.user = undefined;
+        clearAuth: (state) => {
+            state.user = undefined as any;
             state.accessToken = null as any;
             state.refreshToken = null as any;
 
@@ -51,4 +51,4 @@ export const authSlice = createSlice({
     },
 });
 
-export const { setAuth, logOut } = authSlice.actions;
+export const { setAuth, clearAuth } = authSlice.actions;

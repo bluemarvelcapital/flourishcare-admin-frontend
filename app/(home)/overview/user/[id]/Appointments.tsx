@@ -1,37 +1,64 @@
+import EmptyList from "@/components/EmptyList";
+import ListITemLink from "@/components/ListItemLink";
+import TruncatedText from "@/components/TruncatedText";
 import { UserViewDetailPane } from "@/components/UserDetail";
-import { Button } from "antd";
-import Link from "next/link";
-import { PiDivideBold } from "react-icons/pi";
+import { IAppointment } from "@/types/appointments"; // Assuming you have an IAppointment type defined somewhere
 
-const Appointments: React.FC = () => {
+interface IAppointmentProps {
+    appointments?: IAppointment[];
+}
+
+const Appointments: React.FC<IAppointmentProps> = ({ appointments }) => {
     return (
         <UserViewDetailPane header={"Appointments"} cta={() => {}}>
-            <ul className="gap-y-4 h-fit flex flex-col py-5">
-                <li className="text-[#6a6b6c] text-xs">
-                    Date :{" "}
-                    <span className="text-black text-base">
-                        Saturday, June 7th, 2024
-                    </span>
-                </li>
-                <li className="text-[#6a6b6c] text-xs">
-                    Time :{" "}
-                    <span className="text-black text-base">
-                        +(308) 555-0121
-                    </span>
-                </li>
-                <li className="text-[#6a6b6c] text-xs">
-                    Phone :{" "}
-                    <span className="text-black text-base">
-                        +(308) 555-0121
-                    </span>
-                </li>
-                <li className="text-[#6a6b6c] text-xs">
-                    Email :{" "}
-                    <span className="text-black text-base">
-                        cameron_williams@cv.edu
-                    </span>
-                </li>
-            </ul>
+            {appointments && appointments.length ? (
+                <>
+                    <ul className="gap-y-4 h-fit flex flex-col py-5">
+                        {appointments.slice(0, 3).map((appointment, index) => (
+                            <ListITemLink
+                                link={`/appointment/${appointment.id}`}
+                            >
+                                <li
+                                    key={index}
+                                    className="text-[#6a6b6c] text-s flex flex-col gap-y-2"
+                                >
+                                    <div className="flex flex-row justify-between">
+                                        <div className="flex flex-col">
+                                            <span className="font-bold">
+                                                Date:
+                                            </span>
+                                            <span className="text-black text-base">
+                                                {new Date(
+                                                    appointment.date,
+                                                ).toDateString()}
+                                            </span>
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <span className="font-bold">
+                                                Time:
+                                            </span>
+                                            <span className="text-black text-base">
+                                                {new Date(
+                                                    appointment.date,
+                                                ).toLocaleTimeString()}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <span className="font-bold">ID:</span>
+                                        <TruncatedText
+                                            text={appointment.id}
+                                            maxLength={20}
+                                        />
+                                    </div>
+                                </li>
+                            </ListITemLink>
+                        ))}
+                    </ul>{" "}
+                </>
+            ) : (
+                <EmptyList title="Appointments" />
+            )}
         </UserViewDetailPane>
     );
 };

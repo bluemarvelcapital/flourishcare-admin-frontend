@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { api_url } from "@/constants/API_URL";
 import { fetchBaseQueryWithAuth } from "./customQuery";
-import { IUser } from "@/types/user";
+import { IUser, IUserWithRelations } from "@/types/user";
 
 interface GetUsersResponse {
     status: "success";
@@ -13,7 +13,7 @@ interface GetUsersResponse {
 interface GetUserInfoResponse {
     status: "success";
     data: {
-        user: IUser;
+        user: IUserWithRelations;
     };
 }
 
@@ -25,7 +25,7 @@ export const userApi = createApi({
             getUser: builder.query<GetUserInfoResponse, { userId: string }>({
                 query: ({ userId }) => {
                     return {
-                        url: "/",
+                        url: "/info",
                         params: {
                             userId,
                         },

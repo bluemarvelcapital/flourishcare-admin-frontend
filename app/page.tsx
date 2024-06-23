@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { setAuth } from "@/context/auth.slice";
-import { ButtonSpinner } from "@/components/Spinner";
 
 export default function Home() {
     const [formData, setFormData] = useState<{
@@ -122,7 +121,7 @@ export default function Home() {
                                 type="submit"
                                 className="bg-secondary w-full 2xl:py-3 py-1 rounded-md text-white"
                             >
-                                {isLoading ? <ButtonSpinner /> : "Login"}
+                                {isLoading ? "Logging in..." : "Login"}
                             </button>
                         </div>{" "}
                     </form>
