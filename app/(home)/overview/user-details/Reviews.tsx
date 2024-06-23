@@ -1,10 +1,10 @@
-import { Rate } from "antd";
+import { UserViewDetailPane } from "@/components/UserDetail";
+import { Button, Rate } from "antd";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 const Reviews: React.FC = () => {
     return (
-        <div className="rounded-md border flex flex-col border-[#E4E7EC] p-5">
-            <p className="text-xl py-3  ">Reviews</p>
+        <UserViewDetailPane header={"Reviews"} cta={() => {}}>
             <ul className="flex flex-col pt-5 gap-y-7 border-[#E4E7EC] border-t">
                 <li className="flex flex-col gap-y-4">
                     <div className="flex flex-row justify-between items-center">
@@ -14,7 +14,7 @@ const Reviews: React.FC = () => {
                         </div>
                         <RiDeleteBin6Line className="text-error-500 h-7 w-7 font-semibold" />
                     </div>
-                    <p>
+                    <p className="text-s">
                         Lorem ipsum dolor sit, amet consectetur adipisicing
                         elit. Rerum molestiae deserunt ipsum? Praesentium quae
                         commodi velit ratione fuga repudiandae illo eligendi
@@ -30,12 +30,16 @@ const Reviews: React.FC = () => {
                         </div>
                         <RiDeleteBin6Line className="text-error-500 h-7 w-7 font-semibold" />
                     </div>
-                    <p>
-                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur optio, nesciunt ipsam exercitationem harum quo magnam deserunt explicabo placeat ea quod dolores ipsa deleniti autem accusantium nisi rem maiores quae! Natus!
+                    <p className="text-s">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Aspernatur optio, nesciunt ipsam exercitationem harum
+                        quo magnam deserunt explicabo placeat ea quod dolores
+                        ipsa deleniti autem accusantium nisi rem maiores quae!
+                        Natus!
                     </p>
                 </li>
             </ul>
-        </div>
+        </UserViewDetailPane>
     );
 };
 

@@ -1,12 +1,10 @@
+import { UserViewDetailPane } from "@/components/UserDetail";
 import { Image } from "antd";
 import { LuPencil } from "react-icons/lu";
 
 const PersonalInformation: React.FC = () => {
     return (
-        <div className="rounded-md border flex flex-col border-[#E4E7EC] p-5">
-            <p className="text-xl border-b py-2 border-[#E4E7EC]">
-                Personal Information
-            </p>
+        <UserViewDetailPane header={"PersonalInformation"}>
             <div className="flex flex-row justify-between items-center py-4">
                 <Image
                     alt="profile picture"
@@ -53,7 +51,7 @@ const PersonalInformation: React.FC = () => {
                     </span>
                 </li>
             </ul>
-        </div>
+        </UserViewDetailPane>
     );
 };
 

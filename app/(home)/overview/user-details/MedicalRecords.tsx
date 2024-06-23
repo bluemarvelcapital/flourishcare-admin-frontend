@@ -1,9 +1,9 @@
-import {Button} from "antd"
+import { UserViewDetailPane } from "@/components/UserDetail";
+import { Button } from "antd";
 
 const MedicalRecords: React.FC = () => {
     return (
-        <div className="rounded-md border flex flex-col border-[#E4E7EC] p-5">
-            <p className="text-xl py-3">Medical Records</p>
+        <UserViewDetailPane header={"Medical Records"} cta={() => {}}>
             <ul className="flex flex-col gap-y-4 border-y border-[#E4E7EC py-4">
                 <li className="text-[#6a6b6c] text-xs">
                     Coronary Artery Disease :{" "}
@@ -37,13 +37,8 @@ const MedicalRecords: React.FC = () => {
                     <span className="text-black text-base">NIL</span>
                 </li>
             </ul>
-            <div className="flex flex-row justify-center mt-auto">
-                <Button type="link" className="text-secondary text-lg">
-                    View All Records
-                </Button>
-            </div>
-        </div>
+        </UserViewDetailPane>
     );
-}
+};
 
-export default MedicalRecords
+export default MedicalRecords;

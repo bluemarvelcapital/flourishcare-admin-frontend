@@ -1,11 +1,11 @@
+import { UserViewDetailPane } from "@/components/UserDetail";
 import { Button } from "antd";
 import Link from "next/link";
 import { BsDot } from "react-icons/bs";
 
 const Transactions: React.FC = () => {
     return (
-        <div className="flex flex-col rounded-md border border-[#E4E7EC] p-5">
-            <p className="text-xl py-3">Transactions</p>
+        <UserViewDetailPane header={"Transactions"} cta={() => {}}>
             <div className="flex flex-col gap-y-4 border-y border-[#E4E7EC py-4">
                 <div className="flex items-center flex-row justify-between">
                     <p className="text-primary text-2xl font-medium">
@@ -92,13 +92,7 @@ const Transactions: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <Link
-                href="/transactions"
-                className="text-secondary py-3 text-center hover:text-opacity-80 duration-300 transition-all mt-auto text-lg"
-            >
-                View All
-            </Link>
-        </div>
+        </UserViewDetailPane>
     );
 };
 

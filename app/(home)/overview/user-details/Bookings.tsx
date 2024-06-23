@@ -1,4 +1,5 @@
-import { Image } from "antd";
+import { UserViewDetailPane } from "@/components/UserDetail";
+import { Button, Image } from "antd";
 import Link from "next/link";
 import { AiFillFilePdf } from "react-icons/ai";
 import { FaPhoneAlt } from "react-icons/fa";
@@ -7,8 +8,7 @@ import { MdOutlineMessage } from "react-icons/md";
 
 const Bookings: React.FC = () => {
     return (
-        <div className="rounded-md border flex flex-col border-[#E4E7EC] p-5">
-            <p className="text-xl border-b py-2 border-[#E4E7EC]">Bookings</p>
+        <UserViewDetailPane header={"Bookings"} cta={() => {}}>
             <div className="flex py-5 flex-row justify-between">
                 <div className="flex flex-row items-center gap-x-3">
                     <Image
@@ -55,13 +55,7 @@ const Bookings: React.FC = () => {
                 <p>Contract - 00234</p>
                 <FiDownload />
             </div>
-            <Link
-                href="/bookings/pending-bookings"
-                className="text-secondary text-lg flex justify-center mt-auto hover:text-opacity-80 duration-300 transition-all"
-            >
-                Update Bookings
-            </Link>
-        </div>
+        </UserViewDetailPane>
     );
 };
 

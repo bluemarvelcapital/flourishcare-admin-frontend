@@ -9,7 +9,43 @@ import { BiSearch } from "react-icons/bi";
 import { useGetBlogPostsQuery } from "@/services/blog.service";
 import { data, OverviewTypes } from "../../../../types/overview";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
+export const UserView = ({}) => {
+    const router = useRouter()
+    return (
+                <div className="">
+                    <Popover
+                        content={
+                            <div className="flex flex-col gap-3 w-[100px]">
+                                <div
+                                    onClick={() =>
+                                        router.replace(
+                                            "/overview/user-details",
+                                        )
+                                    }
+                                >
+                                    <Link
+                                        href="/overview/user-details"
+                                        className="cursor-pointer"
+                                    >
+                                        View
+                                    </Link>
+                                </div>
+                                <p className="text-error-500 cursor-pointer">
+                                    Delete
+                                </p>
+                            </div>
+                        }
+                        arrow={false}
+                        trigger={"hover"}
+                    >
+                        <HiOutlineDotsVertical className="text-lg cursor-pointer" />
+                    </Popover>
+                </div>
+
+    )    
+}
 const columns: TableColumnsType<OverviewTypes> = [
     {
         title: "Name",
@@ -49,25 +85,7 @@ const columns: TableColumnsType<OverviewTypes> = [
         title: "",
         dataIndex: "",
         render() {
-            return (
-                <div className="">
-                    <Popover
-                        content={
-                            <div className="flex flex-col gap-3 w-[100px]">
-                                {/* <EditPost /> */}
-                                <Link href="/overview/user-details" className="cursor-pointer">View</Link>
-                                <p className="text-error-500 cursor-pointer">
-                                    Delete
-                                </p>
-                            </div>
-                        }
-                        arrow={false}
-                        trigger={"hover"}
-                    >
-                        <HiOutlineDotsVertical className="text-lg cursor-pointer" />
-                    </Popover>
-                </div>
-            );
+            return <UserView />
         },
     },
 ];
@@ -75,7 +93,7 @@ const onChange: TableProps<OverviewTypes>["onChange"] = (
     pagination,
     filters,
     sorter,
-    extra
+    extra,
 ) => {
     console.log("params", pagination, filters, sorter, extra);
 };
@@ -107,4 +125,5 @@ const UserTable: React.FC = () => {
     );
 };
 
-export default UserTable
+export default UserTable;
+

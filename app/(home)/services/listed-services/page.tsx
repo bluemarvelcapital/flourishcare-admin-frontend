@@ -10,16 +10,19 @@ import { MetaData } from "@/components/services/MetaData";
 import React from "react";
 
 const AdminBlog = () => {
-  return (
-    <div>
-      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+    return (
         <div>
-          <Header header="Services" paragraph="Welcome to services, Jenny" />
-        </div>
-        <CreatePost />
-      </div>
-      <MetaData />
-      {/* <div className="mt-[3rem] flex justify-between lg:flex-row flex-col gap-3">
+            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                <div>
+                    <Header
+                        header="Services"
+                        paragraph="Welcome to services, Jenny"
+                    />
+                </div>
+                <CreatePost />
+            </div>
+            <MetaData />
+            {/* <div className="mt-[3rem] flex justify-between lg:flex-row flex-col gap-3">
         <div className="lg:w-[70%]">
           <AllPosts />
         </div>
@@ -27,9 +30,9 @@ const AdminBlog = () => {
           <PendingPosts />
         </div>
       </div> */}
-      <AllPosts />
-    </div>
-  );
+            <AllPosts />
+        </div>
+    );
 };
 
 export default AdminBlog;

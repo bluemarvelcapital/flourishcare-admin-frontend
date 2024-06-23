@@ -7,9 +7,10 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
 // import { EditPost } from "./EditPost";
 import { useGetBlogPostsQuery } from "@/services/blog.service";
-import {data, OverviewTypes} from "../../types/overview"
+import { data, OverviewTypes } from "../../types/overview";
 import NoData from "../misc/NoData";
 import Link from "next/link";
+import { UserView } from "@/app/(home)/overview/all-users/UserTable";
 
 const columns: TableColumnsType<OverviewTypes> = [
     {
@@ -50,25 +51,7 @@ const columns: TableColumnsType<OverviewTypes> = [
         title: "",
         dataIndex: "",
         render() {
-            return (
-                <div className="">
-                    <Popover
-                        content={
-                            <div className="flex flex-col gap-3 w-[100px]">
-                                {/* <EditPost /> */}
-                                <p className="cursor-pointer">View</p>
-                                <p className="text-error-500 cursor-pointer">
-                                    Delete
-                                </p>
-                            </div>
-                        }
-                        arrow={false}
-                        trigger={"hover"}
-                    >
-                        <HiOutlineDotsVertical className="text-lg cursor-pointer" />
-                    </Popover>
-                </div>
-            );
+            return <UserView />;
         },
     },
 ];
@@ -76,7 +59,7 @@ const onChange: TableProps<OverviewTypes>["onChange"] = (
     pagination,
     filters,
     sorter,
-    extra
+    extra,
 ) => {
     console.log("params", pagination, filters, sorter, extra);
 };
@@ -97,11 +80,9 @@ export const AllUsers: React.FC = () => {
                     prefix={<BiSearch />}
                     className="md:w-[350px]"
                 />
-               <button className="bg-secondary hover:bg-opacity-75 transition-all duration-300 ml-5 px-4 py-2 rounded-lg text-white">
-                <Link href="/overview/all-users" >
-                See All Users
-                </Link>
-               </button>
+                <button className="bg-secondary hover:bg-opacity-75 transition-all duration-300 ml-5 px-4 py-2 rounded-lg text-white">
+                    <Link href="/overview/all-users">See All Users</Link>
+                </button>
             </div>
             <Table
                 columns={columns}

@@ -1,13 +1,12 @@
+import { UserViewDetailPane } from "@/components/UserDetail";
 import { Button } from "antd";
 import Link from "next/link";
+import { PiDivideBold } from "react-icons/pi";
 
 const Appointments: React.FC = () => {
     return (
-        <div className="rounded-md border flex flex-col border-[#E4E7EC] p-5">
-            <p className="text-xl py-2 border-[#E4E7EC]">
-                Appointments
-            </p>
-            <ul className=" border-y gap-y-4 h-fit flex flex-col py-5 border-[#E4E7Ec]">
+        <UserViewDetailPane header={"Appointments"} cta={() => {}}>
+            <ul className="gap-y-4 h-fit flex flex-col py-5">
                 <li className="text-[#6a6b6c] text-xs">
                     Date :{" "}
                     <span className="text-black text-base">
@@ -33,21 +32,7 @@ const Appointments: React.FC = () => {
                     </span>
                 </li>
             </ul>
-            <div className="flex justify-center gap-x-5 mt-auto">
-                <Button
-                    className="text-red-500 hover:text-red-500 hover:text-opacity-80 text-lg"
-                    type="link"
-                >
-                    Cancel
-                </Button>
-                <Link
-                    className="text-secondary text-lg hover:text-opacity-80 duration-300 transition-all"
-                    href="/appointments/pending-appointments"
-                >
-                    Update Appointments
-                </Link>
-            </div>
-        </div>
+        </UserViewDetailPane>
     );
 };
 
