@@ -4,9 +4,8 @@ import { PendingPosts } from "@/components/blog/PendingPosts";
 import Header from "@/components/misc/Header";
 import NoData from "@/components/misc/NoData";
 import { AllPosts } from "@/components/services/AllPosts";
-import { CreatePost } from "@/components/services/CreateService";
+import { CreateService } from "@/components/services/CreateService";
 import { MetaData } from "@/components/services/MetaData";
-// import { CreatePost, MetaData, AllPosts } from "@/components/services";
 import React from "react";
 
 const AdminBlog = () => {
@@ -19,17 +18,9 @@ const AdminBlog = () => {
                         paragraph="Welcome to services, Jenny"
                     />
                 </div>
-                <CreatePost />
+                <CreateService />
             </div>
             <MetaData />
-            {/* <div className="mt-[3rem] flex justify-between lg:flex-row flex-col gap-3">
-        <div className="lg:w-[70%]">
-          <AllPosts />
-        </div>
-        <div className="lg:w-[27%]">
-          <PendingPosts />
-        </div>
-      </div> */}
             <AllPosts />
         </div>
     );

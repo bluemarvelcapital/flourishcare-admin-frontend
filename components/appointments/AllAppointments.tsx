@@ -4,7 +4,8 @@ import { Avatar, Image, Input, Popover, Table } from "antd";
 import type { TableColumnsType, TableProps } from "antd";
 import { AppointmentTypes } from "@/types/appointments";
 import { BiSearch } from "react-icons/bi";
-import { MdLocalPhone } from "react-icons/md";
+import Link from "next/link";
+import { HiOutlineDotsVertical } from "react-icons/hi";
 
 const statusOrder: Record<string, number> = {
   completed: 1,
@@ -104,9 +105,26 @@ const columns: TableColumnsType<AppointmentTypes> = [
     dataIndex: "id",
     render(value, record) {
       return (
-        <div className="border flex items-center justify-center rounded-md border-tertiary p-3 w-20 text-tertiary">
-          <MdLocalPhone />
-        </div>
+          <Popover
+              content={
+                  <div className="flex flex-col gap-3 w-[100px]">
+                      <div
+                      >
+                          <Link
+                              href="/appointments/appointment-overview"
+                              className="cursor-pointer"
+                          >
+                              View
+                          </Link>
+                      </div>
+                      <p className="text-error-500 cursor-pointer">Delete</p>
+                  </div>
+              }
+              arrow={false}
+              trigger={"hover"}
+          >
+              <HiOutlineDotsVertical className="text-lg cursor-pointer" />
+          </Popover>
       );
     },
   },
@@ -245,6 +263,7 @@ const onChange: TableProps<AppointmentTypes>["onChange"] = (
 };
 
 export const AllAppointments: React.FC = () => {
+ 
 //   const { data } = useGetBlogPostsQuery(null);
   console.log(data);
   return (
