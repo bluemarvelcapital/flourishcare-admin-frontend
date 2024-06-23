@@ -56,7 +56,7 @@ const Bookings: React.FC = () => {
                 <FiDownload />
             </div>
             <Link
-                href="/bookings"
+                href="/bookings/pending-bookings"
                 className="text-secondary text-lg flex justify-center mt-auto hover:text-opacity-80 duration-300 transition-all"
             >
                 Update Bookings

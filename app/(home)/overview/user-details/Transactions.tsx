@@ -1,4 +1,5 @@
 import { Button } from "antd";
+import Link from "next/link";
 import { BsDot } from "react-icons/bs";
 
 const Transactions: React.FC = () => {
@@ -91,9 +92,12 @@ const Transactions: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <Button type="link" className="text-secondary mt-auto text-lg">
+            <Link
+                href="/transactions"
+                className="text-secondary hover:text-opacity-80 duration-300 transition-all mt-auto text-lg"
+            >
                 View All
-            </Button>
+            </Link>
         </div>
     );
 };

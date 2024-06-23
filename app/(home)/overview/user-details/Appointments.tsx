@@ -4,7 +4,7 @@ import Link from "next/link";
 const Appointments: React.FC = () => {
     return (
         <div className="rounded-md border flex flex-col border-[#E4E7EC] p-5">
-            <p className="text-xl border-b py-2 border-[#E4E7EC]">
+            <p className="text-xl py-2 border-[#E4E7EC]">
                 Appointments
             </p>
             <ul className=" border-y gap-y-4 h-fit flex flex-col py-5 border-[#E4E7Ec]">
@@ -42,7 +42,7 @@ const Appointments: React.FC = () => {
                 </Button>
                 <Link
                     className="text-secondary text-lg hover:text-opacity-80 duration-300 transition-all"
-                    href="/appointments"
+                    href="/appointments/pending-appointments"
                 >
                     Update Appointments
                 </Link>
