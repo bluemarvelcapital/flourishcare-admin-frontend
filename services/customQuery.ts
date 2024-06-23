@@ -1,13 +1,16 @@
-import { fetchBaseQuery } from "@reduxjs/toolkit/query"
+import { RootState } from "@/context/store";
+import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 
-export const fetchBaseQueryWithAuth = ({ baseUrl }: { baseUrl: string }) => fetchBaseQuery({
-    prepareHeaders: (headers, { getState }) => {
-        const token = (getState() as any).auth.accessToken
-        if (token) {
-            headers.set('authorization', `Bearer ${token}`)
-        }
-        return headers
-    },
-    baseUrl: baseUrl,
-    
-})
+export const fetchBaseQueryWithAuth = ({ baseUrl }: { baseUrl: string }) =>
+    fetchBaseQuery({
+        prepareHeaders: (headers, { getState }) => {
+            // const token = (getState() as RootState).auth.accessToken;
+            const token = localStorage.getItem("accessToken");
+            if (token) {
+                headers.set("authorization", `Bearer ${token}`);
+            }
+            return headers;
+        },
+        baseUrl: baseUrl,
+    });
+

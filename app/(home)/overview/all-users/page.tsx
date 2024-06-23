@@ -2,13 +2,21 @@
 import React from "react";
 import Header from "@/components/misc/Header";
 import UserTable from "./UserTable";
- const AllUsers: React.FC = () => {
+import GoBack from "@/components/GoBack";
+const AllUsers: React.FC = () => {
     return (
         <div className="flex flex-col gap-y-10">
-            <Header header="All Users" paragraph="Welcome to the Flourish admin dashboard." />
+            <div id="">
+                <GoBack />
+                <Header
+                    header="All Users"
+                    paragraph="Overview of all Users on the platform. "
+                />
+            </div>
             <UserTable />
         </div>
     );
 };
 
-export default AllUsers
+export default AllUsers;
+

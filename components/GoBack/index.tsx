@@ -7,9 +7,9 @@ export default function GoBack() {
     return (
         <div className="flex items-center">
             <div onClick={() => router.back()}>
-                <div className="flex items-center gap-2 hover:text-blue cursor-pointer">
+                <div className="flex items-center mt-7 hover:text-blue cursor-pointer">
                     <BsArrowLeft />
-                    <span>Go back</span>
+                    <span className="ml-2">Go back</span>
                 </div>
             </div>
         </div>

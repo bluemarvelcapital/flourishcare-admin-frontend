@@ -24,7 +24,7 @@ const AdminBlog = () => {
             <div className="mt-[3rem] flex justify-between lg:flex-row flex-col gap-3">
                 <div className="lg:w-[70%] flex flex-col gap-y-10">
                     <DataTable />
-                    <AllUsers />
+                    <AllUsers max={5} />
                 </div>
                 <div className="lg:w-[27%] flex-col flex gap-y-4">
                     <AppointmentsTable />

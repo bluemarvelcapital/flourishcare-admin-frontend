@@ -1,12 +1,17 @@
-import React from "react"
+import React from "react";
 
 interface props {
-  children: React.ReactNode
+    children: React.ReactNode;
+    className?: string;
 }
 
-export const Content: React.FC<props> = ({ children }) => {
-  // return <div className="lg:ml-[18%]">{children}</div>
-  return <div className="flex-1 overflow-auto" id="json-container">{children}</div>
-}
-
-
+export const Content: React.FC<props> = ({ children, className }) => {
+    return (
+        <div
+            className={`flex-1 overflow-auto ${className ? className : ""}`}
+            id="json-container"
+        >
+            {children}
+        </div>
+    );
+};
