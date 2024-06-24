@@ -25,7 +25,7 @@ export const MetaData = () => {
     },
   ];
   return (
-    <div className="md:mt-[3rem] mt-[2rem]">
+    <div className="md:mt-[3rem] mt-[2rem] mb-10">
       <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-5">
         {stats.map((stat, index) => (
           <div

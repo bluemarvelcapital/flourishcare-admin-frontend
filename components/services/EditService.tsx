@@ -3,25 +3,24 @@ import { Button, Modal } from "antd";
 import React, { useState } from "react";
 import { ServiceForm } from "./ServiceForm";
 
-export const CreateService = () => {
+export const EditService = () => {
   const [open, setOpen] = useState(false);
+
   return (
       <>
-          <Button
-              className="bg-secondary"
-              size="large"
-              type="primary"
+          <p
+              className="text-primary cursor-pointer"
               onClick={() => setOpen(true)}
           >
-              + Create New Service
-          </Button>
+              Edit
+          </p>
           <Modal
               width={"700px"}
               title={
                   <div>
-                      <h2 className="text-2xl font-normal">Create Service</h2>
+                      <h2 className="text-2xl font-normal">Edit Service</h2>
                       <p className="font-normal text-[#ACACAC] mt-1">
-                          Fill the details below to create a new service
+                          Edit the details below to make changes to the service.
                       </p>
                   </div>
               }
