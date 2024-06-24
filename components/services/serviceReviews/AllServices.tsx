@@ -8,90 +8,91 @@ import { useGetBlogPostsQuery } from "@/services/blog.service";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 
 const columns: TableColumnsType<serviceReviewTypes> = [
-  {
-    title: "Name",
-    dataIndex: "title",
-    responsive: ["lg"],
-    render(value, record) {
-      return (
-        <div className="flex items-center gap-3">
-          <Image
-            alt={value}
-            src={record.preview_img}
-            width={100}
-            height={55}
-            style={{ objectFit: "cover", borderRadius: "8px" }}
-          />
-          <div>
-            <p>{record.serviceName}</p>
-          </div>
-        </div>
-      );
+    {
+        title: "Name",
+        dataIndex: "title",
+        responsive: ["lg"],
+        render(value, record) {
+            return (
+                <div className="flex items-center gap-3">
+                    <Image
+                        alt={value}
+                        src={record.preview_img}
+                        width={100}
+                        height={55}
+                        style={{ objectFit: "cover", borderRadius: "8px" }}
+                    />
+                    <div>
+                        <p>{record.serviceName}</p>
+                    </div>
+                </div>
+            );
+        },
     },
-  },
 
-  {
-    title: "Category",
-    dataIndex: "category",
-    defaultSortOrder: "descend",
-    sorter: (a, b) => a.review.localeCompare(b.review),
-  },
-  {
-    title: "Review",
-    dataIndex: "review",
-    responsive: ["lg"],
-  },
-  {
-    title: "User Name",
-    dataIndex: "userName",
-    defaultSortOrder: "descend",
-    sorter: (a, b) => a.userName.localeCompare(b.userName),
-  },
-  {
-    title: "User Email Address",
-    dataIndex: "userEmail",
-    responsive: ["lg"],
-    defaultSortOrder: "descend",
-    sorter: (a, b) => a.review.localeCompare(b.review),
-  },
-  {
-    title: "Active",
-    dataIndex: "active",
-    filters: [
-      {
-        text: "Active",
-        value: true,
-      },
-      {
-        text: "Inactive",
-        value: false,
-      },
-    ],
-    filterMultiple: false,
-    onFilter: (value, record) => record.active === value,
-    render(value, record) {
-      return (
-        <div className="">
-          <Switch
-            checked={record.active}
-            disabled={true}
-            className="text-secondary"
-          />
-        </div>
-      );
+    {
+        title: "Category",
+        dataIndex: "category",
+        defaultSortOrder: "descend",
+        sorter: (a, b) => a.review.localeCompare(b.review),
     },
-  },
-  {
-    title: "Delete",
-    dataIndex: "",
-    render() {
-      return (
-        <div className="text-error-500">
-          <RiDeleteBin6Fill />
-        </div>
-      );
+    {
+        title: "Review",
+        dataIndex: "review",
+        responsive: ["lg"],
     },
-  },
+    {
+        title: "User Name",
+        dataIndex: "userName",
+        defaultSortOrder: "descend",
+        sorter: (a, b) => a.userName.localeCompare(b.userName),
+    },
+    {
+        title: "User Email Address",
+        dataIndex: "userEmail",
+        responsive: ["lg"],
+        defaultSortOrder: "descend",
+        sorter: (a, b) => a.review.localeCompare(b.review),
+    },
+    {
+        title: "Active",
+        dataIndex: "active",
+        responsive: ["sm"],
+        filters: [
+            {
+                text: "Active",
+                value: true,
+            },
+            {
+                text: "Inactive",
+                value: false,
+            },
+        ],
+        filterMultiple: false,
+        onFilter: (value, record) => record.active === value,
+        render(value, record) {
+            return (
+                <div className="">
+                    <Switch
+                        checked={record.active}
+                        disabled={true}
+                        className="text-secondary"
+                    />
+                </div>
+            );
+        },
+    },
+    {
+        title: "Delete",
+        dataIndex: "",
+        render() {
+            return (
+                <div className="text-error-500">
+                    <RiDeleteBin6Fill />
+                </div>
+            );
+        },
+    },
 ];
 
 const onChange: TableProps<serviceReviewTypes>["onChange"] = (
