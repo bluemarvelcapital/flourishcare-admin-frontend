@@ -1,14 +1,7 @@
 "use client";
 import { BlogCategory } from "@/components/blog/BlogCategory";
-// import { AllPosts, MetaData } from "@/components/blog";
-import { PendingPosts } from "@/components/blog/PendingPosts";
 import Header from "@/components/misc/Header";
 import NoData from "@/components/misc/NoData";
-import { AllPosts } from "@/components/services/AllPosts";
-import { CreatePost } from "@/components/services/CreateService";
-import { CreateServiceCategory } from "@/components/services/CreateServiceCategory";
-import { MetaData } from "@/components/services/MetaData";
-// import { CreatePost, MetaData, AllPosts } from "@/components/services";
 import React from "react";
 
 const AdminBlog = () => {

@@ -16,6 +16,7 @@ const Appointments: React.FC<IAppointmentProps> = ({ appointments }) => {
                     <ul className="gap-y-4 h-fit flex flex-col py-5">
                         {appointments.slice(0, 3).map((appointment, index) => (
                             <ListITemLink
+                                key={index}
                                 link={`/appointment/${appointment.id}`}
                             >
                                 <li

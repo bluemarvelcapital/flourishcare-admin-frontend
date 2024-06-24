@@ -58,7 +58,7 @@ export const ServiceForm = () => {
             },
           ]}
         >
-          <BlogEditor />
+          <BlogEditor  content="" setContent={() => {}}/>
         </Form.Item>
         <Form.Item
           label="Preview Image"

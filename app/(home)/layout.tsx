@@ -25,7 +25,7 @@ export default function RootLayout({
                     className="flex flex-row h-[100dvh] overflow-auto xl:overflow-hidden"
                     id="json-container"
                 >
-                    {/* <AuthenticatedPage> */}
+                    <AuthenticatedPage>
                         <NavBar />
                         <Content className="overflow-y-scroll">
                             <Header />
@@ -34,7 +34,7 @@ export default function RootLayout({
                                 {children}
                             </div>
                         </Content>
-                    {/* </AuthenticatedPage>{" "} */}
+                    </AuthenticatedPage>
                 </div>
             </body>
         </html>

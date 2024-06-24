@@ -1,4 +1,3 @@
-"use client";
 import PersonalInformation from "./PersonalInformation";
 import Appointments from "./Appointments";
 import Bookings from "./Bookings";
@@ -31,7 +30,7 @@ const UserDetails: React.FC = () => {
             toast.error("User not found");
             router.back();
         }
-    }, [data, isLoading]);
+    }, [data, isLoading, router]);
 
     console.log({ data });
     return (

@@ -146,7 +146,7 @@ export const AllPosts: React.FC = () => {
 
             setColumns(columns);
         }
-    }, [tagsData, postsData]);
+    }, [tagsData, postsData, dispatch]);
 
     const onChange: TableProps<IBlogPost>["onChange"] = (
         pagination,

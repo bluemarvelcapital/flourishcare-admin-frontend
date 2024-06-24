@@ -18,7 +18,7 @@ export default function AuthenticatedPage({
             toast.error("Session expired please login");
             router.replace("/");
         }
-    }, [isError, data]);
+    }, [isError, data, router]);
 
     return <>{isLoading ? <WindowSpinner /> : <>{children}</>}</>;
 }

@@ -39,7 +39,10 @@ const Transactions: React.FC<ITransactionProps> = ({ transactions, user }) => {
                 <>
                     <ul className="gap-y-4 h-fit flex flex-col py-5">
                         {transactions.slice(0, 2).map((transaction, index) => (
-                            <ListITemLink link={`/transaction/${transaction.id}`}>
+                            <ListITemLink
+                                link={`/transaction/${transaction.id}`}
+                                key={index}
+                            >
                                 <div
                                     key={index}
                                     className="flex flex-col gap-y-4 py-4"

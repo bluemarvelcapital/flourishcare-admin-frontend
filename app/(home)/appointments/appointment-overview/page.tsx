@@ -1,3 +1,4 @@
+"use client";
 import Header from "@/components/misc/Header";
 import { Button, Image, Input, Popover, Table } from "antd";
 import AppointmentDetails from "./AppointmentDetails";

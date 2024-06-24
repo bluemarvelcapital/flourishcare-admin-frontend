@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { useEffect } from "react";
 import { IoCloudUploadOutline } from "react-icons/io5";
 
@@ -71,7 +72,7 @@ export const UploadMedia: React.FC<Props> = ({
             </div>
             {preview && (
                 <div className="w-1/2 mx-2 flex justify-center items-center p-4 bg-gray-100 rounded border shadow-md">
-                    <img
+                    <Image
                         src={preview}
                         alt="Selected file preview"
                         className="max-w-full h-auto border rounded"

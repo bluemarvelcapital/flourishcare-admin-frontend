@@ -9,9 +9,16 @@ type AuthState = {
     | { accessToken: null; refreshToken: null }
 );
 
-const _user = localStorage.getItem("user");
-const _access = localStorage.getItem("access");
-const _refresh = localStorage.getItem("refresh");
+const _user =
+    typeof window !== "undefined" ? window.localStorage.getItem("user") : null;
+const _access =
+    typeof window !== "undefined"
+        ? window.localStorage.getItem("access")
+        : null;
+const _refresh =
+    typeof window !== "undefined"
+        ? window.localStorage.getItem("refresh")
+        : null;
 
 const initialState: AuthState = {
     user: _user ? JSON.parse(_user) : undefined,
@@ -35,9 +42,12 @@ export const authSlice = createSlice({
             state.accessToken = action.payload.accessToken;
             state.refreshToken = action.payload.refreshToken;
 
-            localStorage.setItem("access", action.payload.accessToken);
-            localStorage.setItem("refresh", action.payload.refreshToken);
-            localStorage.setItem("user", JSON.stringify(action.payload.user));
+            window.localStorage.setItem("access", action.payload.accessToken);
+            window.localStorage.setItem("refresh", action.payload.refreshToken);
+            window.localStorage.setItem(
+                "user",
+                JSON.stringify(action.payload.user),
+            );
         },
         clearAuth: (state) => {
             state.user = undefined as any;
