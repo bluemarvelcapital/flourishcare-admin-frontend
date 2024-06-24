@@ -5,7 +5,7 @@ import type { TableColumnsType, TableProps } from "antd";
 import { ApplicationTypes } from "@/types/job-applications";
 import { BiSearch } from "react-icons/bi";
 import { HiOutlineDotsVertical } from "react-icons/hi";
-import { EditPost } from "../services/EditService";
+import { EditService } from "../services/EditService";
 
 const columns: TableColumnsType<ApplicationTypes> = [
     {
@@ -63,7 +63,7 @@ const columns: TableColumnsType<ApplicationTypes> = [
                     <Popover
                         content={
                             <div className="flex flex-col gap-3 w-[100px]">
-                                <EditPost />
+                                <EditService />
                                 <p className="cursor-pointer">View</p>
                                 <p className="text-error-500 cursor-pointer">
                                     Delete
@@ -172,7 +172,7 @@ const onChange: TableProps<ApplicationTypes>["onChange"] = (
     pagination,
     filters,
     sorter,
-    extra
+    extra,
 ) => {
     console.log("params", pagination, filters, sorter, extra);
 };

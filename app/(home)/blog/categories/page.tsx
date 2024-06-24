@@ -2,11 +2,6 @@
 import { BlogCategory } from "@/components/blog/BlogCategory";
 import Header from "@/components/misc/Header";
 import NoData from "@/components/misc/NoData";
-import { AllPosts } from "@/app/(home)/services/listed-services/AllServices";
-import { CreatePost } from "@/components/services/CreateService";
-import { CreateServiceCategory } from "@/components/services/CreateServiceCategory";
-import { MetaData } from "@/components/services/MetaData";
-// import { CreatePost, MetaData, AllPosts } from "@/components/services";
 import React from "react";
 
 const AdminBlog = () => {

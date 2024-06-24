@@ -1,8 +1,6 @@
 "use client";
 import Header from "@/components/misc/Header";
 import NoData from "@/components/misc/NoData";
-import { AllPosts } from "@/app/(home)/services/listed-services/AllServices";
-import { CreatePost } from "@/components/services/CreateService";
 import { CreateServiceCategory } from "@/components/services/CreateServiceCategory";
 import React from "react";
 

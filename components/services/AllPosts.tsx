@@ -4,10 +4,7 @@ import { Avatar, Image, Input, Popover, Table } from "antd";
 import type { TableColumnsType, TableProps } from "antd";
 import { IBlogPost } from "@/types/blog";
 import { HiOutlineDotsVertical } from "react-icons/hi";
-import { BiSearch } from "react-icons/bi";
-import { useGetBlogPostsQuery } from "@/services/blog.service";
-import NoData from "../misc/NoData";
-import { EditPost } from "./EditPost";
+import { EditService } from "./EditService";
 
 const columns: TableColumnsType<IBlogPost> = [
     {
@@ -69,7 +66,7 @@ const columns: TableColumnsType<IBlogPost> = [
                     <Popover
                         content={
                             <div className="flex flex-col gap-3 w-[100px]">
-                                <EditPost />
+                                <EditService />
                                 <p className="cursor-pointer">View</p>
                                 <p className="text-error-500 cursor-pointer">
                                     Delete
@@ -95,4 +92,3 @@ const onChange: TableProps<IBlogPost>["onChange"] = (
 ) => {
     console.log("params", pagination, filters, sorter, extra);
 };
-
