@@ -96,8 +96,3 @@ const onChange: TableProps<IBlogPost>["onChange"] = (
     console.log("params", pagination, filters, sorter, extra);
 };
 
-export const AllPosts: React.FC = () => {
-    const { data } = useGetBlogPostsQuery(null);
-    console.log(data);
-    return <div></div>;
-};

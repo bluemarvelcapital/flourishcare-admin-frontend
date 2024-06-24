@@ -1,9 +1,5 @@
 "use client";
-// import { AllPosts, MetaData } from "@/components/blog";
-import { PendingPosts } from "@/components/blog/PendingPosts";
 import Header from "@/components/misc/Header";
-import NoData from "@/components/misc/NoData";
-import { AllPosts } from "@/components/services/AllPosts";
 import { CreateService } from "@/components/services/CreateService";
 import { MetaData } from "@/components/services/MetaData";
 import React from "react";
@@ -21,7 +17,6 @@ const AdminBlog = () => {
                 <CreateService />
             </div>
             <MetaData />
-            <AllPosts />
         </div>
     );
 };
