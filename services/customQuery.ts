@@ -5,7 +5,7 @@ export const fetchBaseQueryWithAuth = ({ baseUrl }: { baseUrl: string }) =>
     fetchBaseQuery({
         prepareHeaders: (headers, { getState }) => {
             // const token = (getState() as RootState).auth.accessToken;
-            const token = localStorage.getItem("accessToken");
+            const token = localStorage.getItem("access");
             if (token) {
                 headers.set("authorization", `Bearer ${token}`);
             }
@@ -13,4 +13,3 @@ export const fetchBaseQueryWithAuth = ({ baseUrl }: { baseUrl: string }) =>
         },
         baseUrl: baseUrl,
     });
-
