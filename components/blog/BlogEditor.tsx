@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
+import { NEXT_PUBLIC_TINYMCE_API_KEY } from "@/constants/config";
 
 export function BlogEditor({
     content,
@@ -14,7 +15,7 @@ export function BlogEditor({
     return (
         <>
             <Editor
-                apiKey={process.env.NEXT_PUBLIC_TINYMCE_API_KEY}
+                apiKey={NEXT_PUBLIC_TINYMCE_API_KEY}
                 onEditorChange={(content) => {
                     setLocalContent(content);
                     setContent && setContent(content);
