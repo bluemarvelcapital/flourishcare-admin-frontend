@@ -42,12 +42,9 @@ export const authSlice = createSlice({
             state.accessToken = action.payload.accessToken;
             state.refreshToken = action.payload.refreshToken;
 
-            window.localStorage.setItem("access", action.payload.accessToken);
-            window.localStorage.setItem("refresh", action.payload.refreshToken);
-            window.localStorage.setItem(
-                "user",
-                JSON.stringify(action.payload.user),
-            );
+            localStorage.setItem("access", action.payload.accessToken);
+            localStorage.setItem("refresh", action.payload.refreshToken);
+            localStorage.setItem("user", JSON.stringify(action.payload.user));
         },
         clearAuth: (state) => {
             state.user = undefined as any;
