@@ -18,10 +18,10 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <ClientProvider >
+        <ClientProvider>
             <html lang="en">
                 <body className="">
-                    <ToastContainer />
+                    <ToastContainer position="top-center" />
                     <div className="">{children}</div>
                 </body>
             </html>

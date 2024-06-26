@@ -25,6 +25,13 @@ interface GetBlogPostTagsResponse {
     };
 }
 
+interface CreateBlogPostTagResponse {
+    status: "success";
+    data: {
+        tag: IBlogTag;
+    };
+}
+
 export const blogApi = createApi({
     reducerPath: "blogApi",
     baseQuery: fetchBaseQueryWithAuth({ baseUrl: `${api_url}/blog` }),
@@ -125,10 +132,40 @@ export const blogApi = createApi({
                     };
                 },
             }),
-            getBlogTags: builder.query<GetBlogPostTagsResponse, any>({
+            getBlogTags: builder.query<GetBlogPostTagsResponse, void>({
                 query: () => {
                     return {
                         url: "/tag",
+                    };
+                },
+            }),
+            createBlogTag: builder.mutation<CreateBlogPostTagResponse, string>({
+                query: (name) => {
+                    return {
+                        url: "/tag/new",
+                        method: "POST",
+                        body: { name },
+                    };
+                },
+            }),
+            updateBlogTag: builder.mutation<
+                CreateBlogPostTagResponse,
+                { name: string; id: string }
+            >({
+                query: ({ name, id }) => {
+                    return {
+                        url: `/tag`,
+                        method: "PATCH",
+                        body: { tagId: id, name },
+                    };
+                },
+            }),
+            deleteBlogTag: builder.mutation<void, string>({
+                query: (id) => {
+                    return {
+                        url: `/tag`,
+                        method: "DELETE",
+                        body: { tagId: id },
                     };
                 },
             }),
@@ -141,4 +178,7 @@ export const {
     useGetBlogTagsQuery,
     useCreateBlogPostMutation,
     useUpdateBlogPostMutation,
+    useCreateBlogTagMutation,
+    useUpdateBlogTagMutation,
+    useDeleteBlogTagMutation,
 } = blogApi;

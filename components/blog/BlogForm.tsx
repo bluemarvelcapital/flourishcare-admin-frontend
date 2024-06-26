@@ -16,7 +16,7 @@ import { RootState } from "@/context/store";
 import { addPosts, setPosts, updatePost } from "@/context/blog.slice";
 
 export const BlogForm = () => {
-    const { data: tagsData } = useGetBlogTagsQuery(null);
+    const { data: tagsData } = useGetBlogTagsQuery();
     const { tags } = useSelector((state: RootState) => state.blog);
     const [blogTags, setBlogTags] = React.useState<IBlogPost["blogTags"]>([]);
     const dispatch = useDispatch();

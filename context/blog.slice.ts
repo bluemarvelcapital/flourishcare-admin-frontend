@@ -80,7 +80,28 @@ export const blogSlice = createSlice({
         setTags: (state, action: PayloadAction<IBlogTag[]>) => {
             state.tags = action.payload;
         },
+        updateTags: (state, action: PayloadAction<IBlogTag>) => {
+            const index = state.tags.findIndex(
+                (tag) => tag.id === action.payload.id,
+            );
+
+            state.tags[index] = action.payload;
+        },
+        addTag: (state, action: PayloadAction<IBlogTag>) => {
+            state.tags = [...state.tags, action.payload];
+        },
+        deleteTag: (state, action: PayloadAction<string>) => {
+            state.tags = state.tags.filter((tag) => tag.id !== action.payload);
+        },
     },
 });
 
-export const { setPosts, addPosts, updatePost, setTags } = blogSlice.actions;
+export const {
+    setPosts,
+    addTag,
+    addPosts,
+    deleteTag,
+    updatePost,
+    setTags,
+    updateTags,
+} = blogSlice.actions;
