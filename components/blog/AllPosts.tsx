@@ -16,7 +16,7 @@ import { RootState } from "@/context/store";
 
 export const AllPosts: React.FC = () => {
     const { data: postsData } = useGetBlogPostsQuery(null);
-    const { data: tagsData } = useGetBlogTagsQuery(null);
+    const { data: tagsData } = useGetBlogTagsQuery();
     const { posts } = useSelector((state: RootState) => state.blog);
     const [allPosts, setAllPosts] = useState<IBlogPost[]>(posts);
     const dispatch = useDispatch();
