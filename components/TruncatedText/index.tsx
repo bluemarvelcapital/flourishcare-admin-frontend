@@ -7,7 +7,7 @@ interface TruncatedTextProps {
     maxLength?: number;
 }
 
-const TruncatedText: React.FC<TruncatedTextProps> = ({
+const TruncatedID: React.FC<TruncatedTextProps> = ({
     text,
     maxLength = 15,
 }) => {
@@ -39,4 +39,4 @@ const TruncatedText: React.FC<TruncatedTextProps> = ({
     );
 };
 
-export default TruncatedText;
+export default TruncatedID;

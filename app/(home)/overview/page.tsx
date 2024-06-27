@@ -2,13 +2,32 @@
 import { CreatePost } from "@/components/blog";
 import Header from "@/components/misc/Header";
 import { AllUsers } from "@/components/overview/AllUsers";
-import { AppointmentsTable } from "@/components/overview/AppointmentsTable";
-import { BookingsTable } from "@/components/overview/BookingsTable";
+import { AppointmentsCard } from "@/components/appointments/AppointmentsCard";
+import { BookingsCard } from "@/components/bookings/BookingsCard";
 import DataTable from "@/components/overview/DataTable";
 import { MetaData } from "@/components/overview/MetaData";
-import React from "react";
+import { setAppointments } from "@/context/appointment.slice";
+import { setBookings } from "@/context/booking.slice";
+import { useGetAppointmentsQuery } from "@/services/appointment.service";
+import { useGetBookingsQuery } from "@/services/booking.service";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
-const AdminBlog = () => {
+const Overview = () => {
+    const { data: appointmentData } = useGetAppointmentsQuery();
+    const { data: bookingData } = useGetBookingsQuery();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (appointmentData?.data.appointments) {
+            dispatch(setAppointments(appointmentData.data.appointments));
+        }
+
+        if (bookingData?.data.bookings) {
+            dispatch(setBookings(bookingData.data.bookings));
+        }
+    }, [appointmentData?.data, bookingData?.data]);
+
     return (
         <div>
             <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
@@ -27,12 +46,12 @@ const AdminBlog = () => {
                     <AllUsers max={5} />
                 </div>
                 <div className="lg:w-[27%] flex-col flex gap-y-4">
-                    <AppointmentsTable />
-                    <BookingsTable />
+                    <AppointmentsCard />
+                    <BookingsCard />
                 </div>
             </div>
         </div>
     );
 };
 
-export default AdminBlog;
+export default Overview;

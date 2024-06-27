@@ -127,12 +127,12 @@ const onChange: TableProps<BookingsTypes>["onChange"] = (
     pagination,
     filters,
     sorter,
-    extra
+    extra,
 ) => {
     console.log("params", pagination, filters, sorter, extra);
 };
 
-const AllBookings: React.FC = () => {
+const AllAppointments: React.FC = () => {
     // const { data } = useGetBlogPostsQuery(null);
     // console.log(data);
     return (
@@ -156,4 +156,4 @@ const AllBookings: React.FC = () => {
     );
 };
 
-export default AllBookings;
+export default AllAppointments;

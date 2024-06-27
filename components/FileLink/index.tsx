@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { AiFillFilePdf } from "react-icons/ai";
 import { FiDownload } from "react-icons/fi";
 
@@ -10,7 +10,9 @@ function parseFileName(name: string) {
 export default function FileLink({
     link,
     name,
+    children,
 }: {
+    children?: ReactNode;
     link: string;
     name?: string;
 }) {
@@ -24,6 +26,7 @@ export default function FileLink({
                 <AiFillFilePdf className="text-error-500" />
                 <p>{parseFileName(name ?? "File")}</p>
                 <FiDownload />
+                {children && <> {children} </>}
             </a>
         </>
     );
