@@ -25,7 +25,7 @@ const Appointments: React.FC<IAppointmentProps> = ({ appointments }) => {
                                 >
                                     <div className="flex flex-row justify-between">
                                         <div className="flex flex-col">
-                                            <span className="font-bold">
+                                            <span className="text-bold text-gray-500 ">
                                                 Date:
                                             </span>
                                             <span className="text-black text-base">
@@ -35,7 +35,7 @@ const Appointments: React.FC<IAppointmentProps> = ({ appointments }) => {
                                             </span>
                                         </div>
                                         <div className="flex flex-col">
-                                            <span className="font-bold">
+                                            <span className="text-bold text-gray-500 ">
                                                 Time:
                                             </span>
                                             <span className="text-black text-base">
@@ -46,11 +46,18 @@ const Appointments: React.FC<IAppointmentProps> = ({ appointments }) => {
                                         </div>
                                     </div>
                                     <div className="flex flex-col">
-                                        <span className="font-bold">ID:</span>
-                                        <TruncatedText
-                                            text={appointment.id}
-                                            maxLength={20}
-                                        />
+                                        <span className="text-bold text-gray-500 ">
+                                            ID:
+                                        </span>
+                                        <div
+                                            className="bg-primary text-sm whitespace-wrap bg-opacity-20 p-1 text-center"
+                                            style={{ width: "fit-content" }}
+                                        >
+                                            <TruncatedText
+                                                text={appointment.id}
+                                                maxLength={20}
+                                            />
+                                        </div>
                                     </div>
                                 </li>
                             </ListITemLink>

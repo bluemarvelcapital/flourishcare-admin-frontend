@@ -33,7 +33,6 @@ export const UserView = ({ user }: { user: IUser }) => {
                                 View
                             </Link>
                         </div>
-                        <p className="text-error-500 cursor-pointer">Delete</p>
                     </div>
                 }
                 arrow={false}
@@ -150,4 +149,3 @@ const UserTable: React.FC = () => {
 };
 
 export default UserTable;
-

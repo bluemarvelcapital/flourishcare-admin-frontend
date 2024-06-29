@@ -30,37 +30,35 @@ export const BookingsCard = () => {
                 id="json-container"
             >
                 {bookings.slice(0, 5).map((booking, index) => (
-                    <div className="flex items-center my-3 px-7 hover:bg-[#F9F9F9]   transition-all duration-300 justify-between ">
+                    <div className="flex py-2 px-7 hover:bg-[#F9F9F9]   transition-all duration-300 justify-between ">
                         <Link
-                            href={`/booking/${booking.id}`}
+                            href={`/bookings/${booking.id}`}
                             key={index}
                             className="flex flex-row space-between w-full border-b "
                         >
-                            <div className="flex justify-center flex-col gap-3">
+                            <div className="flex items-start flex-col gap-2">
                                 <div className="space-x-2 flex flex-row">
                                     <span className="text-sm">{index + 1}</span>
                                     <div>
                                         <p>Appointment ID:</p> {""}
                                     </div>
                                 </div>
-                                <div className="bg-primary text-[9px] whitespace-wrap bg-opacity-20 p-1 text-center">
+                                <div className="bg-primary text-[9px] whitespace-wrap ml-3 bg-opacity-20 p-1 text-center">
                                     <TruncatedID
                                         text={booking.id}
                                         maxLength={30}
                                     />
                                 </div>
-                            </div>
-                            <div className="flex flex-col ml-auto items-left">
-                                <div className="flex flex-row items-center gap-2 ml-auto text-xs">
-                                    {new Date(booking.createdAt).toDateString()}
-
+                                <div className="flex flex-row items-center text-xs">
                                     {booking.paid ? (
                                         <BsDot className="text-[#3ebd64] w-9 h-9 m-0" />
                                     ) : (
                                         <BsDot className="text-error-500 w-9 h-9 m-0" />
                                     )}
+                                    {new Date(booking.createdAt).toDateString()}
                                 </div>
-
+                            </div>
+                            <div className="flex flex-col ml-auto items-left">
                                 {booking.contract ? (
                                     <FileLink
                                         name="Signed Contract"

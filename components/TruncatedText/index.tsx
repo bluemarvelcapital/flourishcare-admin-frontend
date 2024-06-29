@@ -21,7 +21,7 @@ const TruncatedID: React.FC<TruncatedTextProps> = ({
     return (
         <Popover
             content={
-                <div className="flex flex-col items-start">
+                <div className="">
                     <span>{text}</span>
                     <Button
                         type="link"
@@ -34,7 +34,7 @@ const TruncatedID: React.FC<TruncatedTextProps> = ({
             }
             trigger="hover"
         >
-            <p>{truncated}</p>
+            <p className="text-left">{truncated}</p>
         </Popover>
     );
 };

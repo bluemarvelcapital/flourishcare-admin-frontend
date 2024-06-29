@@ -58,7 +58,12 @@ export const AppointmentsCard = () => {
                                             {appointment.title}
                                         </p>
                                     </div>
-                                    <div className=" bg-primary bg-opacity-20 p-1 text-center">
+                                    <div
+                                        className="bg-primary bg-opacity-20 p-1 "
+                                        style={{
+                                            width: "fit-content",
+                                        }}
+                                    >
                                         <p className="text-[9px]">
                                             <TruncatedID
                                                 text={appointment.id}

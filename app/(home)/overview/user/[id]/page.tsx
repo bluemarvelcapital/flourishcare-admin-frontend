@@ -35,27 +35,32 @@ const UserDetails: React.FC = () => {
 
     console.log({ data });
     return (
-        <div className="flex flex-col gap-y-10 mb-10">
-            <Header
-                header="User"
-                paragraph="Basic information about the user."
-            />
+        <div className="flex flex-col mb-10">
             <GoBack />
-            {userData ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
-                    <PersonalInformation user={userData} />
-                    <Appointments appointments={userData.appointments} />
-                    <Bookings bookings={userData.bookings} user={userData} />
-                    <Reviews />
-                    <MedicalRecords />
-                    <Transactions
-                        transactions={userData.transactions}
-                        user={userData}
-                    />
-                </div>
-            ) : (
-                <WindowSpinner />
-            )}
+            <div className="flex flex-col gap-y-10 mb-10">
+                <Header
+                    header="User"
+                    paragraph="Basic information about the user."
+                />
+                {userData ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
+                        <PersonalInformation user={userData} />
+                        <Appointments appointments={userData.appointments} />
+                        <Bookings
+                            bookings={userData.bookings}
+                            user={userData}
+                        />
+                        <Reviews />
+                        <MedicalRecords />
+                        <Transactions
+                            transactions={userData.transactions}
+                            user={userData}
+                        />
+                    </div>
+                ) : (
+                    <WindowSpinner />
+                )}
+            </div>
         </div>
     );
 };
