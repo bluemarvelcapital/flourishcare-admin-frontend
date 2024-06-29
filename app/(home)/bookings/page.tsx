@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/context/store";
 import { BookingStatus } from "@/types/bookings";
 import { PendingAppointments } from "@/components/appointments/PendingAppointments";
+import GoBack from "@/components/GoBack";
+import CreateBooking from "@/components/bookings/CreateBooking";
 
 const Bookings = () => {
     const { bookings } = useSelector((state: RootState) => state.booking);
@@ -46,14 +48,17 @@ const Bookings = () => {
 
     return (
         <div>
+            <GoBack />
             <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                <div>
+                <div className="flex flex-row space-between w-full">
                     <Header
                         header="Bookings"
                         paragraph="Hub for managing all bookings and reservations made by users."
                     />
+                    <CreateBooking />
                 </div>
             </div>
+            <MetaData stats={stats} />
             <div className="mt-[3rem] flex justify-between lg:flex-row flex-col gap-3">
                 {pendingBookings.length ? (
                     <>

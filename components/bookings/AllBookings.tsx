@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Avatar, Image, Input, Table } from "antd";
+import { Avatar, Button, Image, Input, Table } from "antd";
 import type { TableColumnsType, TableProps } from "antd";
 import { useRouter } from "next/router";
 import {
@@ -20,6 +20,7 @@ import { setBookings } from "@/context/booking.slice";
 import { useSearchParams } from "next/navigation";
 import { FilterValue } from "antd/es/table/interface";
 import { BookingView } from "./BookingView";
+import GoBack from "../GoBack";
 const onChange: TableProps<IBooking | IBookingWithUser>["onChange"] = (
     pagination,
     filters,
@@ -30,18 +31,9 @@ const onChange: TableProps<IBooking | IBookingWithUser>["onChange"] = (
 };
 
 export const AllBookings: React.FC = () => {
-    const { data } = useGetBookingsQuery();
     const { bookings } = useSelector((state: RootState) => state.booking);
-    const dispatch = useDispatch();
     const [filteredData, setFilteredData] = useState(bookings);
     const params = useSearchParams();
-
-    console.log({ params: params.get("status") });
-    useEffect(() => {
-        if (data?.data.bookings) {
-            dispatch(setBookings(data.data.bookings));
-        }
-    }, [data, dispatch]);
 
     useEffect(() => {
         setFilteredData(bookings);
@@ -283,13 +275,15 @@ export const AllBookings: React.FC = () => {
                         {filteredData.length}
                     </Avatar>
                 </div>
-                <Input
-                    placeholder="Search Bookings"
-                    size="large"
-                    prefix={<BiSearch />}
-                    className="md:w-[350px]"
-                    onChange={handleSearch}
-                />
+                <div className="flex flex-row items-center gap-x-2">
+                    <Input
+                        placeholder="Search Bookings"
+                        size="large"
+                        prefix={<BiSearch />}
+                        className="md:w-[350px]"
+                        onChange={handleSearch}
+                    />
+                </div>
             </div>
             <Table columns={columns} dataSource={filteredData} />
         </div>

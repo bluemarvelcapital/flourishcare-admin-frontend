@@ -1,7 +1,6 @@
 "use client";
 import { Avatar } from "antd";
 import React from "react";
-import { AppointmentStatus, IAppointment } from "@/types/appointments";
 import Link from "next/link";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import TruncatedID from "../TruncatedText";
@@ -13,11 +12,8 @@ export const AppointmentsCard = () => {
     const { appointments } = useSelector(
         (state: RootState) => state.appointment,
     );
-    // const pendingAppointments = appointments.filter(
-    //     (appointment) => appointment.status != AppointmentStatus.PENDING,
-    // );
+
     const pendingAppointments = appointments;
-    console.log({ appointments, pendingAppointments });
 
     return (
         <div className="border-[1px] border-[#E4E7EC] py-7 rounded-xl my-5">

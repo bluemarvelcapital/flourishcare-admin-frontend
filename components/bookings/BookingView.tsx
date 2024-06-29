@@ -10,7 +10,7 @@ export const BookingView = ({ booking }: { booking: IBooking }) => {
                 content={
                     <div className="flex flex-col gap-3 w-[100px]">
                         <Link
-                            href={`/booking/${booking.id}`}
+                            href={`/bookings/${booking.id}`}
                             className="cursor-pointer"
                         >
                             View

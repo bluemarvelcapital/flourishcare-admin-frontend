@@ -43,24 +43,15 @@ export const bookingApi = createApi({
                     };
                 },
             }),
-            createBooking: builder.mutation<CreateBookingResponse, string>({
-                query: (name) => {
+            createBooking: builder.mutation<
+                CreateBookingResponse,
+                { serviceIds?: string[]; appointmentId: string }
+            >({
+                query: (cred) => {
                     return {
                         url: "/new",
                         method: "POST",
-                        body: { name },
-                    };
-                },
-            }),
-            updateBooking: builder.mutation<
-                UpdateBookingResponse,
-                { name: string; id: string }
-            >({
-                query: ({ name, id }) => {
-                    return {
-                        url: `/`,
-                        method: "PATCH",
-                        body: { Id: id, name },
+                        body: cred,
                     };
                 },
             }),
@@ -80,6 +71,5 @@ export const bookingApi = createApi({
 export const {
     useGetBookingsQuery,
     useCreateBookingMutation,
-    useUpdateBookingMutation,
     useDeleteBookingMutation,
 } = bookingApi;
