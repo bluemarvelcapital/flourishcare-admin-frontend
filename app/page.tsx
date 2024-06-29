@@ -55,7 +55,7 @@ export default function Home() {
                     <Image
                         src={landingImage}
                         alt="landing page image"
-                        className="normal-case w-full h-[100dvh]"
+                        className="normal-case w-full h-[100dvh] object-cover"
                     />
                 </div>{" "}
                 <div className="px-10 py-10 md:col-span-5 sm:col-span-6 w-full text-sm xl:text-lg xl:px-10 px-2 md:px-4 h-full my-auto flex flex-col justify-center mx-auto max-w-[900px]">

@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
 import { ClientProvider } from "@/components/ClientProvider";
 
@@ -21,7 +19,6 @@ export default function RootLayout({
         <ClientProvider>
             <html lang="en">
                 <body className="">
-                    <ToastContainer position="top-center" />
                     <div className="">{children}</div>
                 </body>
             </html>

@@ -24,8 +24,10 @@ const Overview = () => {
         }
 
         if (bookingData?.data.bookings) {
+            console.log({ bookingData: bookingData.data.bookings });
             dispatch(setBookings(bookingData.data.bookings));
         }
+        console.log({ bookingData: bookingData?.data });
     }, [appointmentData?.data, bookingData?.data]);
 
     return (

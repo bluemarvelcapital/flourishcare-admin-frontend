@@ -114,7 +114,6 @@ export const AllUsers: React.FC<{ max: number }> = ({ max }) => {
             <Table
                 columns={columns}
                 loading={isLoading}
-                // dataSource={data?.data.blogPosts ?? ([] as IBlogPost[])}
                 dataSource={filteredData}
                 onChange={onChange}
             />

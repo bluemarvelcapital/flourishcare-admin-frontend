@@ -2,52 +2,96 @@
 import { Avatar, Image, Popover } from "antd";
 import React from "react";
 import { HiOutlineDotsVertical } from "react-icons/hi";
-import { data } from "@/types/bookings";
+import { IBooking, data } from "@/types/bookings";
 import Link from "next/link";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { BsDot, BsFileEarmarkPdfFill } from "react-icons/bs";
+import TruncatedID from "../TruncatedText";
+import FileLink from "../FileLink";
 
-export const PendingBookings = () => {
+export const PendingBookings = ({ bookings }: { bookings: IBooking[] }) => {
     return (
         <div className="border-[1px] border-[#E4E7EC] px-7 py-7 rounded-xl">
             <div className="mb-4 flex justify-between items-center">
                 <div className="flex items-center gap-2">
                     <h2 className="text-xl">Pending Bookings</h2>
-                    <Avatar className="bg-primary">8</Avatar>
+                    <Avatar className="bg-primary">{bookings.length}</Avatar>
                 </div>
-                <Link href="bookings/pending-bookings">
+                <Link href="bookings/?status=DRAFT">
                     <div className="flex flex-row justify-between hover:border-b border-secondary duration-300 transition-all items-center space-x-5">
                         <p className="text-secondary">See All</p>
                         <MdKeyboardArrowRight className="text-secondary" />
                     </div>
                 </Link>
             </div>
-            <div className="flex flex-col gap-[1rem] mt-7">
-                {data.map((post, index) => (
-                    <div
-                        key={index}
-                        className="flex items-center justify-between mb-4"
-                    >
-                        <div className="flex justify-center flex-col gap-3">
-                            <div className="space-x-2 flex flex-row">
-                                <span className="text-xl">{index + 1}</span>
-                                <p className="text-xl">{post.name}</p>
+            <div
+                className="flex flex-col mt-7 h-fit max-h-[400px] overflow-y-auto"
+                id="json-container"
+            >
+                {bookings.slice(0, 9).map((booking, index) => (
+                    <div className="flex items-center my-3 hover:px-7 rounded-md  hover:bg-[#F9F9F9]   transition-all duration-300 justify-between ">
+                        <Link
+                            href={`/booking/${booking.id}`}
+                            key={index}
+                            className="flex flex-row space-between w-full border-b hover:border-0 "
+                        >
+                            <div className="flex justify-center flex-col gap-3">
+                                <div className="space-x-2 flex flex-row">
+                                    <span className="text-sm">{index + 1}</span>
+                                    <div>
+                                        <p>Appointment ID:</p> {""}
+                                    </div>
+                                </div>
+                                <div className="bg-primary text-[9px] whitespace-wrap bg-opacity-20 p-1 text-center">
+                                    <TruncatedID
+                                        text={booking.id}
+                                        maxLength={30}
+                                    />
+                                </div>
                             </div>
-                            <div className=" bg-primary bg-opacity-20 p-1 text-center">
-                                <p className="text-[14px]">
-                                    Appointment ID : {post.ID}
-                                </p>
+                            <div className="flex flex-col ml-auto items-left">
+                                <div className="flex flex-row items-center gap-2 ml-auto text-xs">
+                                    {new Date(booking.createdAt).toDateString()}
+
+                                    {booking.paid ? (
+                                        <BsDot className="text-[#3ebd64] w-9 h-9 m-0" />
+                                    ) : (
+                                        <BsDot className="text-error-500 w-9 h-9 m-0" />
+                                    )}
+                                </div>
+
+                                {booking.contract ? (
+                                    <FileLink
+                                        name="Signed Contract"
+                                        link={booking.contract}
+                                    />
+                                ) : (
+                                    <p className="text-[11px] text-red bg-[#f7f7f7] p-2 text-center">
+                                        No signed contract
+                                    </p>
+                                )}
+
+                                {booking.documents.find(
+                                    (document) =>
+                                        document.type === "presignedContract",
+                                ) ? (
+                                    <FileLink
+                                        name="Presigned Contract"
+                                        link={
+                                            booking.documents.find(
+                                                (document) =>
+                                                    document.type ===
+                                                    "presignedContract",
+                                            )!.url
+                                        }
+                                    />
+                                ) : (
+                                    <p className="text-[10px] text-red bg-[#f7f7f7] p-2 text-center">
+                                        No Presigned Contract
+                                    </p>
+                                )}
                             </div>
-                        </div>
-                        <div className="flex items-center flex-row gap-2 justify-center">
-                            <BsDot className="text-error-500" />
-                            {post.date}
-                        </div>
-                        <div className="flex flex-col gap-y-1 justify-center items-center">
-                            {" "}
-                            <BsFileEarmarkPdfFill className="text-error-500" />
-                            <p>Contract - {post.contract}</p>
-                        </div>
+                        </Link>
                     </div>
                 ))}
             </div>

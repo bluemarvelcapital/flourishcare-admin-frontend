@@ -66,7 +66,7 @@ export const AppointmentsCard = () => {
                                         <p className="text-[9px]">
                                             <TruncatedID
                                                 text={appointment.id}
-                                                maxLength={20}
+                                                maxLength={30}
                                             />
                                         </p>
                                     </div>

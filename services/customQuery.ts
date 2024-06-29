@@ -12,4 +12,13 @@ export const fetchBaseQueryWithAuth = ({ baseUrl }: { baseUrl: string }) =>
             return headers;
         },
         baseUrl: baseUrl,
+        fetchFn: async (...args) => {
+            const response = await fetch(...args);
+            if (response.status === 401) {
+                localStorage.removeItem("access");
+                localStorage.removeItem("refresh");
+                window.location.href = "/login";
+            }
+            return response;
+        },
     });

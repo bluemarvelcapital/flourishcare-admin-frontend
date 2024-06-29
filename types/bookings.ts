@@ -1,4 +1,5 @@
 import { IService } from "./services";
+import { IUser } from "./user";
 
 export interface BookingsTypes {
     name: string;
@@ -34,17 +35,14 @@ export interface IBooking {
     contract?: string;
     invoice?: string;
     createdAt: Date;
+    updatedAt: Date;
     approvalStatus: {
         contract: boolean;
         carePlan: boolean;
         personalizedAssessmentReport: boolean;
     };
     approvalTimestamps: {
-        documentType:
-            | "presignedContract"
-            | "signedContract"
-            | "carePlan"
-            | "personalizedAssessmentReport";
+        documentType: "contract" | "carePlan" | "personalizedAssessmentReport";
         date: Date;
     }[];
     status: BookingStatus;
@@ -52,6 +50,10 @@ export interface IBooking {
 
 export interface IBookingWithServices extends IBooking {
     services: IService[];
+}
+
+export interface IBookingWithUser extends IBooking {
+    user: IUser;
 }
 
 const data: BookingsTypes[] = [

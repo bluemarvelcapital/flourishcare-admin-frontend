@@ -5,8 +5,6 @@ import { NavBar } from "@/components/NavBar";
 import { Content } from "@/components/Content";
 import { Header } from "@/components/Header";
 import AuthenticatedPage from "@/components/AuthenticatedPage/page";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +21,6 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={inter.className}>
-                <ToastContainer />
                 <div
                     className="flex flex-row h-[100dvh] overflow-auto xl:overflow-hidden"
                     id="json-container"

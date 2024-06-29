@@ -1,8 +1,7 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { api_url } from "@/constants/API_URL";
 import { IBooking } from "@/types/bookings";
 import { fetchBaseQueryWithAuth } from "./customQuery";
-import { GetProp } from "antd";
 
 interface GetBookingsResponse {
     status: "success";
@@ -14,7 +13,7 @@ interface GetBookingsResponse {
 interface UpdateBookingResponse {
     status: "success";
     data: {
-        bookings: IBooking;
+        booking: IBooking;
     };
 }
 
@@ -28,7 +27,7 @@ interface GetBookingsResponse {
 interface CreateBookingResponse {
     status: "success";
     data: {
-        tag: IBooking;
+        booking: IBooking;
     };
 }
 
@@ -40,14 +39,14 @@ export const bookingApi = createApi({
             getBookings: builder.query<GetBookingsResponse, void>({
                 query: () => {
                     return {
-                        url: "/tag",
+                        url: "/",
                     };
                 },
             }),
             createBooking: builder.mutation<CreateBookingResponse, string>({
                 query: (name) => {
                     return {
-                        url: "/tag/new",
+                        url: "/new",
                         method: "POST",
                         body: { name },
                     };
@@ -59,18 +58,18 @@ export const bookingApi = createApi({
             >({
                 query: ({ name, id }) => {
                     return {
-                        url: `/tag`,
+                        url: `/`,
                         method: "PATCH",
-                        body: { tagId: id, name },
+                        body: { Id: id, name },
                     };
                 },
             }),
             deleteBooking: builder.mutation<void, string>({
                 query: (id) => {
                     return {
-                        url: `/tag`,
+                        url: `/`,
                         method: "DELETE",
-                        body: { tagId: id },
+                        body: { Id: id },
                     };
                 },
             }),
