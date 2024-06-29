@@ -35,31 +35,29 @@ export const PendingBookings = ({ bookings }: { bookings: IBooking[] }) => {
                             key={index}
                             className="flex flex-row space-between w-full border-b hover:border-0 "
                         >
-                            <div className="flex justify-center flex-col gap-3">
+                            <div className="flex justify-center flex-col gap-1">
                                 <div className="space-x-2 flex flex-row">
                                     <span className="text-sm">{index + 1}</span>
-                                    <div>
-                                        <p>Appointment ID:</p> {""}
-                                    </div>
+                                    <p>Appointment ID:</p> {""}
                                 </div>
-                                <div className="bg-primary text-[9px] whitespace-wrap bg-opacity-20 p-1 text-center">
+                                <div className="bg-primary ml-3 text-[9px] whitespace-wrap bg-opacity-20 p-1 text-center">
                                     <TruncatedID
                                         text={booking.id}
                                         maxLength={30}
                                     />
                                 </div>
-                            </div>
-                            <div className="flex flex-col ml-auto items-left">
-                                <div className="flex flex-row items-center gap-2 ml-auto text-xs">
-                                    {new Date(booking.createdAt).toDateString()}
+                                <div className="flex flex-row items-center gap-2 mr-auto text-xs">
 
                                     {booking.paid ? (
                                         <BsDot className="text-[#3ebd64] w-9 h-9 m-0" />
                                     ) : (
                                         <BsDot className="text-error-500 w-9 h-9 m-0" />
                                     )}
-                                </div>
 
+                                    {new Date(booking.createdAt).toDateString()}
+                                </div>
+                            </div>
+                            <div className="flex flex-col ml-auto items-left">
                                 {booking.contract ? (
                                     <FileLink
                                         name="Signed Contract"
