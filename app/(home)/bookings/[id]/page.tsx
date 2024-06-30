@@ -63,7 +63,7 @@ console.log({ file})
         } catch (error) {
             message.error(
                 (error as any).data?.message ??
-                    error.message ??
+                    (error as any)?.message ??
                     "Failed to upload document.",
             );
         }
