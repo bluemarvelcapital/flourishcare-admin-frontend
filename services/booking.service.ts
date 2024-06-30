@@ -65,6 +65,40 @@ export const bookingApi = createApi({
                     };
                 },
             }),
+            uploadDocumentForBooking: builder.mutation<
+                UpdateBookingResponse,
+                { bookingId: string; documentType: string; file: File }
+            >({
+                query: ({ bookingId, documentType, file }) => {
+                    const formData = new FormData();
+                    formData.append("documentType", documentType);
+                    formData.append("document", file);
+                    formData.append("bookingId", bookingId);
+
+                    return {
+                        url: "/doc",
+                        method: "PATCH",
+                        body: formData,
+                    };
+                },
+            }),
+            updateDocumentApprovalForBooking: builder.mutation<
+                UpdateBookingResponse,
+                { bookingId: string; documentType: string; approved: boolean }
+            >({
+                query: ({ bookingId, documentType, approved }) => {
+                    return {
+                        url: "/doc/approval",
+                        method: "PATCH",
+                        body: {
+                            bookingId,
+                            approvalStatus: {
+                                [documentType]: approved,
+                            },
+                        },
+                    };
+                },
+            }),
             deleteBooking: builder.mutation<void, string>({
                 query: (id) => {
                     return {
@@ -83,4 +117,6 @@ export const {
     useGetBookingQuery,
     useCreateBookingMutation,
     useDeleteBookingMutation,
+    useUploadDocumentForBookingMutation,
+    useUpdateDocumentApprovalForBookingMutation,
 } = bookingApi;
