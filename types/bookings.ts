@@ -1,4 +1,6 @@
+import { IAppointment } from "./appointments";
 import { IService } from "./services";
+import { ITransaction } from "./transactions";
 import { IUser } from "./user";
 
 export interface BookingsTypes {
@@ -54,6 +56,13 @@ export interface IBookingWithServices extends IBooking {
 
 export interface IBookingWithUser extends IBooking {
     user: IUser;
+}
+
+export interface IBookingWithRelations extends IBooking {
+    services: IService[];
+    user: IUser;
+    appointment: IAppointment;
+    transactions?: ITransaction[];
 }
 
 const data: BookingsTypes[] = [

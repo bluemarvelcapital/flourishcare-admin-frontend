@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { api_url } from "@/constants/API_URL";
-import { IBooking } from "@/types/bookings";
+import { IBooking, IBookingWithRelations } from "@/types/bookings";
 import { fetchBaseQueryWithAuth } from "./customQuery";
 
 interface GetBookingsResponse {
@@ -13,14 +13,14 @@ interface GetBookingsResponse {
 interface UpdateBookingResponse {
     status: "success";
     data: {
-        booking: IBooking;
+        booking: IBookingWithRelations;
     };
 }
 
-interface GetBookingsResponse {
+interface GetBookingResponse {
     status: "success";
     data: {
-        bookings: IBooking[];
+        booking: IBookingWithRelations;
     };
 }
 
@@ -40,6 +40,16 @@ export const bookingApi = createApi({
                 query: () => {
                     return {
                         url: "/",
+                    };
+                },
+            }),
+            getBooking: builder.query<GetBookingResponse, string>({
+                query: (bookingId) => {
+                    return {
+                        url: "/info",
+                        params: {
+                            bookingId,
+                        },
                     };
                 },
             }),
@@ -70,6 +80,7 @@ export const bookingApi = createApi({
 
 export const {
     useGetBookingsQuery,
+    useGetBookingQuery,
     useCreateBookingMutation,
     useDeleteBookingMutation,
 } = bookingApi;

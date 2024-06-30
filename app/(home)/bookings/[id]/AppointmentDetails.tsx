@@ -1,76 +1,98 @@
+import TruncatedID from "@/components/TruncatedText";
 import { UploadMedia } from "@/components/appointments/UploadMedia";
+import { IAppointment } from "@/types/appointments";
+import { IUser } from "@/types/user";
+import Link from "next/link";
 import { BsPersonCheck } from "react-icons/bs";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { IoMdTime } from "react-icons/io";
-import { MdLocalPhone } from "react-icons/md";
 
-const AppointmentDetails: React.FC = () => (
+function getTimeFromDateString(date: string) {
+    return new Date(date).toLocaleTimeString();
+}
+const AppointmentDetails: React.FC<{
+    appointment: IAppointment;
+    user: IUser;
+}> = ({ appointment, user }) => (
     <div className="border rounded-md border-[#E4E7EC] p-5 flex flex-col gap-y-5">
         <p className="text-xl">Appointment Details</p>
-        <div className="flex flex-col justify-center gap-y-7">
-            <div className="flex flex-row justify-between items-center">
-                <div className="flex flex-col gap-y-2">
-                    <p className="text-xs text-tertiary">Full Name</p>
-                    <p className="text-xl text-[#555656]">Cameron</p>
+        <div className="flex flex-row space-between w-full">
+            <div className="flex flex-col  items-start w-full gap-y-5">
+                <div className="flex flex-col ">
+                    <p className="text-xs text-tertiary">First Name</p>
+                    <p className="text-xl text-[#555656]">{user.firstname}</p>
                 </div>
-                <div className="flex flex-col gap-y-2">
-                    <p className="text-xs text-tertiary">Last Name</p>
-                    <p className="text-xl text-[#555656]">Williams</p>
-                </div>
-            </div>
 
-            <div className="flex flex-row justify-between items-center">
-                <div className="flex flex-col gap-y-2">
+                <div className="flex flex-col ">
                     <p className="text-xs text-tertiary">Service</p>
                     <p className="text-xl text-[#555656]">
                         Home care domiciliary
                     </p>
                 </div>
-                <div className="flex flex-col gap-y-2">
-                    <p className="text-xs text-tertiary">Amount</p>
-                    <div className="text-xl items-center text-[#555656] flex flex-row gap-x-2">
-                        <FaMoneyCheckDollar className="text-primary" />
-                        <p>Williams</p>
-                    </div>
-                </div>
-            </div>
 
-            <div className="flex flex-row justify-between items-center">
-                <div className="flex flex-col gap-y-2">
+                <div className="flex flex-col ">
                     <p className="text-xs text-tertiary">Date</p>
                     <div className="text-xl items-center text-[#555656] flex flex-row gap-x-2">
                         <FaRegCalendarAlt className="text-primary" />
-                        <p>May 25, 2023</p>
+                        <p>{new Date(appointment.date).toDateString()}</p>
                     </div>
                 </div>
-                <div className="flex flex-col gap-y-2">
-                    <p className="text-xs text-tertiary">Time</p>
+
+                <div className="flex flex-col ">
+                    <p className="text-xs text-tertiary">Appointment ID</p>
                     <div className="text-xl items-center text-[#555656] flex flex-row gap-x-2">
-                        <IoMdTime className="text-primary" />
-                        <p>05:43 PM</p>
+                        <BsPersonCheck className="text-primary" />
+
+                        <div
+                            className="bg-primary text-sm whitespace-wrap bg-opacity-20 p-1 text-center"
+                            style={{ width: "fit-content" }}
+                        >
+                            <Link
+                                href={`/appointment/${appointment.id}`}
+                                className="text-md "
+                            >
+                                <TruncatedID
+                                    text={appointment.id}
+                                    maxLength={20}
+                                />
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div className="flex flex-row justify-between items-center">
-                <div className="flex flex-col gap-y-2">
-                    <p className="text-xs text-tertiary">Appointment ID</p>
+            <div className="flex flex-col items-start w-full gap-y-5">
+                <div className="flex flex-col ">
+                    <p className="text-xs text-tertiary">Last Name</p>
+                    <p className="text-xl text-[#555656]">
+                        {user.lastname ?? "NAN"}
+                    </p>
+                </div>
+                <div className="flex flex-col ">
+                    <p className="text-xs text-tertiary">Reference</p>
                     <div className="text-xl items-center text-[#555656] flex flex-row gap-x-2">
-                        <BsPersonCheck className="text-primary" />
-                        <p>Flo-AM334</p>
+                        <FaMoneyCheckDollar className="text-primary" />
+                        <p>{appointment.reference}</p>
                     </div>
                 </div>
-                <div className="flex flex-col gap-y-2">
-                    <p className="text-xs text-tertiary">Phone Number</p>
+
+                <div className="flex flex-col ">
+                    <p className="text-xs text-tertiary">Time</p>
                     <div className="text-xl items-center text-[#555656] flex flex-row gap-x-2">
-                        <MdLocalPhone className="text-primary" />
-                        <p>+(308) 555-0121</p>
+                        <IoMdTime className="text-primary" />
+                        <p>{new Date(appointment.date).toLocaleTimeString()}</p>
+                    </div>
+                </div>
+
+                <div className="flex flex-col ">
+                    <p className="text-xs text-tertiary">Notes</p>
+                    <div className="text-xl items-center text-[#555656] flex flex-row gap-x-2">
+                        <p>{appointment.note ?? "NAN"}</p>
                     </div>
                 </div>
             </div>
         </div>
-        <UploadMedia id={"preview_image"} />
     </div>
 );
 
